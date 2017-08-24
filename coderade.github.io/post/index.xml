@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Powered by [Hugo](http://gohugo.io).</copyright>
-    <lastBuildDate>Thu, 17 Sep 2015 13:47:08 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 29 Aug 2016 13:47:08 +0200</lastBuildDate>
     
 	<atom:link href="https://coderade.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rails 5 new features</title>
+      <link>https://coderade.github.io/post/rails-5-new-features/</link>
+      <pubDate>Mon, 29 Aug 2016 13:47:08 +0200</pubDate>
+      
+      <guid>https://coderade.github.io/post/rails-5-new-features/</guid>
+      <description>On this post I will try to show the new features, improvements and other important changes to Ruby on Rails version 5. I will try to show how to use the most important features of Rails 5, including Action Cable, Action Controller Renderer, Turbolinks, the Active records, Attributes API and how to use Rails exclusively as a JSON API.
+Besides that I will discuss the many other smaller changes in improvements such as the Rails command Router, new Date and Time methods, Secure Tokens and changes to parameters.</description>
+    </item>
     
     <item>
       <title>Go is for lovers</title>

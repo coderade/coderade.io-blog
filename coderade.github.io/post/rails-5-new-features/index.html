@@ -1,0 +1,1895 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Coderade.io blog</title>
+        <meta name="author">
+        <meta name="description" content="The awesome blog of Valdeci Gomes, about code and lifehacks.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="Hugo 0.26" />
+        <link href="https://coderade.github.io/post/index.xml" rel="alternate" type="application/rss+xml" title="Coderade.io blog" />
+        <link href="https://coderade.github.io/post/index.xml" rel="feed" type="application/rss+xml" title="Coderade.io blog" />
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300,700|Noto+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://coderade.github.io/css/styles.css">
+        <link rel="icon" href="https://coderade.github.io/favicon.ico">
+        <link rel="apple-touch-icon" href="https://coderade.github.io/apple-touch-icon.png" />
+        <link rel="stylesheet" href="https://coderade.github.io/css/highlightjs/monokai.css">
+        <script src="https://coderade.github.io/js/vendor/modernizr-2.8.0.min.js"></script>
+        
+        <link rel="stylesheet" href="https://coderade.github.io/css/theme.css">
+        
+        <style>
+        .site-header h2 .logo {
+        background: url(https://coderade.github.io/img/puralsight-bg.jpg) no-repeat 0 0;
+        }
+        @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+          .site-header h2 .logo {
+            background-image: url(https://coderade.github.io/img/puralsight-bg.jpg);
+        }}
+       .site-header {
+         background: #2a373d url(https://coderade.github.io/img/puralsight-bg.jpg) no-repeat center center;
+         z-index: -1;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <header class="site-header">
+          <div class="transparent-layer">
+              <h2>Coding, Life Hacks and tips in general</h2>
+          </div>
+        </header>
+
+
+<div class="container clearfix">
+    <main role="main" class="content">
+        <article class="post">
+            <a class="btn home" href="https://coderade.github.io/" title="Back to home">&laquo; Back to home</a>
+            
+<h1><a href="https://coderade.github.io/post/rails-5-new-features/" title="Rails 5 new features">Rails 5 new features</a></h1>
+
+<footer class="post-info">Posted on <span class="post-meta"><time datetime="2016.08.29">2016.08.29</time>
+
+    
+
+</span>
+</footer>
+
+            
+
+<p>On this post I will try to show the new features, improvements and other important changes to Ruby on Rails version 5.
+I will try to show how to use the most important features of Rails 5, including Action Cable, Action Controller Renderer, Turbolinks,
+the Active records, Attributes API and how to use Rails exclusively as a JSON API.</p>
+
+<p>Besides that I will discuss the many other smaller changes in improvements such as the Rails command Router, new Date and Time methods,
+Secure Tokens and changes to parameters.</p>
+
+<p>In addition, I will show the features that are being deprecated or completely removed.
+This is an important topic if you have an existing project that uses any of these features.</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ul>
+<li><a href="#about-ruby-on-rails-5">About Ruby on Rails 5</a></li>
+<li><a href="#major-features">Major features</a>
+
+<ul>
+<li><a href="#action-cable-and-websockets">Action Cable and Websockets</a>
+
+<ul>
+<li><a href="#uses-for-action-cable">Uses for Action Cable</a></li>
+<li><a href="#differences-between-the-http-model-and-the-action-cable">Differences between the HTTP Model and the Action Cable</a>
+
+<ul>
+<li><a href="#http-model">HTTP Model</a></li>
+<li><a href="#websockets-model">WebSockets Model</a></li>
+</ul></li>
+<li><a href="#why-websockets">Why WebSockets?</a></li>
+<li><a href="#why-not-websockets">Why Not WebSockets?</a></li>
+<li><a href="#using-actioncable">Using ActionCable</a>
+
+<ul>
+<li><a href="#actioncable-terminology">ActionCable Terminology</a></li>
+<li><a href="#example">Example</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#actioncontrollerrenderer">ActionController::Renderer</a>
+
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul></li>
+<li><a href="#rails-as-json-api">Rails as JSON API</a>
+
+<ul>
+<li><a href="#why-rails-as-json-api">Why Rails as JSON API?</a></li>
+<li><a href="#how-do-we-use-it">How do we use it?</a></li>
+</ul></li>
+<li><a href="#turbolinks-5">Turbolinks 5</a>
+
+<ul>
+<li><a href="#why-turbolinks">Why Turbolinks?</a></li>
+<li><a href="#using-turbolinks">Using Turbolinks</a>
+
+<ul>
+<li><a href="#turbolinks-partial-replacement">Turbolinks Partial Replacement</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#activerecord-attributes-api">ActiveRecord Attributes API</a></li>
+<li><a href="#activerecordrelationor">ActiveRecord::Relation#or</a>
+
+<ul>
+<li><a href="#guidelines">Guidelines</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#improvements">Improvements</a>
+
+<ul>
+<li><a href="#rails-command-router">Rails Command router</a></li>
+<li><a href="#application-record-and-application-job">Application Record and Application Job</a></li>
+<li><a href="#integer-methods-positive-and-negative">Integer methods: #positive? and #negative?</a></li>
+<li><a href="#date-and-time-improvements">Date and time improvements</a></li>
+<li><a href="#relations-in-batches">Relations in batches</a></li>
+<li><a href="#activerecord-secure-tokens">ActiveRecord Secure Tokens</a></li>
+<li><a href="#rails-generate-command">Rails Generate command</a></li>
+<li><a href="#migration-class">Migration class</a></li>
+<li><a href="#abort-activerecord-callbacks">Abort ActiveRecord Callbacks</a></li>
+<li><a href="#changes-to-parametersparams">Changes to parameters/params</a></li>
+<li><a href="#enumerablewithout">Enumerable#without</a></li>
+<li><a href="#enumerablepluck">Enumerable#pluck</a></li>
+<li><a href="#arrayinquirer">ArrayInquirer</a></li>
+<li><a href="#per-form-csrf-tokens">Per-Form CSRF tokens</a></li>
+<li><a href="#belongs_to-requires-parent">belongs_to Requires Parent</a></li>
+</ul></li>
+<li><a href="#deprecations-and-deletions">Deprecations and Deletions</a>
+
+<ul>
+<li><a href="#deprecated-filter-callbacks">Deprecated Filter Callbacks</a></li>
+<li><a href="#moved-recordtaghelper-to-gemhttpsgithubcomrailsrecord_tag_helper">Moved RecordTagHelper to Gem</a></li>
+<li><a href="#moved-xml-serialization-to-gemhttpsgithubcomrailsactivemodel-serializers-xml">Moved XML serialization to Gem</a></li>
+<li><a href="#removed-responders">Removed Responders</a></li>
+<li><a href="#other-deprecations-and-deletions">Other deprecations and deletions</a></li>
+</ul></li>
+</ul>
+
+<h2 id="about-ruby-on-rails-5">About Ruby on Rails 5</h2>
+
+<ul>
+<li>First major release in three years - That was for the version four and it&rsquo;s been about a year and a half since Rails 4.2 came out.</li>
+<li>Faster</li>
+<li>Less memory usage</li>
+<li>Less time doing garbage collection (GC)</li>
+<li>Requires 2.2.2 or greater</li>
+<li><a href="https://www.sitepoint.com/symbol-gc-ruby-2-2/">GC of symbols (Incremental GC)</a></li>
+<li><strong>Incremental GC: ~2x faster</strong> - Previously, the Ruby would periodically go through all the objects in memory, mark the ones that were still fresh or being used and then make a second pass to remove the unmarked objects from memory.
+The problem with this is that that GC sweep through memory takes some time, it can slow down your code while it&rsquo;s happening. Ruby 2.1 improved the speed of this process somewhat by classifying objects in memory based on the likelihood they would need to be garbage-collected, but a large collection could still slow things down. Well, now, in Ruby 2.2, we get incremental GC and the basic idea is to break up the scanning and removal of objects so that the process happens incrementally, not all in one big sweep, so while the total work and the total time may still be the same, it&rsquo;s broken up among many smaller operations.</li>
+<li><strong>Optimizes common operations</strong> - The core team has optimized common operations, the code has fewer dependencies on other code in libraries and there are fewer object allocations to memory. Now, that may seem like a small point that doesn&rsquo;t make much difference, but, as one example, link and URL generation in Ruby on Rails 5 is 44 percent faster.</li>
+<li>Fewer dependencies</li>
+<li>Fewer object allocations</li>
+<li><strong>Development environment is faster</strong> - The development environment uses the Puma web server now, instead of using <a href="https://github.com/ruby/webrick">Webrick</a> and the development mode used to check the modification time of all of your files in your project to know if anything had changed too, so that it could automatically reload the development environment for you. But now, there is a file system monitor, which notifies Rails whenever something changes. There is no more requirement to check the modification times of all the files. And that makes development feel snappier when you are working. And on top of these performance improvements.</li>
+</ul>
+
+<h2 id="major-features">Major features</h2>
+
+<h3 id="action-cable-and-websockets">Action Cable and Websockets</h3>
+
+<ul>
+<li>Framework for working with Websockets</li>
+<li>Allows real-time features using a constant connection between server and clients</li>
+<li>Comprised of server-side Ruby and client-side JavaScript</li>
+<li>Uses Redis pubsub to track communications</li>
+</ul>
+
+<h4 id="uses-for-action-cable">Uses for Action Cable</h4>
+
+<ul>
+<li>Streaming content such as video</li>
+<li>Interactive content such as online games, or any similar application where you&rsquo;re swapping mini messages per second between the client and the server</li>
+<li>Realtime communications such as chat</li>
+</ul>
+
+<h4 id="differences-between-the-http-model-and-the-action-cable">Differences between the HTTP Model and the Action Cable</h4>
+
+<h5 id="http-model">HTTP Model</h5>
+
+<ul>
+<li>Data exchanged is independent of connection (each time a communication needs to happen, a new connection is created)</li>
+<li>Wrapped data: request headers + data</li>
+<li>Headers can 1-2KB large (even if the data is tiny) - includes things like cookies, that the browser has stored. Even if the data is tiny, it still has to wrap it in these headers and the server overhead goes both ways.</li>
+<li>Independence comes at cost of overhead</li>
+<li>Request-response cycle communication</li>
+</ul>
+
+<h5 id="websockets-model">WebSockets Model</h5>
+
+<ul>
+<li>Data exchanged is dependent on connection</li>
+<li>Headers sent only at the start -  we don&rsquo;t have to have that same amount of overhead every time we swap a message back and forth.</li>
+<li>Only data sent afterwards</li>
+<li>Dependence allows significantly less overhead</li>
+<li>Full-duplex communication - Instead of having this request response cycle that takes place with the HTTP model, now with WebSockets, we can exchange information back and forth and we can swap information back and forth at the same time, because the connection is open, the client can send information to the server at the same time as the server is sending information back to the client,</li>
+</ul>
+
+<h4 id="why-websockets">Why WebSockets?</h4>
+
+<ul>
+<li>Less data overhead</li>
+<li>Faster</li>
+<li>Realtime</li>
+<li>Full Duplex</li>
+</ul>
+
+<h4 id="why-not-websockets">Why Not WebSockets?</h4>
+
+<ul>
+<li>Monopolizes a serve connection - No one else can talk to the server across that connection while it&rsquo;s in use</li>
+<li>Even when nothing much is happening and a lot of data&rsquo;s not being sent</li>
+<li>HTTP request-response cycle can serve more clients - So when I make a request for a webpage, the server sends me the webpage and then while I&rsquo;m reading the webpage and deciding what I want my next decision to be, my next request to the server, it can go ahead and serve other clients in the meantime.</li>
+<li>No page caching - Different of the HTTP requests, with something like a webpage, that can be cached and sent very quickly back to the client. With WebSockets we have to dynamically respond all the time and in fact, most applications just simply</li>
+<li>Most applications do not require realtime communication</li>
+</ul>
+
+<p>With WebSockets we have to dynamically respond all the time and in fact, most applications just simply do not require real-time communication, so ActionCable and WebSockets is a great solution for people who need real-time communication, but if you don&rsquo;t need it then you&rsquo;re probably better going off with a more traditional HTTP model.</p>
+
+<h4 id="using-actioncable">Using ActionCable</h4>
+
+<h5 id="actioncable-terminology">ActionCable Terminology</h5>
+
+<ul>
+<li>Cable - single connection between a server and a client that&rsquo;s one single client, so when we open a connection between them, we call that a cable.</li>
+<li>Channel - stream of data to which clients ca subscribe</li>
+<li>Subscriptions: a client&rsquo;s currently subscribed channels</li>
+<li>Broadcast: message sent on channel to subscribed clients</li>
+</ul>
+
+<h5 id="example">Example</h5>
+
+<p>If we wanna use ActionCable, the first thing that we need to do is make sure that it&rsquo;s enabled in our routes, so in your routes file, you wanna make sure that the line that says mount <code>ActionCable.server</code> is uncommented and available for you to use. You must include this if you wanna have ActionCable.</p>
+
+<p>By default it&rsquo;s going to point to the URL/cable, but you can configure that to something different if you&rsquo;d like. This is the route that we&rsquo;re going to use for communication with ActionCable.</p>
+
+<pre><code class="language-ruby"># config/routes.rb
+Rails.application.routes.draw do
+    # ...
+    
+    mount ActionCable.server =&gt; &quot;/cable&quot;
+
+end    
+</code></pre>
+
+<p>Next, we&rsquo;re gonna need to create our channel and a new Rails 5 app should have a directory for channels where you can put this code and you&rsquo;re gonna create channels in much the same way that you normally create controllers, so while they&rsquo;re not exactly the same, you&rsquo;ll find that they are similar, so here you can see I&rsquo;ve got a class defined for <code>ChatRoomChannel</code> that inherits from <code>ApplicationCable Channel</code> and then you can see that I have a subscribed action and a speak action.</p>
+
+<pre><code class="language-ruby"># app/channels/chat_room_channel.rb
+class ChatRoomChannel &lt; ApplicationCable::Channel
+    
+    def subscribed
+        stream_from('chat_room_channel')
+    end
+
+    def speak(data)
+        ActionCable.server.broadcast('chat_room_channel',
+          :message =&gt; data['message'])
+    end
+
+end    
+</code></pre>
+
+<p>There will usually be an unsubscribed action as well, subscribed and unsubscribed are the two standard actions. These two actions do whatever code you want to do whenever a user subscribes or unsubscribes from a channel. Often what you wanna do when they&rsquo;re subscribing is to start streaming data to them across the channel and you can see that that&rsquo;s what I&rsquo;m doing in my subscribe method when I&rsquo;m calling stream from. For this overview I created The speak method, that is a custom action of my own creation, on it I&rsquo;ve added just a basic example, when the speak action is called, then the ActionCable server is going to broadcast a message on the chat room channel and you can see that I&rsquo;m passing in whatever I want that data to be.</p>
+
+<p>Anyone that&rsquo;s streaming from that channel anyone who&rsquo;s subscribed, will be sent that message immediately, once that we have our chat room channel set up and we have subscribed, unsubscribed and any of the custom actions that we wanna have inside there.</p>
+
+<p>Then we&rsquo;re ready to set up the JavaScript side of things. In your JavaScript, you&rsquo;ll need to set up the cable like so, on the bellow example you see I have variable for App and then I&rsquo;m setting <code>App.cable</code> equal to <code>ActionCable.createConsumer</code>, this gives our JavaScript object all the features that it needs to communicate with the server.</p>
+
+<pre><code class="language-javascript">// app/assets/javascripts/cable.js
+//= require action_cable
+//= require_self
+//= require_tree ./channels
+ 
+(function() {
+  this.App || (this.App = {});
+ 
+  App.cable = ActionCable.createConsumer();
+}).call(this);
+</code></pre>
+
+<p>Once we have it set up, we can use it to set up a room on our app object, which creates a new subscription to the chat room channel. Here you can see I&rsquo;m setting <code>App.room</code> equal to <code>App.cable</code> subscriptions create, so I&rsquo;m creating a new subscription and I&rsquo;m assigning it to room. I&rsquo;m gonna call it <code>ChatRoomChannel</code> and inside you&rsquo;ll see that I&rsquo;m defining a number of functions. I&rsquo;ve got functions for connected, disconnected, received and speak.</p>
+
+<pre><code class="language-javascript">
+//app/assets/javascripts/cable/subscriptions/chat.coffee
+//Subscription JS
+App.room = App.cable.subscriptions.create(
+    &quot;ChatRoomChannel&quot;, {
+        connected: function(data) { },
+        disconnected: function(data) { },
+        received: function(data) {
+            alert(data['message']);
+        }
+        speak: function(message) {
+            this.perform('speak', {message: message});
+        }
+    }
+);
+</code></pre>
+
+<p><strong>connected</strong>, <strong>disconnected</strong> and <strong>received</strong> are standard functions in <code>ActionCable</code> that you&rsquo;ll probably always want to have. Whenever I&rsquo;m connected, the JavaScript code in the connected function will execute, whenever I&rsquo;m disconnected the code in the disconnected function will execute and the received will gets called anytime data is received from this channel.</p>
+
+<p>In the above example, in my received function I&rsquo;m just calling a simple JavaScript alert to display whatever message is received. You could instead replace data on the page, or add the data to some existing content, for example, if this was a real chat room, you&rsquo;d probably want to append the message received to the end of the things that already been said in the chat room.</p>
+
+<p>The Speak is a custom function of our own creation, it can be called anything we like, but notice that what it does, is it calls perform speak. This is how we call the controller action speak that we created earlier, send it data and that&rsquo;s the message that we wanna speak. Remember, that action just broadcast our message to anyone who subscribed to this same channel.</p>
+
+<p>Now we&rsquo;ve defined all of our Ruby actions on the server side and all of our JavaScript functions on the client side.</p>
+
+<p>In order to use it, we just have JavaScript call our speak function, like so, so we call <code>App.room.speak</code>, anywhere in our code and after we provided the message it goes through the code that we want.</p>
+
+<pre><code class="language-javascript">
+//app/assets/javascripts/communication.coffee
+//Communication JS
+
+
+App.room.speak('Hello ActionCable');
+//Calls this.perform('speak');
+//Calls ChatRoomChannel#speak
+//Calls ActionCable.server.broadcast
+
+//Message goes to the streamed WebSocket
+//Triggers App.room.received on all subscribers
+</code></pre>
+
+<p>Let&rsquo;s review what the above code looks like: it calls <code>this.perform('speak')</code> and it passes along our message That then in turn calls <code>ChatRoomChannel</code> speak. Which in turn calls <code>ActionCable</code> server broadcast and sends our message out to that channel and anyone who subscribed to it is going to get it.</p>
+
+<p>It&rsquo;s gonna be streamed to that WebSocket, once that&rsquo;s received by the client, it&rsquo;s gonna trigger <code>App.room.received</code> on all the subscribers, which in turn calls alert and alerts with our message, so that we see what the message was.</p>
+
+<p>Now this is a very simple example, meant to just give you the flow of how things work, there&rsquo;s a lot more that you can do and a lot of configurations to help you to do them.</p>
+
+<p>If you wanna experiment or learn more, a great resource is the Rails ActionCable examples that are on <a href="https://github.com/rails/actioncable-examples">github</a> and official Action Cable <a href="http://guides.rubyonrails.org/action_cable_overview.html">documentation</a>.</p>
+
+<h3 id="actioncontroller-renderer">ActionController::Renderer</h3>
+
+<ul>
+<li>Render templates independently of controllers.</li>
+<li>Useful for ActionCable</li>
+</ul>
+
+<h4 id="overview">Overview</h4>
+
+<p>Another major feature of Ruby on Rails 5, is ActionController Renderer. ActionController Renderer allows us to render templates, but to do it independently of our controller, it&rsquo;s particularly useful for things like ActionCable.</p>
+
+<p>We can render bits of content, that we broadcast to all our subscribers and we don&rsquo;t have to load up all of the action controller code, with parts that we don&rsquo;t need like cookies and redirects, we can just use the rendering feature on its own.</p>
+
+<h4 id="examples">Examples</h4>
+
+<p>The way that you use it, is very straight forward and it&rsquo;s just like you would render inside a controller, so instead of just calling render, we now call <code>ApplicationController.render</code> and then tell render what we wanna render.</p>
+
+<p>On the bellow sample a template called <code>products/index</code> will be rendered and it&rsquo;s gonna look for that template in its normal place, it&rsquo;s gonna look for a template called index in the views directory inside the products directory.</p>
+
+<pre><code class="language-ruby">ApplicationController.render(
+    :template =&gt; 'products/index'
+)
+</code></pre>
+
+<p>You can also use the shorthand form for this, that you&rsquo;re probably more familiar with and that is just to call <code>ApplicationController.render</code> and then the template name that we want.</p>
+
+<pre><code class="language-ruby">ApplicationController.render('products/index')
+</code></pre>
+
+<p>Another nice shorthand is that if instead of calling render on ApplicationController, we call it on one of our custom controllers which inherits from ApplicationController. Then we don&rsquo;t even have to provide the directory for where to find the template.</p>
+
+<p>It knows that it&rsquo;s going to look in the products directory, because we&rsquo;re working with the ProductsController, so that&rsquo;s where it&rsquo;s going to look by default, for this index template and just like our controllers we don&rsquo;t have to just render the html.</p>
+
+<pre><code class="language-ruby">ProductsController.render('index')
+</code></pre>
+
+<p>We can render a JSON, for example. If we wanted to provide a JSON back as a snippet to action cable, we can do that just like this:</p>
+
+<pre><code class="language-ruby">ApplicationController.render(
+    :json =&gt; Product.all
+)
+</code></pre>
+
+<p>The other possibilities for things you can render are templates, actions, partials, file, inline, plain, text, html, json, js and xml.</p>
+
+<p>Just like you&rsquo;re used to having in your controllers, you can pass local variables to the templates, just like you normally would.</p>
+
+<p>On the below example, where I&rsquo;m rendering a partial for <code>products_product</code> and I&rsquo;m providing local variable values for product and for user.</p>
+
+<pre><code class="language-ruby">ApplicationController.render(
+    :partials =&gt; `products/_product`,
+    :locals =&gt; {
+        :product =&gt; Product.first,
+        :user =&gt; current_user
+    }
+)
+</code></pre>
+
+<p>There&rsquo;s only one thing that&rsquo;s slightly tricky about this and that is that in your controller, it&rsquo;s common practice to set up instance variables, which are then automatically going to be bound to the ERB template that we render, so that they&rsquo;re available for use inside that template.</p>
+
+<p>That binding doesn&rsquo;t happen automatically with renderer, but render lets us pass instance variables for binding to the template, using assigns, so on the below example, you can see that I&rsquo;m passing in both locals and assigns. This would mean that inside that partial I would be expecting product to be a local variable and the user would be an instance variable.</p>
+
+<pre><code class="language-ruby">ApplicationController.render(
+    :partials =&gt; `products/_product`,
+    :locals =&gt; { :product =&gt; Product.first },
+    :assigns =&gt; { :user =&gt; @user }
+)
+</code></pre>
+
+<p>In case the difference between assigns and locals is not completely clear, here&rsquo;s another example that shows them both being applied to the rendering of a bit of inline ERB, so my template is that inline ERB.</p>
+
+<p>You can see that in the first blank I have an instance variable for version and a local variable then in the second blank for adjective, so I&rsquo;m using assigns to set the instance variable, I&rsquo;m using locals to set the local variable.</p>
+
+<pre><code class="language-ruby">(
+    
+    :inline =&gt; &quot;I think Ruby on Rails version &lt;% @version %&gt; is &lt;% adjective %&gt;!&quot;,
+
+    :assigns =&gt; { :adjective =&gt; 'sweet' }
+    :locals =&gt; { :version =&gt; 5 },
+)
+</code></pre>
+
+<p>Overall, rendering works pretty much the same way that it does inside our controllers, what&rsquo;s different in Rails 5, is the fact that we&rsquo;ve gained the ability to do this rendering outside of controllers. We don&rsquo;t need a controller in order to render code, we can do it inside our channels.</p>
+
+<p>We could do it inside our jobs, our mailers, inside our rake tasks. There&rsquo;s all sorts of places that rendering can now take place without having to have all that controller code loaded in.</p>
+
+<p>For more information about Renderers see the Ruby <code>ActionController::Renderer</code><a href="http://api.rubyonrails.org/classes/ActionController/Renderer.html">documentation</a>.</p>
+
+<h3 id="rails-as-json-api">Rails as JSON API</h3>
+
+<ul>
+<li>Based on Rails::API <a href="https://github.com/rails-api/rails-api">gem</a></li>
+<li>API for clients to access data and application logic</li>
+<li>Backend for client-side frameworks (Client eg.: JS, Flash, Iphone, or Rails)</li>
+</ul>
+
+<p>This feature almost made it into Rails 4 back in 2012, but instead it became a stand alone Ruby gem, which has now been incorporated into Rails 5.</p>
+
+<p>You should note that it is possible to have an existing Rails application which doubles as a JSON API. In other words it serves up both HTML and JSON. But that&rsquo;s not what this overview is, this will talk about making a Rails app which is exclusively an API.</p>
+
+<p>We&rsquo;re gonna be setting up our application from the start so that it omits a lot of the normal Rails application code.</p>
+
+<h4 id="why-rails-as-json-api">Why Rails as JSON API?</h4>
+
+<ul>
+<li><strong>No need for templates, HTML, CSS and JavaScript</strong> - there&rsquo;s no needed for templates, HTML, CSS and JavaScript, all that can be left out and when we use our generators in Rails it&rsquo;s gonna skip generating the views, the helpers and the assets whenever we create a new resource.</li>
+<li><strong>Most application logic is outside the View layer</strong> - most of the application logic is performed inside our controllers and models and not inside the view, so we can let the client just simply be our view layer for us</li>
+<li>Less controller and middleware code - when we go to create a new resource, the Rails as an API is going to leave out modules which are primarily useful for browser applications, like cookie support. It won&rsquo;t put jQuery or turbolinks into our gem file because it knows we won&rsquo;t be using them.</li>
+<li>Configured for API-style applications</li>
+<li>Familiar Ruby framework, RubyGems, Bundler</li>
+<li>Sensible defaults and generators</li>
+<li>Keep key features: security, routing, caching, error handling, logging and etc.</li>
+<li>Development and test environments - the test is an important aspect too, so we can continue to write test for our application in a way that we&rsquo;re used to do our Rails apps.</li>
+</ul>
+
+<h4 id="how-do-we-use-it">How do we use it?</h4>
+
+<p>To create a Rails API application all you need to do when you create a new Rails app is to add the <code>--api</code> option to the end, as the following command:</p>
+
+<pre><code>rails new my_backend_api --api
+</code></pre>
+
+<p>The biggest difference is this single line, as we can see on the below example, inside the <code>config/application.rb</code> file there&rsquo;s a new line that says <code>config.api_only = true</code> and that&rsquo;s what tells Rails to be in API mode in everything that it does.</p>
+
+<pre><code class="language-ruby"># config/application.rb
+module MyBackendApi
+    class Application &lt; Rails::Application
+
+        config.api_only = true    
+    end    
+end    
+</code></pre>
+
+<p>Every time you use a generator, every time you do anything in your application, it&rsquo;s going to be in API mode, if you&rsquo;re converting over from an existing application, then this is a line that you&rsquo;ll need to add.</p>
+
+<p>Another difference is in our controllers, we still have controllers, but we don&rsquo;t want all the HTTP parts that we aren&rsquo;t going to be using, so the <code>ApplicationController</code> is going to inherit from the class <code>ActionController::API</code>.</p>
+
+<pre><code class="language-ruby"># app/controllers/application_controller.rb
+class ApplicationController &lt; ActionController::API
+
+end    
+  
+</code></pre>
+
+<p>Normally it would inherit from <code>ActionController::Base</code>,this change leaves out code like cookies and sessions, which we don&rsquo;t need, but still gives us other parts of the controllers that we do want, such as before actions, security methods, page caching.</p>
+
+<p>The controllers that we generate are going to inherit from <code>ApplicationController</code>, which in turn inherits from the API.</p>
+
+<pre><code class="language-ruby"># app/controllers/notes_controller.rb
+class NotesController &lt; ApplicationController
+    
+    def index
+        @notes = Note.all
+        render(:json =&gt; @notes)
+    end
+
+    def show
+        @note = Note.find(params[:id]) 
+        render(:json =&gt; @note)
+    end
+
+    # also: create, update, destroy
+    # without: new, edit
+end    
+  
+</code></pre>
+
+<p>So our controllers are going to work the same way and the generated content of our controllers will also be different.
+Notice in the above example that these controllers rendered JSON resources by default, they also include create, update and destroy actions, but unlike regular controllers they don&rsquo;t automatically have a new and edit action, because typically those are just HTML pages for submitting forms and an API client would be expected to take care of that business for us.</p>
+
+<p>Our routes still use resourceful routes and we define them the same way, but if you take this and then run <code>rails routes</code> on it you&rsquo;ll see that the new and edit routes that are normally present when doing restful routing are no longer included with the API version.</p>
+
+<pre><code class="language-ruby"># config/routes.rb
+Rails.application.routes.draw do
+
+    resources :todos
+    
+end    
+</code></pre>
+
+<p>We don&rsquo;t need them, in the same way that we don&rsquo;t need the actions that correspond to them, you can add them back if you decide you do, but they&rsquo;re not there by default.</p>
+
+<p>With Ruby on Rails 5, Rails developers who want to create backend applications where Rails serves as a JSON API will find it much easier than they have in the past and it will also omit a lot of the application code that you don&rsquo;t need to make your application as lean and fast as possible.</p>
+
+<p>For more information of how use Rails for API-only Applications, see the official <a href="http://edgeguides.rubyonrails.org/api_app.html">documentation</a>.</p>
+
+<h3 id="turbolinks-5">Turbolinks 5</h3>
+
+<p>Turbolinks was first introduced in Ruby on Rails 4. This version of Turbolinks has now been renamed as <a href="https://github.com/turbolinks/turbolinks-classic">Turbolinks Classic</a> and version five, which comes with Ruby on Rails 5, is a ground up rewrite with a new flow and new events, but which still uses the same core idea as Turbolinks Classic.</p>
+
+<p>The new version is faster than the old one and also offers the ability to do partial replacements of webpages. We&rsquo;ll take a look at that feature in a moment.</p>
+
+<h4 id="why-turbolinks">Why Turbolinks?</h4>
+
+<ul>
+<li>Performance of a single-page application - that&rsquo;s part of what JavaScript frameworks like to boast about</li>
+<li>No client-side JavaScript framework required - you can work directly with HTML pages in your existing Rails application.</li>
+<li>Links do not load completely new pages</li>
+<li>Fetch new content with Ajax; swap <code>&lt;body&gt;</code>; merge <code>&lt;head&gt;</code> - it fetches the page using asynchronous JavaScript, also known as Ajax and then it takes the returned page and it replaces the body of the current page with the new body and it merges the content of the page header with the existing page header.</li>
+<li>CSS and JS is retained (does not need to be reloaded or re-rendered)</li>
+<li>Content is still full HTML page, not fragment or JSON</li>
+<li>Current browser scroll position is maintained</li>
+<li>Still changes browser&rsquo;s URL and history - the back button will work as expected</li>
+<li>Much faster, can feel almost instantaneous (&lt;1 second)</li>
+</ul>
+
+<h4 id="using-turbolinks">Using Turbolinks</h4>
+
+<p>To use the Turbolinks, we need:</p>
+
+<ul>
+<li>first to add the turbolinks to Gemfile: <code>gem 'turbolinks'</code></li>
+<li>Run the <code>bundle install</code> command</li>
+<li>Add to JS manifest: <code>//= require turbolinks</code></li>
+</ul>
+
+<p>You don&rsquo;t have to use Turbolinks all the time, you can have some links that opt out of it.</p>
+
+<pre><code class="language-html">&lt;a href=&quot;/some_url&quot; data-turbolinks=&quot;false&quot;&gt; 
+    This link will not use Turbolinks
+&lt;/a&gt;
+</code></pre>
+
+<p>As the above example, there I have a link that I&rsquo;ve marked with <code>data-turbolinks=false</code> and this now becomes a link that will not use Turbolinks when it loads. Otherwise, all your other links will automatically use Turbolinks and you&rsquo;ll get that speed boost as a result.</p>
+
+<p>There is one gotcha when working with Turbolinks and that is: that it&rsquo;s very common for people to write JavaScript that either activates on loading the window or when the document is considered ready and that&rsquo;s not going to be true with Turbolinks anymore, because our document and our window are already loaded.</p>
+
+<pre><code class="language-javascript">//Javascript
+window.onload = function(){
+    // ...
+}
+
+//jQuery
+$(document).ready(function(){
+    // ...
+});
+</code></pre>
+
+<p>All we&rsquo;re doing is swapping data into the existing document, so if you find that your JavaScript isn&rsquo;t firing anymore, then instead you wanna use the EventListener, turbolinks, load events and if you&rsquo;d listen for turbolinks load, your JavaScript will fire again.</p>
+
+<pre><code class="language-javascript">//Javascript
+document.addEventListener('turbolinks:load',function(){
+    // ...
+})
+
+//jQuery
+$(document).on('turbolinks:load', function(){
+    // ...
+});
+</code></pre>
+
+<pre><code class="language-javascript">//Javascript
+window.onload = function(){
+    // ...
+}
+</code></pre>
+
+<p>The turbolinks load event fires once on the initial page load and then again after every turbolinks visit.</p>
+
+<h5 id="turbolinks-partial-replacement">Turbolinks Partial Replacement</h5>
+
+<p>The first version of Turbolinks simply replaced everything within the body when a link was clicked, that kept the HTML head, CSS and JavaScript, but the bulk of the page was still reloading and you can continue to use Turbolinks in that way and you&rsquo;ll get a big speed boost by not reloading that extra stuff, but the new version of Turbolinks that&rsquo;s in Ruby on Rails 5 has an additional feature.</p>
+
+<p>You can reload only parts of a page by marking content as either <strong>permanent</strong> or as <strong>temporary</strong>.</p>
+
+<p>Look the below example, let&rsquo;s imagine that we have a page and inside the body I have three divs, one with an ID of nav, one with an ID of flash and one with an ID of comments.</p>
+
+<pre><code class="language-html">&lt;body&gt;
+    &lt;div id=&quot;nav&quot; data-turbolinks-permanent&gt;
+        &lt;!-- will not change after the initial load --&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;flash&quot; data-turbolinks-temporary&gt;
+        &lt;!-- update with every request unless told to 'keep' --&gt;
+    &lt;/div&gt;
+    
+    &lt;div id=&quot;comments&quot;&gt;
+        &lt;!-- changes on each page load or when targeted --&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>You can see that I&rsquo;ve marked the nav as being data turbolinks permanent. That means that this div is not going to change after the initial load by default. Then I&rsquo;ve got div id flash marked data turbolinks temporary and that&rsquo;s going to be updated with every request unless I specifically ask it to stick arounds and then I&rsquo;ve got a normal div which I&rsquo;ve just called comments and that&rsquo;s typically going to change on each page load.</p>
+
+<p>Using the content marked up appropriately let&rsquo;s switch over to the controller and see how some of the different rendering options affect those tags.</p>
+
+<pre><code class="language-ruby"># Keep #nav, update all other parts of page
+render('comments/index')
+
+# Update #flash &amp; #comments, keep #nav &amp; other parts
+render('comments/index', :change =&gt; 'comments')
+
+# Keep #nav &amp; #flash, update all other parts of page
+render('comments/index', :keep =&gt; 'flash')
+
+# Update everything, including #nav
+render('comments/index', :flush =&gt; true)
+</code></pre>
+
+<p>For the first example, if I just do a simple render, let&rsquo;s say I render <code>comments/index</code>, it&rsquo;s going to keep the nav div around, it&rsquo;s not going to make any changes to it, it will leave it in place because I&rsquo;ve marked it permanent. It&rsquo;s gonna update all the other parts of the page.</p>
+
+<p>In the second example, I&rsquo;ve specifically targeted comments by using change, you can also use append and prepend in the same way, so I&rsquo;m targeting comments, therefore it&rsquo;s going to update the flash and the comments.
+It updates the comments because I targeted it and it updates the flash because I marked that it&rsquo;s being temporary, so it&rsquo;s still going to be refreshed each and every time, but the nav and all other parts of the page, any other content on the page is left alone.</p>
+
+<p>Like the third example, if I instead tell it to keep the flash, well then the flash will stay around, so now in the third example you&rsquo;ll see that it&rsquo;s gonna keep the nav, because I&rsquo;ve marked it permanent, it&rsquo;s going to keep the flash, because I&rsquo;ve explicitly asked it to, but all other parts of the page are gonna be updated.</p>
+
+<p>On the Last example, you can see that I&rsquo;m updating everything including the nav by using flush true. This is still using Turbolinks, it&rsquo;s not opting out of Turbolinks, it&rsquo;s just telling it that all the parts of the page should be replaced, the entire body gets replaced in that case.</p>
+
+<p>The below example show how the things are done inside your controller. You can also do the same thing in your Javascript, this is essentially what&rsquo;s happening under the hood, when the Ajax makes this call. That is that we&rsquo;re calling <code>Turbolinks.visit</code> comments and then we can provide any of those options we just saw.</p>
+
+<pre><code class="language-ruby"># Keep #nav, update all other parts of page
+Turbolinks.visit('/comments')
+
+# Update #flash &amp; #comments, keep #nav &amp; other parts
+Turbolinks.visit('/comments', :change =&gt; 'comments')
+
+# Keep #nav &amp; #flash, update all other parts of page
+Turbolinks.visit('/comments', :keep =&gt; 'flash')
+
+# Update everything, including #nav
+Turbolinks.visit('/comments', :flush =&gt; true)
+</code></pre>
+
+<p>Change, keep, flush, as well we can use append and prepend and those do the exact same thing. If you wanna find out more about Turbolinks. Learn more about some of the configuration options that are available to you.</p>
+
+<p>You can find out more about it at the Turbolinks official <a href="https://github.com/turbolinks/turbolinks">repository</a>.</p>
+
+<h3 id="activerecord-attributes-api">ActiveRecord Attributes API</h3>
+
+<p>Another major feature of Ruby on Rails 5, is the ActiveRecord Attributes API, that can not be confused in any way with the Rails as a JSON API we wrote above on this doc. This is different, this is about working with ActiveRecord Attributes in our models.</p>
+
+<p>In our models, ActiveRecord automatically detects attribute types from the underlying database - for example, if our database has a varchar type for a column, then it sees that as being a string. If it sees an int type, it sees that it&rsquo;s being an integer a decimal becomes a float, a tinyint becomes a boolean, and a date time becomes date time.</p>
+
+<p>What the attributes API does is it gives us a standard way to override the type detection and other defaults that are built into Rails, and the way we do it is with a new method called attribute, so we have attribute and we pass in three different arguments:</p>
+
+<pre><code class="language-ruby">attribute(name, cast_type, options)
+</code></pre>
+
+<p>The first is the name of the attribute. The second is the cast type, and the third is any options that we want to provide.</p>
+
+<p>For example. Let&rsquo;s say that we create a new table in our database called fabrics, and in that table I&rsquo;m adding a new column which is gonna be a decimal column called quantity.</p>
+
+<pre><code class="language-ruby">create_table :fabrics do |t|
+    t.decimal :quantity
+end    
+</code></pre>
+
+<p>That would normally give me a floatback when I access it as an attribute in my fabric class, but when I tell it to use integer instead.</p>
+
+<pre><code class="language-ruby">class Fabric &lt; ApplicationRecord
+    attribute(:quantity, :integer)
+end    
+</code></pre>
+
+<p>Now will always give me an integer and never a float, so you can see that example below, when I then call <code>fabric = Fabric.new</code>.</p>
+
+<pre><code class="language-ruby">fabric = Fabric.new(:quantity =&gt; 3.9)
+
+fabric.quantity.integer? 
+# =&gt; true
+
+fabric.quantity 
+# =&gt; 3 
+</code></pre>
+
+<p>I provided a float but instead <code>fabric.quantity</code> is now going to be cast as an integer, and when I ask it for its value, the value is three. Not 3.9, because it converted it from a float into an integer.</p>
+
+<p>It can also override the default values that are set in the database, so for example, if I have my fabrics database and I have a sting column called name, and it has a default database value of database default, so the database is going to want to set that value.</p>
+
+<pre><code class="language-ruby">create_table :fabrics do |t|
+    t.string :name, :default =&gt; 'Database default'
+end    
+</code></pre>
+
+<p>By default Rails is gonna pick up that same default value, but if I instead tell the attribute that it&rsquo;ll have a different default, then I can override whatever is there.</p>
+
+<pre><code class="language-ruby">class Fabric &lt; ApplicationRecord
+    attribute(:name, :string, :default =&gt; 'New default')
+end    
+</code></pre>
+
+<p>So now when I call <code>fabric = Fabric.new</code>, and I call <code>fabric.name</code>, I get back New default, not database default anymore, and also these attributes do not need to be even backed by a database column.</p>
+
+<pre><code class="language-ruby">fabric = Fabric.new(:quantity =&gt; 3.9)
+
+fabric.name
+# =&gt; 'New default'
+</code></pre>
+
+<p>You can create your own attributes and define them in the same way, and affect how Rails will cast those values. You can also define your own types. Just make sure that the type you create implements all the methods that ActiveRecord type.</p>
+
+<p>The easiest way to do that, is to inherit from an existing type or from ActiveRecord type value. Then you can override the parts that you want and call super, to let the parent class do the rest. The key methods to override are cast, serialize, and de-serialize.</p>
+
+<pre><code class="language-ruby"># inherit existing class or ActiveRecord::Type::String
+
+class BackwardsType &lt; ActiveRecord::Type::String
+    def cast(value)
+        new_value = value.reverse
+        super(new_value)
+    end 
+end
+
+ActiveRecord::Type.register(:backwards, BackwardsType)
+</code></pre>
+
+<p>On the above example, I&rsquo;m overriding cast so that it reverses any string that it&rsquo;s given before it puts it in the database. Once we create our type, we just need to register it. Calling ActiveRecord <code>type.register</code>. I&rsquo;m gonna give it a name of backwards, so that&rsquo;s the name of my type. Instead of string, integer, and decimal.</p>
+
+<p>Now it&rsquo;s gonna have a type of backwards which will be my new class, so I can for example, create my table of users. I give it a string, I call it backwards name, and then I use my attributes API to set backwards name using the backwards type.</p>
+
+<pre><code class="language-ruby">create_table :users do |t|
+    t.string :backwards_name
+end  
+
+class User &lt; ApplicationRecord
+    attribute(:backwards_name, :backwards)
+end
+</code></pre>
+
+<p>So, user = User.new backwards name &ldquo;Coderade&rdquo;. and what is the value of backwards name? It&rsquo;s gone through my class, it&rsquo;s been typed in the way that I&rsquo;ve told it. Which in this case, I told it to reverse the letters.</p>
+
+<pre><code class="language-ruby">user = User.new(:backwards_name =&gt; 'Coderade')
+
+user.backwards_name
+# =&gt; 'edaredoC'
+</code></pre>
+
+<p>It&rsquo;s a little bit of a silly example, but I think it makes the point of how you can really do anything you want inside these class types. A more common use for writing your own type would be to write the serialization and de-serialization yourself, so for example, you might wanna be able to provide JSON to an attribute and then have that JSON be serialized in a certain way before being put into the database and the be de-serialized back to JSON when you pull it back out of the database.</p>
+
+<p>Rails gives a sensible default for our attributes. The ActiveRecord Attributes API gives us a way to override those defaults.</p>
+
+<p>You can find out more about the  ActiveRecord Attributes API at the your Rails documentation <a href="http://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html">page</a>.</p>
+
+<h3 id="activerecord-relation-or">ActiveRecord::Relation#or</h3>
+
+<p>Ruby on Rails 5 adds a new method, which is ActiveRecord::Relation#or. This has been a long-requested feature, and it finally arrives in Rails 5.</p>
+
+<p>First, let&rsquo;s take a look at a query that uses two where clauses to reduce the results that are being returned using and.</p>
+
+<pre><code class="language-ruby">Post.where(&quot;status = 'published'&quot;).
+    where(&quot;published_on = '2017-08-29'&quot;)
+</code></pre>
+
+<p>On the above example, I have post where status equals published and where published_on is 2017-08-29. Now I put the and in there, because that&rsquo;s what&rsquo;s really happening when we write the SQL.</p>
+
+<pre><code class="language-sql">SELECT * FROM posts WHERE (status = 'published') AND (published_on = '2017-08-29')
+
+-- Select all from posts where status equals published and published on equals the date that I've given it. 
+</code></pre>
+
+<p>Now daisy-chaining these kind of scopes together is common in Ruby on Rails, and it works well. But what about the case in which we don&rsquo;t want to scope them further by using and, but we want to broaden our scope by using <strong>or</strong>. In other words, where one thing is true or something else is true. This has always been a problem in Ruby on Rails. And up until the Rails 4, you either had to write the SQL yourself or used a third-party library to help you.</p>
+
+<p>But starting on Ruby on Rails 5, we have new method with is or.</p>
+
+<pre><code class="language-ruby">Post.where(&quot;status = 'published'&quot;).or(
+    Post.where(&quot;status = 'pending'&quot;)
+)
+</code></pre>
+
+<p>The way it works is like this; you can see I have post where status equals published, and then what I chain onto the end of that is OR.</p>
+
+<p>The resulting SQL looks like this:</p>
+
+<pre><code class="language-sql">SELECT * FROM posts WHERE (status = 'published') OR (status = 'pending')
+ 
+-- Select all from posts where status equals published or status equal pending. 
+</code></pre>
+
+<p>The <strong>or</strong> method expects an active relation as an argument. Any active relation will do, so you can use scopes as well, and you can keep chaining them together as long as you always provide an active relation as the argument. Now this isn&rsquo;t going to work for complex queries, but it is going to be a big help in simple cases.</p>
+
+<pre><code class="language-ruby">Post.published.or(Post.pending)
+Post.published.or(Post.pending).or(Post.recent)
+</code></pre>
+
+<h4 id="guidelines">Guidelines</h4>
+
+<p>There are some guidelines that you need to keep in mind, though.</p>
+
+<ul>
+<li>First, the argument that you pass  Must be an <code>ActiveRecord::Relation</code> (query or scope) - That&rsquo;s why I had to use <code>Post.where</code> on the above example, again, because we needed to created a <code>ActiveRecord::Relation</code></li>
+<li>The arguments must be the same model - So if my exterior query has to do with post, then the thing that goes inside or should also be regarding Post.</li>
+<li>And the arguments must differ only by their <code>#where</code> or their <code>#having</code> clause - that&rsquo;s because that&rsquo;s what&rsquo;s going on under the hood. <code>ActiveRecord::Relation#or</code> is taking any where or having clause that we pass in on a scope, and it&rsquo;s appending them to the existing where and having clause using or.</li>
+<li>Should not use <code>#limit</code>, <code>#offset</code>, or <code>#distinct</code> - you can still use limit, offset, and distinct on the exterior scope, but not on the relation that&rsquo;s being passed into or.</li>
+</ul>
+
+<p>If you keep these guidelines in mind, I think that you&rsquo;ll find that or provides a handy tool to our Active Relation query toolbox.</p>
+
+<h2 id="improvements">Improvements</h2>
+
+<h3 id="rails-command-router">Rails Command router</h3>
+
+<p>One of the most noticeable improvements in Ruby on Rails 5 are the changes that have been made to the Rails Command Router. When working with Ruby on Rails 5, from the command line we typically issue one of two kinds of commands, either <code>rake</code> or <code>rails</code>. So, for example, we do <code>rake db:migrate</code>, <code>rake test</code>, <code>rake spec</code>, or even custom Rake tasks, and then we have <code>rails new</code>, <code>rails generate</code>, <code>rails server</code>, <code>rails console</code> and many others. The problem is that these are inconsistent in the way that they are used and the code is even maintained in different directories.</p>
+
+<p>This becomes especially confusing for beginners who are trying to remember when do I use Rake and when do I use Rails and they don&rsquo;t really care about the technical differences between the two, they just want a consistent way to interact with the application.</p>
+
+<p>So starting in Version 5, we&rsquo;re going to use Rails for everything, now it&rsquo;s going to feel odd to veterans of Ruby on Rails because we&rsquo;ve typed <code>rake db:migrate</code> so much. It&rsquo;s going to take some getting used to to type <code>rails db:migrate</code>, but that&rsquo;s what&rsquo;s it&rsquo;s going to be. You&rsquo;re going to use Rails to run all of the old Rake tests.</p>
+
+<p>What Rails is going to do under the hood is that it checks for those key Rails scripts, so <code>new</code>, <code>generate</code>, <code>console</code>, <code>server</code> and etc. and then, if what you&rsquo;re asking for isn&rsquo;t one of those key scripts, then it&rsquo;s going to send anything else on to Rake and let Rake look for it, so that means that any of the existing Rake tasks, any custom Rake tasks that you have, and third-party library Rake tasks, those are all going to use Rails, because Rails will just send them on to Rake. So that means that Rake tasks do still exist, you can still write them, and then can even still be used as dependencies.</p>
+
+<p>You&rsquo;re just not going to access these scripts from the command line anymore, instead you want to use Rails for that. This change may feel odd during the transition, but over the long term this is a change for the better.</p>
+
+<h3 id="application-record-and-application-job">Application Record and Application Job</h3>
+
+<p>Ruby on Rails 5 adds a couple of new classes to the framework to help us out, <code>ApplicationRecord</code> and <code>ApplicationJob</code>. They are customizable super classes for all of your models and your jobs. These classes are very similar to the way <code>ApplicationController</code> and <code>ApplicationHelper</code> work, we put all the code that&rsquo;s common to our records and our models in ApplicationRecord and anything that&rsquo;s common to our jobs should go in ApplicationJob, that allows us to keep from overriding the base classes directly.</p>
+
+<p>The files for ApplicationRecord and ApplicationJob are going to be created by default in a new Rails 5 project, but they&rsquo;re not required to exist, they&rsquo;re really just there as part of the framework to help you out in the same way that you could do away with ApplicationController and everything would still work just fine.</p>
+
+<p>In a new Rails 5 project it will create a file in app slash models slash application underscore record that looks something like the bellow example. It will have a class ApplicationRecord which inherits from ActiveRecord Base.</p>
+
+<pre><code class="language-ruby"># app/models/application_record.rb
+class ApplicationRecord &lt; ActiveRecord::Base
+    self.abstract_class = true
+end    
+</code></pre>
+
+<p>Then you&rsquo;ll on the next example, when we work with our models those models are now going to inherit from ApplicationRecord not ActiveRecord Base.</p>
+
+<pre><code class="language-ruby"># app/models/product.rb
+class Product &lt; ApplicationRecord
+    self.abstract_class = true
+end
+</code></pre>
+
+<p>On the Rails 5, they don&rsquo;t have to. They could still inherit from ActiveRecord Base and everything would still work fine, but now we have this intermediary super class where we can put code that&rsquo;s common to all of our models.</p>
+
+<p>Notice that ApplicationRecord has a very important line in it that says <code>self.abstract_class = true</code>, that tells Rails don&rsquo;t assume that there&rsquo;s an underlying table called AppllicationRecords which can be queried. Instead this is just a utility class that has no database table behind it. Even if you never have common code that you want to put in to ApplicationRecord it&rsquo;s good to go ahead and follow this new model that the Rails framework wants us to use.</p>
+
+<p>The same thing is true for ApplicationJob. ApplicationJob is a class that inherits from ActiveJob Base and then each of our jobs would inherit from ApplicationJob instead of ActiveJob Base.</p>
+
+<pre><code class="language-ruby"># app/jobs/application_job.rb
+class ApplicationJob &lt; ActiveJob::Base
+    
+end
+</code></pre>
+
+<pre><code class="language-ruby"># app/jobs/remove_old_carts_job.rb
+class RemoveOldCartsJob &lt; ApplicationJob
+    
+end
+</code></pre>
+
+<p>There&rsquo;s no need to use <code>self.abstract_class = true</code> because out jobs don&rsquo;t have databases behind them anyway.</p>
+
+<p>To demonstrate why this small change is a significant improvement to Rails. Let&rsquo;s compare version four and five. Here in Rails 4 I would have a module called <code>ActsAsCoolFeature</code> and inside it might be whatever methods I have that do that cool feature.</p>
+
+<p>On the bellow example, I would have a module called ActsAsCoolFeature in Rails 4 and inside it might be whatever methods I have that do that cool feature.</p>
+
+<pre><code class="language-ruby"># Rails 4
+module ActsAsCoolFeature
+    def do_a_cool_feature
+    end
+end
+
+ActiveRecord::Base.include(ActsAsCoolFeature)
+</code></pre>
+
+<p>As we can see on the above example, if I want to add that into my models and I want to have it in all of my models I would have ActiveRecord Base include ActsAsCoolFeature. Now, all of my models have ActsAsCoolFeature built into them.</p>
+
+<p>Pretty cool, right? Except that this technique is called <a href="http://stackoverflow.com/questions/394144/what-does-monkey-patching-exactly-mean-in-ruby">monkey patching</a> and it refers to modifications of a class at run-time with the intent of changing their behavior.
+By patching ActiveRecord Base directly we&rsquo;re patching it for everyone that uses it. If we&rsquo;re running a small app that&rsquo;s not a big deal, but if we&rsquo;re using gems, plug-ins, engines, or writing complex code, each one of those is potentially expecting to have a clean ActiveRecord Base to work with and our module could interfere with their work.</p>
+
+<p>Instead, in Rails 5 with ApplicationRecord we have the ability to include the class in our intermediary class, ApplicationRecord, and not in ActiveRecord Base. ActiveRecord Base stays a pristine class that everyone can use. Our features included, but only for our models which inherit from ApplicationRecord.</p>
+
+<pre><code class="language-ruby"># Rails 5
+module ActsAsCoolFeature
+    def do_a_cool_feature
+    end
+end
+
+class ApplicationRecord &lt; ActiveRecord::Base
+    self.abstract_class = true
+    include ActsAsCoolFeature
+end
+</code></pre>
+
+<p>The same thing is true for ApplicationJob and the desire to keep a pristine version of ActiveJob Base around. So while it may seem like the Rails framework has just thrown a couple of extra files into a default application, they&rsquo;re there for a good reason and I encourage you to use them.</p>
+
+<h3 id="integer-methods-positive-and-negative">Integer methods: #positive? and #negative?</h3>
+
+<p>Another improvement in Ruby on Rails five is the addition of two new methods on the integer class. <code>positive</code> and <code>negative</code> and they work exactly as you&rsquo;d expect.</p>
+
+<p>When we call positive question mark or negative question on an integer, they return either true or false, <code>1</code> would be considered positive, <code>-1</code> would be considered negative and <code>0</code> is considered neither positive nor negative, as you can see those below results:</p>
+
+<pre><code class="language-ruby">1.positive?
+# true
+
+0.positive?
+# false
+
+-1.positive?
+# false
+
+1.negative?
+# false
+
+0.negative?
+# false
+
+-1.negative?
+# true
+</code></pre>
+
+<p>While these are two very useful methods, they are also going to be a superfluous part of Rails soon, and that&rsquo;s because these methods are built-in methods in Ruby 2.3 which was released in December of 2015.</p>
+
+<p>So really what Rails is doing here is just offering these methods early for Ruby 2.2 users and if you remember that&rsquo;s the base requirement for using Ruby on Rails five is Ruby 2.2.2, so if you meet that requirement you still have access to these methods and if you use Ruby 2.3 then those are going to be built-in methods for you.</p>
+
+<h3 id="date-and-time-improvements">Date and time improvements</h3>
+
+<p>Ruby on Rails 5 provides new methods for working with date and time.</p>
+
+<p>Ruby on Rails has new methods for next day and previous day (<code>#next_day</code>, <code>#prev_day</code>), these do the same thing as yesterday and tomorrow, which were existing methods, but, because their support for next week and next year it makes sense to have a parallel version for day. It was always a little odd that you could ask for next year and next week, but you couldn&rsquo;t ask for next day, you had to ask for tomorrow instead. So now they exist and you can use either one.</p>
+
+<p>Ruby on Rails also gained the concept of a weekday and a weekend, So now you can ask for next weekday and previous weekday (<code>#next_weekday</code>, <code>#prev_weekday</code>) and you&rsquo;ll get the following day unless it&rsquo;s on a weekend. So, for example, if it&rsquo;s a Friday and we ask for next week day, we don&rsquo;t get back Saturday we get back Monday.</p>
+
+<p>To correspond with those, we have some query methods, on weekend and on weekday (<code>#on_weekend?</code>, <code>#on_weekday?</code>) which will tell us whether something is on a weekday or weekend.</p>
+
+<p>As I mentioned, there are some existing methods for next week and previous week (<code>#next_week</code>, <code>#prev_week</code>), those have just gained a new ability, which is they have the <code>same_time</code> argument.</p>
+
+<p>Then, time gets days in year as a new method (<code>Time.days_in_year(year)</code>), it already had a <code>days_in_month</code> method, this matches that and it defaults to the current year.</p>
+
+<p>Let&rsquo;s say that I have the current time. And, let&rsquo;s say that the current time is Friday, March 18th, 2015 at 12:26 UTC. So if I ask for <code>Time.current.next_day</code>, then it returns tomorrow. It returns the following day, which is Saturday the 19th.</p>
+
+<pre><code class="language-ruby">Time.current
+# =&gt; Fri, 18 Mar 2016 12:26:11 UTC +00:00
+
+Time.current.next_day
+# =&gt; Fri, 19 Mar 2016 12:26:11 UTC +00:00
+
+Time.current.prev_day
+# =&gt; Fri, 17 Mar 2016 12:26:11 UTC +00:00
+
+Time.current.next_weekday
+# =&gt; Fri, 21 Mar 2016 12:26:11 UTC +00:00
+
+Time.current.prev_weekday
+# =&gt; Fri, 17 Mar 2016 12:26:11 UTC +00:00
+</code></pre>
+
+<p>The previous day returns Thursday, March 17th, both at the same time of day. If I ask for next weekday, then because it was on Friday, it doesn&rsquo;t return Saturday to me it jumps to Monday and, it returns Monday at the same time to me.
+If I ask for previous weekday, well, the previous weekday is the same thing as previous day so it returns Thursday, if the current time had been a Monday, then previous weekday would, of course, return a Friday.</p>
+
+<p>We have the ability to query those with on weekday and on weekend the current time is on a weekday, it&rsquo;s true.</p>
+
+<pre><code class="language-ruby">Time.current
+# =&gt; Fri, 18 Mar 2016 12:26:11 UTC +00:00
+
+Time.current.on_weekday?
+# =&gt; true
+
+Time.current.next_day.on_weekday?
+# =&gt; false
+
+Time.current.on_weekend?
+# =&gt; false
+
+Time.current.next_day.on_weekend?
+# =&gt; true
+</code></pre>
+
+<p>The Current next day, which is Saturday, is that a weekday? No, it&rsquo;s not. But if we ask on weekend, <code>Time.current</code> is not on the weekend but <code>Time.current.next_day</code> which is Saturday is on the weekend.</p>
+
+<p>We also can take a look at the changes to next week. So again, let&rsquo;s say I had the same time.</p>
+
+<pre><code class="language-ruby">Time.current
+# =&gt; Fri, 18 Mar 2016 12:26:11 UTC +00:00
+
+Time.current.next_week?
+# =&gt; Fri, 25 Mar 2016 00:00:00 UTC +00:00
+
+Time.current.next_week(:thursday)
+# =&gt; Fri, 24 Mar 2016 00:00:00 UTC +00:00
+
+Time.current.next_week(:friday, :same_time =&gt; true)
+# =&gt; Fri, 25 Mar 2016 12:26:11 UTC +00:00
+
+</code></pre>
+
+<p>Look the above example, If I ask for next week, I get the next week, I get Friday, but notice what happened to the time, the time got reset to midnight. That&rsquo;s what next week does, next week also accepts an argument. So, we can ask for a certain day of the week.</p>
+
+<p><code>Time.current.next_week(:thursday)</code> returns Thursday of next week. But, again, the time goes to Midnight. That&rsquo;s the way it behaved in Rails four and the way it still works in Rails 5.</p>
+
+<p>However, in Rails 5, we now get a new option that we can pass in of same time true, in order to use this <code>same_time</code> argument, you must provide the day of the week that you wanted. It&rsquo;s not optional, you can&rsquo;t leave it out. So in this case, I have time dot current dot next week and I&rsquo;m asking for Friday with the same time option.</p>
+
+<p>I mentioned already that time had a days in month method built in, it allows us to has for how many days are in a month. So, <code>Time.days_in_month(1)</code> tells me how many days are in the month of January, which is 31 and I can ask it for February and I can provide an optional year and it&rsquo;ll tell me how many days are in that year&rsquo;s month. In February, that makes a difference because sometimes it has has 28 and sometimes it has 29 days, I can also do the same thing with days in year.</p>
+
+<p>By default, it&rsquo;ll return the current year, if I pass in an argument of 2016, I get back the same result. But, if I were to pass in 2015, which is not a leap year, then I get back 365.</p>
+
+<pre><code class="language-ruby">Time.days_in_month(1)
+# =&gt; 31
+
+Time.days_in_month(2, 2017)
+# =&gt; 28
+
+Time.days_in_year
+# =&gt; 365
+
+Time.days_in_year(2016)
+# =&gt; 366
+
+</code></pre>
+
+<p>Each one of these examples is a small improvement to Rails, but taken all together they make date and time easier to work with.</p>
+
+<h3 id="relations-in-batches">Relations in batches</h3>
+
+<p>Ruby on Rails 5 gives us the ability to work with Active record relations in batches. To understand how it works, let&rsquo;s first look at find in batches.</p>
+
+<pre><code class="language-ruby">Product.find_in_batches do |batch|
+    sleep 5
+    batch.each do |product|
+        product.recalculate_inventory
+    end
+end
+
+</code></pre>
+
+<p>Which is an older method that was in Rails 4, and continues to exist in Rails 5, it looks like the above example. Product and then the <code>find_in_batches</code> method and then a block of code that I wanna perform on each batch.</p>
+
+<p>The default batch size is 1,000 records, or you can pass in batch size as an option if you want something different. The way that this works, is that Ruby on Rails makes a query to the database and finds the first 1,000 records, it brings them back, instantiates them into objects and puts them in array and renders them up to my block of code.</p>
+
+<p>My particular block of code here in this example is going to sleep for five seconds and then iterate through the products in that batch and tell each product to recalculate its inventory. This technique works great when we have expensive or long running processes that would monopolize the resources of a server.</p>
+
+<p>By sleeping for five seconds between batches, it gives the server a change to breathe, to catch up, to answer other people&rsquo;s requests, and do their jobs, instead of letting my code monopolize its resources.</p>
+
+<p>In many cases, this technique works great. However, there are some cases where it doesn&rsquo;t work. Look the below example:</p>
+
+<pre><code class="language-ruby">Product.find_in_batches do |batch|
+    batch.update_all(:on_sale =&gt; false)
+end
+</code></pre>
+
+<p>Let&rsquo;s imagine that I call product.find in batches and then what I wanna do to each batch after I sleep for five seconds is to tell it to update all the records in that batch with on sale false.
+The <code>update_all</code> is a great method to use when we wanna update a lot of records, because what it does is it sends off a single SQL query to the database, telling it to update all of these records with this value.</p>
+
+<p>The reason why this doesn&rsquo;t work, is because update all is something you would call in a class or on an active record relation or a scope. Instead, in this case, batch is an array. It&rsquo;s an array of objects from the database, so the query has already been made, the objects have been created and they&rsquo;re put into this array and I can&rsquo;t call update all on it. Now, I could go through each of those products in that array and tell each and every one to update its attributes, so that on sale was equal to false, but if I did that then each batch would send off 1,000 SQL queries to the database.</p>
+
+<p>Where as update all would update all 1,000 records with one SQL query which is much more efficient, I&rsquo;d really like to be able to use it, but it doesn&rsquo;t work with find in batches.</p>
+
+<p>What Ruby on Rails 5 offers us, is a new method which is called <code>in_batches</code>.</p>
+
+<pre><code class="language-ruby">Product.in_batches do |batch|
+    sleep 5
+    batch.update_all(:on_sale =&gt; false)
+end
+</code></pre>
+
+<p>It&rsquo;s the same thing, but it doesn&rsquo;t have find at the beginning, It makes it easy to remember.</p>
+
+<p>The difference here, is that product.in batches does not fire off SQL and go out and retrieve the objects and instantiate them and put them in an array, Instead it returns a relation to batch and that way when we&rsquo;re inside the block I can call <code>batch.update_all</code> and it fires off that single SQL query to update all 1,000 records at one time.</p>
+
+<p>Now I also have the ability to tell the batch that it should go out and retrieve those records and do something else with them, if I want to, but it doesn&rsquo;t presuppose that I want to do that, it waits and allows me to make that choice inside the block and that makes in batches a nice option for us to have.</p>
+
+<h3 id="activerecord-secure-tokens">ActiveRecord Secure Tokens</h3>
+
+<p>Ruby on Rails 5 provides a new feature to make it easy to create unique random tokens for use in our models. Secure tokens have become common in modern web applications.
+You might use them for:</p>
+
+<ul>
+<li>Invitations</li>
+<li>User registrations,</li>
+<li>Resetting lost user passwords,</li>
+<li>Token-based authentication.</li>
+</ul>
+
+<p>In the past, everyone had to craft their own custom solution for this, Rails 5 wants to make the process a little easier and more secure by providing a standard way to create and manage secure tokens.</p>
+
+<p>There are two parts to the process. The first is getting the columns set up on your database, and you can do that either from the command line, using rails generate or by writing a migration.</p>
+
+<h6 id="rails-generate-command">Rails generate command</h6>
+
+<pre><code>rails g model Invitation auth_token:token
+</code></pre>
+
+<h6 id="migration-class">Migration class</h6>
+
+<pre><code class="language-ruby">class CreateInvitations &lt; ActiveRecord::Migration
+    def change
+        create_table :invitation do |t|
+            t.token :auth_token
+        end
+    end
+end
+</code></pre>
+
+<p>In both cases, you can see that I&rsquo;m providing the column name, which is gonna be my token name, and I made that auth_token, and then the type of column is going to be token.
+That&rsquo;s a new type that&rsquo;s introduced in Ruby on Rails 5, so instead of having a string, or an integer, or a date time column, we tell it that it&rsquo;s a token column.</p>
+
+<p>Once we have our database set up and migrated then in our model we can add the method <code>has_secure_token</code>and provide the name of our token.</p>
+
+<pre><code class="language-ruby">class Invitation &lt; ActiveRecord::Base
+    has_secure_token(:auth_token)
+end
+</code></pre>
+
+<p>If we don&rsquo;t provide any argument, it defaults to token, once we&rsquo;ve got that, our model will now automatically generate secure tokens for auth token.</p>
+
+<pre><code class="language-ruby">invite = Invitation.new
+invite.save
+invite.auth_token # =&gt; &quot;05oplsfvvkwXI3q2349Oains&quot;
+</code></pre>
+
+<p>We create a new invite and we save it to the database, if we ask that object for auth token, you can see that it will automatically have created this random secure string for us.</p>
+
+<p>If we wanna refresh that token to something new, then we can call <code>regenerate_auth_token</code>:</p>
+
+<pre><code class="language-ruby">invite.regenerate_auth_token # =&gt; true
+</code></pre>
+
+<p>And it will regenerate that token and give us a new random string:</p>
+
+<pre><code class="language-ruby">invite.auth_token # =&gt; &quot;hnXBv7R2XValsgwga1atTrIX&quot;
+</code></pre>
+
+<p>Notice that that&rsquo;s a bit of a dynamic method. <code>regenerate_auth_token is based</code> on the name of my token, if my token had been named something like invite code, well then the name of the method would be <code>regenerate_invite_code</code>, so it&rsquo;s <code>regenerate_</code> followed by the name of your token and that would regenerate it for you, so these secure tokens that it generates are gonna be random, 24-character tokens.</p>
+
+<p>Under the hood, at least at the moment, it uses secure random base 58. That could certainly change in the future. If that wasn&rsquo;t deemed to be appropriate, but at the moment 24-characters using base 58, because of the size of the token, and the number of characters, collisions and race conditions are possible but they&rsquo;re unlikely.</p>
+
+<p>To prevent this, you&rsquo;re encouraged to use a unique index on the database column to ensure that the value is always unique, now the Rails migration, using that token type automatically adds that unique index for you, but if you create your own migration, or if you&rsquo;re using an existing string column, then you&rsquo;ll wanna make sure that you add your own unique index to that column.</p>
+
+<p>It&rsquo;s an unlikely scenario, but if you add it then you&rsquo;ll never need to worry, and that&rsquo;s all there is to being able to use secure tokens in your ActiveRecord models.</p>
+
+<p>You can find out more about the ActiveRecord Secure Tokens at the your Rails documentation <a href="http://api.rubyonrails.org/classes/ActiveRecord/SecureToken/ClassMethods.html">page</a>.</p>
+
+<h3 id="abort-activerecord-callbacks">Abort ActiveRecord Callbacks</h3>
+
+<p>Another improvement in Ruby on Rails 5, is that the procedure for aborting ActiveRecord callbacks has changed. In Rails 5, callbacks no longer halt whenever the last statement in the callback is false. Instead you must explicitly stop them, by using throw abort.</p>
+
+<p>Let me demonstrate the issue that this change is meant to solve.</p>
+
+<p>Here&rsquo;s a class for product, in Rails 4.</p>
+
+<pre><code class="language-ruby"># Rails 4
+class Product &lt; ActiveRecord::Base
+    before_save :set_in_stock_value
+    before_save :process_product_image
+
+    def set_in_stock_value
+        self.in_stock = Inventory.in_stock_for(code)
+    end
+
+    def process_product_image
+        # Some image processing code
+    end
+end
+</code></pre>
+
+<p>Notice that it has two before save callbacks. Set in stock value, and process product image.</p>
+
+<p>They&rsquo;re going to be executed in the order they&rsquo;re defined, when set in stock value is called, it sets in stock value to the returned value of inventory in stock for, and this value&rsquo;s going to be true or false. Here&rsquo;s the problem, when a Ruby method finishes, if there&rsquo;s no explicitly returned value, then it returns the last value evaluated inside the method. That&rsquo;s just how Ruby works, in this case, that will be the value returned by inventory in stock for, which could be false, and if it&rsquo;s false, then set in stock value returns false.</p>
+
+<p>When the before save callback receives that false signal, in Rails 4, it halts the callback chain and it aborts the save, so the second callback, process product image never gets called, and the record isn&rsquo;t saved to the database and not because we wanted it to fail, but just because of a quirk in our code. In Rails 4, this was an easy mistake to make without meaning to. In Rails 5, this code would work as expected, and inadvertently returning false will not stop the whole show.</p>
+
+<p>Instead, in Rails 5, you must explicitly tell the callback to stop.</p>
+
+<pre><code class="language-ruby"># Rails 5
+class Product &lt; ApplicationRecord
+
+    before_save :set_in_stock_value
+    before_save :process_product_image
+
+    def set_in_stock_value
+        throw(:abort) unless Inventory.in_stock_for(code)
+        self.in_stock = true
+    end
+
+    def process_product_image
+        # Some image processing code
+    end
+end
+</code></pre>
+
+<p>In the above example, you can see I&rsquo;ve rearranged the logic of set in stock value so that it aborts the save if inventory in stock for, returns false. Otherwise, it sets the value to true, now you might not want to do this, this is in fact a different behavior than what we had on the last slide.</p>
+
+<p>What I wanna show you is that you must explicitly use throw abort anytime you do want the callback chain to stop, so if you have code in the existing application that was depending on returning false to stop the callback chain, then you&rsquo;ll wanna swap those in with using throw abort instead.</p>
+
+<p>This is a configurable option. If you create a new Ruby on Rails 5 project it adds an initializer called callback terminator.</p>
+
+<pre><code class="language-ruby"># config/initializers/callback_terminator.rb
+ActiveSupport.halt_callback_chains_on_return_false = false
+</code></pre>
+
+<p>Where you can set the value for halt callback chains on return false, equal to true or false. A new project&rsquo;s gonna set it to false. If you&rsquo;re upgrading from an older version of Rails, then you might wanna add this initializer as well. If you were to add the configuration and then change it to true, you&rsquo;d get the Rails 4 behavior again. However, you should only use it like that, long enough for you to upgrade you application to the new behavior.</p>
+
+<p>Eventually, once everyone&rsquo;s had an opportunity to make the change, I expect this configuration is likely to go away.</p>
+
+<h3 id="changes-to-parameters-params">Changes to parameters/params</h3>
+
+<p>Ruby on Rails 5 has made a few improvements to the strong parameters code that we use in our controllers, you&rsquo;re going to want to beware of any code which treats the parameters as if it was a simple hash, because it&rsquo;s not going to be anymore. It&rsquo;s no longer going to inherit from <a href="http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html">HashWithIndiferentAccess</a>, as a fundamental class in Rails that allows us to access a hash, by providing either symbols or strings as the keys of the hash. Instead, our params are now going to be inheriting from a standalone parameters class.</p>
+
+<p>It&rsquo;s still going to have indifferent access, we can still access the values by using either symbols or strings, and also using the square bracket notation that you&rsquo;re used to.</p>
+
+<pre><code class="language-ruby">params[:page] = 1
+
+params[:page]
+# =&gt; 1
+
+params['page']
+# =&gt; 1
+
+</code></pre>
+
+<p>It&rsquo;s not a hash with indifferent access anymore. It&rsquo;s an object which has similar behaviors, let me show you a way in which it&rsquo;s not the same.</p>
+
+<p>In Rails 4, you might call slice on your params, in order to extract some of the key value pairs you wanted to work with, so <code>params.slice</code>`and then sort by and sort dir, will return back the key value pairs, and the values that correspond to them.</p>
+
+<pre><code class="language-ruby"># Rails 4
+params.slice(:sort_by, :sort_dir)
+# =&gt; {:sort_by =&gt; 'name', :sort_dir =&gt; 'asc'}
+</code></pre>
+
+<p>In Ruby on Rails 5, calling the same code, might return nothing to us:</p>
+
+<pre><code class="language-ruby"># Rails 5
+params.slice(:sort_by, :sort_dir)
+# =&gt; {}
+</code></pre>
+
+<p>Even if those values exist in the params, and the reason why, is because params has been made more secure. It&rsquo;s stronger now, we&rsquo;d already started that with strong params, it&rsquo;s carried over to the way that we interact with params inside our controllers as well, if we call <code>.class</code> on our params, we&rsquo;ll see the <code>ActionController::Parameters</code> class.</p>
+
+<pre><code class="language-ruby"># params is now a class, not a hash
+params.class
+# =&gt; ActionController::Parameters
+</code></pre>
+
+<p>In Ruby on Rails 5, if we wanna get access to that hash, then we have to either tell the params to convert it into a hash, using <code>to_unsafe_h</code>, and then slice those values</p>
+
+<pre><code class="language-ruby"># Rails 5
+params.to_unsafe_h.slice(:sort_by, :sort_dir)
+# =&gt; {:sort_by =&gt; 'name', :sort_dir =&gt; 'asc'}
+</code></pre>
+
+<p>Or we will have to permit the values and then we can work with them:</p>
+
+<pre><code class="language-ruby"># Rails 5, better technique
+params.permit([:sort_by, :sort_dir])
+params.slice(:sort_by, :sort_dir)
+# =&gt; {:sort_by =&gt; 'name', :sort_dir =&gt; 'asc'}
+</code></pre>
+
+<p>Permit is the same way that we normally work with strong parameters, so if we had already previously permitted them, for that purpose, then they&rsquo;ll be permitted here, but we need to make sure that they&rsquo;ve been permitted.</p>
+
+<p>If they&rsquo;re not permitted, we don&rsquo;t have access to them, the only other way is to use to <code>unsafe_h</code> and that&rsquo;s meant to sound scary. It&rsquo;s meant to let you know that you&rsquo;re leaving behind the security features that params has and you&rsquo;re working with a basic hash from then on.</p>
+
+<p>The example above is with <code>#slice</code>, but it&rsquo;s also true for <code>#except</code>, <code>#extract</code>, <code>#select</code>, <code>#reject</code>, <code>#merge</code>, <code>#transform_keys</code> and all of the exclamation point versions of those (eg. <code>#slice!</code>).</p>
+
+<p>They only work with permitted params, so you either need to permit the params first, or you need to convert the parameters object into an unsafe hash.</p>
+
+<p>There&rsquo;s another place that it makes a difference When you&rsquo;re comparing params against a hash.</p>
+
+<pre><code class="language-ruby"># in Rails 4
+hash = {:sort_by =&gt; 'name', :sort_dir =&gt; 'asc'}
+if(params == hash) { ... }
+</code></pre>
+
+<p>Before, you would just be comparing params against a hash, and you&rsquo;d be comparing two hashes to each other.</p>
+
+<p>But now, you&rsquo;re gonna be comparing an object against a hash, so the correct way to do that, is either take the hash and turn it into a similar parameters object or take the parameters and turn it into the unsafe hash, using the technique we saw earlier.</p>
+
+<pre><code class="language-ruby"># in Rails 5
+hash = {:sort_by =&gt; 'name', :sort_dir =&gt; 'asc'}
+obj = ActionController::Parameters#new(hash)
+if(params == obj) { ... }
+</code></pre>
+
+<p>The older version still works in 5.0, but you&rsquo;ll get a deprecation warning that starting in 5.1 you&rsquo;ll be required to do it the new way, so to summarize, in most cases, parameters still act like a hash, but we have to be careful now because there are some cases when they don&rsquo;t act just like a hash and these security features come into play.</p>
+
+<p>It&rsquo;s a small, but important change, that could break some of your older code.</p>
+
+<h3 id="enumerable-without">Enumerable#without</h3>
+
+<p>Ruby on Rails 5 adds a new method to Enumerable called without. Enumerable#without returns a copy of the enumerable, but without the elements that we&rsquo;ve passed in as arguments.</p>
+
+<p>Now, the enumerable is actually a module that&rsquo;s included in several other classes, such as array, and hash, so what we&rsquo;re really talking about is being able to use this without method on an array or a hash.</p>
+
+<p>So for example let&rsquo;s say we have an array, like fruit. In that array we have apple, plum, banana, and orange.</p>
+
+<pre><code class="language-ruby">fruit %w(apple plum banana orange)
+</code></pre>
+
+<p>We can call `<code>fruit.without</code> plum and orange and we&rsquo;ll get back an array that has apple and banana in it.</p>
+
+<pre><code class="language-ruby">fruit.without('plum', 'orange')
+#=&gt; ['apple', 'banana']
+</code></pre>
+
+<p>If we have a hash which has keys for a, b, c and d and then various numbers corresponding to those.</p>
+
+<pre><code class="language-ruby">hash = {:a =&gt; 27, :b =&gt; 34, :c =&gt; 56, :d =&gt; 4} 
+</code></pre>
+
+<p>then if we call a hash without b and c, we would get back a hash that contains the key value pairs for a and d.</p>
+
+<pre><code class="language-ruby">hash.without(:b, :c)
+#=&gt; {:a =&gt; 27, :d =&gt; 4}
+</code></pre>
+
+<p>This method is mostly just to give us a nicer way to do something we&rsquo;ve already been able to do before.</p>
+
+<p>For example, you could do it with reject:</p>
+
+<pre><code class="language-ruby">users.reject {|u| paid_users.include?(u)}
+</code></pre>
+
+<p>Or if you have two arrays, you could do it using subtraction, so I could have:</p>
+
+<pre><code class="language-ruby">users - paid_users
+
+users - [current_user]
+</code></pre>
+
+<p>But it can be a bit of hassle when you have only a single user because then you have to make an array in order to get the subtraction to work.</p>
+
+<p>Using without is cleaner and it clearly states what we&rsquo;re trying to achieve and as a bonus it works with arrays, with a list of arguments and with a single item. Without is a nice addition. It&rsquo;s easy to use and it makes your code clearer.</p>
+
+<pre><code class="language-ruby">users.without(paid_users)
+
+users.without(current_user)
+
+</code></pre>
+
+<p>For more information about <code>Enumerable#without</code> see the Ruby Enumerable#without <a href="http://api.rubyonrails.org/classes/Enumerable.html#method-i-without">documentation</a>.</p>
+
+<h3 id="enumerable-pluck">Enumerable#pluck</h3>
+
+<p>The new method on enumerable called pluck is similar to an existing <a href="http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pluck">method</a> on ActiveRecord called pluck.</p>
+
+<p>The way that works, is if we have a model, like user, we can ask it to pluck ID and the username and it will fire a new SQL query and pull back just those values, just the ID and the username and that&rsquo;s true, even if we&rsquo;ve already previously loaded this scope, it goes directly to the database in order to ask for those values. Now often, we want to write methods which operate either on arrays or scopes.</p>
+
+<p>They don&rsquo;t really care which one it is, they want to do the same thing on both of them, by adding this enumerable pluck method, it allows enumerables to pluck values in the same way that active record pluck does.</p>
+
+<p>Let see an example:</p>
+
+<p>Let&rsquo;s say that I have an array of users and inside that array I have three different hashes and inside the hashes, I have an ID and a username for each of the users.</p>
+
+<pre><code class="language-ruby">users = [
+    {:id =&gt; 21, :username =&gt; 'rails'},
+    {:id =&gt; 23, :username =&gt; 'django'},
+    {:id =&gt; 41, :username =&gt; 'nodejs'}
+]
+</code></pre>
+
+<p>If I call <code>users.pluck(:username)</code>, I&rsquo;ll get back an array that contains just those usernames.</p>
+
+<pre><code class="language-ruby">users.pluck(:username)
+# =&gt; ['rails', 'django', 'nodejs']
+</code></pre>
+
+<p>It will go through the array, it will iterate through each item and it will return back to me the value that corresponds to the key that I&rsquo;ve given it.</p>
+
+<p>If I ask it for two different keys, then it will give me an array of arrays.</p>
+
+<pre><code class="language-ruby">users.pluck(:username)
+# =&gt; [[21, 'rails'], [23, 'django'], [41, 'nodejs']]
+</code></pre>
+
+<p>You can see the first item in the array is 21, rails. That&rsquo;s the ID and the username, now where this comes in useful, is that in Rails 4, if we had users, now if we get a scope back, we get all our users, but then we wanted to also pluck the username from those users, we had to use pluck on ActiveRecord.</p>
+
+<pre><code class="language-ruby"># in Rails 4
+users = User.all
+# Sends SQL : SELECT * FROM users
+</code></pre>
+
+<p>And that would send new SQL and that was the only way to do it, even though we already had all these users loaded, if we wanted to use pluck, we had to go use ActiveRecord and send another query to the database.</p>
+
+<pre><code class="language-ruby"># in Rails 4
+User.pluck(:username)
+# Sends SQL : SELECT username FROM users
+
+# =&gt; ['rails', 'django', 'nodejs']
+</code></pre>
+
+<p>The other choice was to go through the users and do something like map, in order to get all these values back.</p>
+
+<p>In Rails 5, we don&rsquo;t have to go back to the database again. If we already have a scope loaded, so, for example, we have <code>users = User.all</code>.</p>
+
+<pre><code class="language-ruby"># in Rails 5
+users = User.all
+# Sends SQL : SELECT * FROM users
+</code></pre>
+
+<p>Well now, we can call pluck on that enumerable, on that array of objects and we can ask it for username.</p>
+
+<pre><code class="language-ruby"># in Rails 5
+User.pluck(:username)
+# No additional query needed!
+
+# =&gt; ['rails', 'django', 'nodejs']
+</code></pre>
+
+<p>And it doesn&rsquo;t fire off another SQL query, it does what we would expect, it goes into the users, it iterates through them and it returns the values that we&rsquo;re looking for.</p>
+
+<p>So now, we can call pluck on either an ActiveRecord object or on an array or a hash and it doesn&rsquo;t make any difference.</p>
+
+<p>It still returns back the values that we&rsquo;re looking for.</p>
+
+<p>For more information about <code>Enumerable#pluck</code> see the Ruby Enumerable#pluck <a href="http://api.rubyonrails.org/classes/Enumerable.html#method-i-pluck">documentation</a>.</p>
+
+<h3 id="arrayinquirer">ArrayInquirer</h3>
+
+<p>One of the major improvements the Rails 5 is the addition of the class ArrayInquirer.
+ArrayInquirer provides a convenient syntax for checking the contents of an array, it works a lot like StringInquirer.</p>
+
+<p>You may not have worked with StringInquirer before, so let me first demonstrate how that works.</p>
+
+<p>Let&rsquo;s say that we have a string, such as active. We can take that string and we can pass it as an argument to <code>ActiveSupport StringInquirer.new</code> to get back a StringInquirer object.</p>
+
+<pre><code class="language-ruby"># String Inquire example
+status = ActiveSupport::StringInquirer.new('active')
+</code></pre>
+
+<p>That object is going to work just like a string in almost every single case</p>
+
+<pre><code class="language-ruby">put status      # =&gt; 'active'
+</code></pre>
+
+<p>But it&rsquo;s gonna have one additional ability, which is that we can acquire about its contents and we can do that by using:</p>
+
+<pre><code class="language-ruby">status.active?     # =&gt; true
+</code></pre>
+
+<p>The StringInquirer will take whatever value we&rsquo;ve passed in before the question mark and compare it against the value of the string, so it returns true because active is in fact the value of the string.</p>
+
+<pre><code class="language-ruby">status.pending?     # =&gt; false
+</code></pre>
+
+<p>If I call status.pending?, it returns false, because the value of the string is not pending, so it&rsquo;s a little bit of a magic method name. Anything that would be put before that question mark is going to be compared against the value of the string.</p>
+
+<p>Rails actually uses this for <code>Rails.env</code>, so we have the ability to call<code>Rails.env.production?</code> and it returns true or false, depending on whether the value of the string set for the Rails environment is production or not, but it still works just like a string in every other way.</p>
+
+<pre><code class="language-ruby">Rails.env.production?   # =&gt; true
+puts Rails.env          # =&gt; 'production'
+</code></pre>
+
+<p>So now let&rsquo;s look at <a href="http://api.rubyonrails.org/classes/ActiveSupport/ArrayInquirer.html">ArrayInquirer</a>.
+Let&rsquo;s say that I just have a basic array and in that array I have three values: producer, director and actor.</p>
+
+<pre><code class="language-ruby"># ArrayInquirer example
+array = [:producer, :director, :actor]
+</code></pre>
+
+<p>I can turn this into an ArrayInquirer object in two different ways.</p>
+
+<p>The first, is that I can use that ActiveSupport ArrayInquirer new technique that we just saw with StringInquirer.</p>
+
+<pre><code class="language-ruby">roles = ActiveSupport::ArrayInquirer.new(array)
+roles.class # =&gt; ActiveSupport::ArrayInquirer
+</code></pre>
+
+<p>I take the array and I pass it in as an argument to ArrayInquirer new and then I set that to roles and I get back that ArrayInquirer object.</p>
+
+<p>Another easier, I think, way to do this, is to just call <code>.inquiry</code> on the array and it will return that ArrayInquirer object for you, It&rsquo;s a little shorter.</p>
+
+<pre><code class="language-ruby">roles = array.inquiry
+roles.class # =&gt; ActiveSupport::ArrayInquirer
+</code></pre>
+
+<p>In both cases, we get back an object that works like an array, except that it has these extra inquirer abilities added to it.</p>
+
+<p>So if I have roles, producer, director, actor and I add <code>.inquiry</code> to the end:</p>
+
+<pre><code class="language-ruby">roles = [:producer, :director, :actor].inquiry
+</code></pre>
+
+<p>Now I have the ability to inquire about the contents of that array.</p>
+
+<pre><code class="language-ruby">roles.producer? # =&gt; true
+roles.director? # =&gt; true
+roles.actor? # =&gt; true
+roles.writer? # =&gt; false
+</code></pre>
+
+<p><code>roles.producer?</code> returns true, so does <code>director?</code> and <code>actor?</code>, <code>writer?</code> returns false because writer is not inside the array.</p>
+
+<p>In addition to these single queries.
+We also have the ability to use any on it as well, so I can ask whether any of the values are equal to director or writer and I can do that using either symbols or using strings, it doesn&rsquo;t matter.</p>
+
+<pre><code class="language-ruby">roles.any(:director, :writer) # =&gt; true
+roles.any('director', 'writer') # =&gt; true
+</code></pre>
+
+<p>Both cases it returns true, because director is one of those values even though writer is not.</p>
+
+<p>If I were to ask it though, if roles contains writer or special effects.</p>
+
+<pre><code class="language-ruby">roles.any(:writer, :special_effects) # =&gt; false
+</code></pre>
+
+<p>It will returns false, because neither one of those values are inside my array.</p>
+
+<p>You&rsquo;re not going to want to do this to every single one of your arrays, but there are certain cases when it is gonna be convenient to be able to have a way to easily inquire about the contents of an array and in those cases this is gonna be a great tool to have.</p>
+
+<p>For more information about ArrayInquirer see the Ruby <code>ArrayInquirer</code><a href="http://api.rubyonrails.org/classes/ActiveSupport/ArrayInquirer.html">documentation</a>.</p>
+
+<h3 id="per-form-csrf-tokens">Per-Form CSRF tokens</h3>
+
+<p>Ruby on Rails already provides developers with easy to use tokens to guard against Cross-Site Request Forgery, or CSRF for short.</p>
+
+<p>In Ruby on Rails 5, these have been further strengthened using per-form CSRF tokens. Per-form CSRF tokens prevents a particular technique of form hijacking, it isn&rsquo;t easy to steal a CSRF token, but it is possible and a stolen CSRF token could permit fake forms to still be sent to the server and be considered as legitimate.</p>
+
+<p>By providing a unique CSRF token per-form, then a hacker who steals a token can only send that same form back to the application.CSRF tokens are only valid for the method and action for which they were generated.</p>
+
+<p>A newly created Ruby on Rails 5 app will add a file to the initializers which will set per-form CSRF tokens to be true, with the following code:</p>
+
+<pre><code class="language-ruby">config.action_controller.per_form_csrf_tokens
+</code></pre>
+
+<p>For upgraded applications or others apps which do not have that initializer in place, it&rsquo;s going to be set to false by default.</p>
+
+<p>It will keep the old behavior until you explicitly configure it to be true. So you can add that file to your initializers, or you can add this configuration to ActionController, or any controller, <code>per_form_csrf_tokens = true</code> and then you&rsquo;ll be using per-form tokens instead of using a more general token.</p>
+
+<p>It&rsquo;s an easy change to make, there&rsquo;s no reason that you shouldn&rsquo;t do it, and it increases the overall security of your Rails application.</p>
+
+<h3 id="belongs-to-requires-parent">belongs_to Requires Parent</h3>
+
+<p>There&rsquo;s an important change to the default settings for <code>belongs_to</code> in Ruby on Rails 5.</p>
+
+<p>Typically, when we work with <code>belongs_to</code> we would expect to save that child record to the database after we&rsquo;ve already saved the parent record to the database, That&rsquo;s usually the way it works.</p>
+
+<p>Starting in Ruby on Rails 5, that&rsquo;s going to be a requirement. The <code>belongs_to</code> is going to be required to have a parent by default, that&rsquo;s going to be a value that&rsquo;s controlled by a setting <code>belongs_to_required_by_default</code>.</p>
+
+<p>A newly generated Rails 5 app is going to have an initializer that sets this value to true.</p>
+
+<p>Older apps are going to keep the false setting by default if they don&rsquo;t have that configuration set, if you&rsquo;re upgrading, you&rsquo;ll need to opt in to the new behavior by providing that configuration in the initializers. If you opt into it, then what will happen is that anytime you add a <code>belongs_to</code> to a class, it&rsquo;s going to automatically add <code>validates_present_of</code>, the parent for you, you don&rsquo;t need to add it yourself, it&rsquo;s going to automatically do that for you.</p>
+
+<p>You used to be able to do that yourself by using the required option when you declared the <code>belongs_to</code>. Instead, because it&rsquo;s going to be <code>:required</code> by default, you should use the <code>:optional</code> option whenever it&rsquo;s not required by default.</p>
+
+<p>So you should stop using <code>:required</code> and let the default behavior kick in, you should use <code>:optional</code> if you don&rsquo;t want it to be the case.</p>
+
+<p>In the Rails 5 as I said, in most cases I think you&rsquo;re going to save the parent object before you save the child object because you&rsquo;re going to want that parent&rsquo;s ID to be able to relate it to the child.</p>
+
+<p>The one place I think this might cause a lot of pain for people is going to be in your tests because there may be times when in your test cases you&rsquo;re just saving an object to the database without a parent because you&rsquo;re just doing unit tests or something like that on it. You&rsquo;re going to need to be careful about those because now you&rsquo;re going to have that <code>validates_presence_of</code> <code>:parent</code> that can potentially keep the object from saving if it doesn&rsquo;t also have a parent.</p>
+
+<h2 id="deprecations-and-deletions">Deprecations and Deletions</h2>
+
+<p>Ruby on Rails 5 has many new features and improvements. But it&rsquo;s also going to remove a few features as well.</p>
+
+<h3 id="deprecated-filter-callbacks">Deprecated Filter Callbacks</h3>
+
+<p>Previously in your controllers you could use <code>before_filter</code>, <code>after_filter</code> and <code>around_filter</code>.</p>
+
+<p>Instead, now you want to use <code>before_action</code>, <code>after_action</code> and <code>around_action</code>. That&rsquo;s the accepted way to do these, so stop using the filter version and use the action version instead. That applies also to the variations on these, such as <code>append_before_filter</code>, <code>prepend_before_filter</code> and <code>skip_before_filter</code>. All of them have equivalents using the word action instead.</p>
+
+<p>So anywhere in your controllers where you have before filter, you want to change that to be before action instead.</p>
+
+<pre><code class="language-ruby">class ProductsController &lt; ApllicationController
+    #before_filter :confirm_logged_in   =&gt; DEPRECATED
+    before_action :confirm_logged_in #  =&gt; TO BE USED NOW
+    def index
+        @products = Product.all
+    end
+end
+</code></pre>
+
+<p>The new methods have been with us for a little while. They were introduced in Rails 4.2, but now the old ones are being deprecated and has been removed entirely in Rails 5.1.</p>
+
+<p>It&rsquo;s an easy change to make, so there&rsquo;s no reason not to update them all today.</p>
+
+<p>### Deprecated Render Nothing</p>
+
+<p>Another change in Ruby on Rails five is that render nothing has been deprecated.</p>
+
+<pre><code class="language-ruby">class ProductsController &lt; ApllicationController
+  
+    def index
+        if authorized_user
+            @products = Product.all
+            render('index')
+        else
+            render(:nothing =&gt; true)    
+        end
+    end
+end
+</code></pre>
+
+<p>The above example is what I&rsquo;m talking about. It was possible before in your controller to simply render nothing at times. So, for example, if we have an authorized user we would render a page to them, but otherwise, we might render nothing, I did that with <code>render(:nothing =&gt; true)</code>.</p>
+
+<p>When you do it this way, it&rsquo;s not actually rendering nothing. It&rsquo;s still sending an HTML header with the status code letting the browser know that the request was answered successfully.</p>
+
+<p>That&rsquo;s the effect that we probably want, but it isn&rsquo;t entirely clear from what you see in the code that that&rsquo;s what&rsquo;s happening and therefore, it&rsquo;s been decided that it&rsquo;s much better to use the head method, which returns an HTML header with whatever status code or options that you set, but which has an empty body.</p>
+
+<pre><code class="language-ruby">class ProductsController &lt; ApllicationController
+  
+    def index
+        if authorized_user
+            @products = Product.all
+            render('index')
+        else
+            head(:ok) #  =&gt; TO BE USED NOW
+        end
+    end
+end
+</code></pre>
+
+<p>They do the same thing, but the second one makes it clear what&rsquo;s happening. For this reason, using <code>render(:nothing =&gt; true)</code> in Rails 5 will still work, but you&rsquo;ll also get a deprecation warning in your logs or in the console and if you are using the Rails 5.1 version this won&rsquo;t work anymore.</p>
+
+<h3 id="moved-recordtaghelper-to-gem-https-github-com-rails-record-tag-helper">Moved RecordTagHelper to <a href="https://github.com/rails/record_tag_helper">Gem</a></h3>
+
+<p>The RecordTagHelper class has been moved to RubyGem. RecordTagHelper is made up, really of just two methods, those are <code>div_for</code> and <code>content_tag_for</code>.</p>
+
+<pre><code class="language-ruby">div_for(@person, :class =&gt; 'student')
+
+content_tag_for(:tr, @person) {...}
+</code></pre>
+
+<p>So those are no longer going to be available. What those did, was they took an object, like an Active Record object and they constructed a div or a content tag based on the attributes of that object.</p>
+
+<p>It&rsquo;s a feature that not a lot of people were using and so it was deemed better off in a Ruby gem than it is inside the Rails core.</p>
+
+<p>If you still want to use it, you can use the Ruby gem. All you have to do is add <code>record_tag_helper</code> to your gem file, run bundle install and then you&rsquo;ll have that same functionality available to you. But for everyone else, these methods are going to be removed.</p>
+
+<p>I do want to make a footnote here, which is that the <code>content_tag</code> method is still available, that&rsquo;s different than <code>content_tag_for</code>. <code>content_tag_for</code> was specifically about working with the attributes of an active record object and <code>content_tag</code> just helps you generate a basic content tag and it&rsquo;s still on the Rails core.</p>
+
+<h3 id="moved-xml-serialization-to-gem-https-github-com-rails-activemodel-serializers-xml">Moved XML serialization to <a href="https://github.com/rails/activemodel-serializers-xml">Gem</a></h3>
+
+<p>XML Serialization has been moved to a RubyGem.
+We&rsquo;re really talking about two main classes that have been moved: <code>ActiveModel::Serializers::Xml</code> and <code>ActiveRecord::Serialization::XmlSerializer</code> and there&rsquo;s also one method inside ActiveRecord Serialization which doesn&rsquo;t exist anymore, which is <code>ActiveRecord::Serialization#to_xml</code>. and that&rsquo;s the main way that you&rsquo;ve probably been using Serialization before.</p>
+
+<p>This code simply just isn&rsquo;t needed as part of the Rails core anymore and it&rsquo;s better to let folks who need it load it, and keep the core Rails lean for everyone else.</p>
+
+<p>And in truth, JSON has become a more popular way to perform serialization than XML, if you still need XML Serialization, then you just need to load the <a href="https://github.com/rails/activemodel-serializers-xml">RubyGem</a> into your gem file.</p>
+
+<p>You can do that by adding <code>activemodel-serializers.xml</code> and running <code>bundle install</code> and then you&rsquo;ll have that gem and all that functionality available to you.</p>
+
+<p>Now in case you&rsquo;re not clear on what this XML serialization is,let look a quick example:</p>
+
+<p>In Rails 4, you could take an active record object, like person, create a new instance of it, and then call to_xml on it, and you would get back XML.</p>
+
+<pre><code class="language-ruby"># Rails 4
+
+person = Person.new
+person.to_xml
+</code></pre>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;person&gt;
+    &lt;id&gt;379&lt;/id&gt;
+    &lt;first-name&gt;Kevin&lt;/first-name&gt;
+    &lt;last-name&gt;Skoglung&lt;/last-name&gt;
+&lt;/person&gt;
+</code></pre>
+
+<p>It was built off the attributes that were inside that object. You&rsquo;ve been working with XML or you&rsquo;re calling <code>to_xml</code> on any object, then you&rsquo;re going to want to pay close attention. Because removing these classes could break your code.</p>
+
+<h3 id="removed-responders">Removed Responders</h3>
+
+<p>The responders were previously deprecated, so this is a change that we should&rsquo;ve anticipated, but now they&rsquo;ve been completely removed and you&rsquo;ll want to be careful if you were using <code>ActionController#respond_with</code> or the class level version of <code>ActionController.respond_to</code> in your controllers.</p>
+
+<p>Those have now been removed from the Rails core, if you still want to use them, you can add them back in by loading a third-party <a href="https://github.com/plataformatec/responders">gem</a>. This is not an official Rails gem, but it is being maintained by a close and reliable source.To use it, just put responders into your gem file and run <code>bundle install</code>.</p>
+
+<p>Now if you aren&rsquo;t completely clear on what the responders did, let me give you a quick refresher:</p>
+
+<pre><code class="language-ruby">class UsersController &lt; ApplicationController
+    respond_to :html, :xml, :json
+
+    def index
+        @users = User.all
+        respond_with(@users)
+    end
+
+    def show
+        @user = User.find(params[:id])
+        respond_with(@user)
+    end
+end
+</code></pre>
+
+<p>In the above example we have a UsersController and you can see at the top I&rsquo;m calling <code>respond_to</code> followed by several different formats.</p>
+
+<p>These are the formats that I want to allow responding to, and if one of those formats comes in as a request, then the <code>respond_with</code> that&rsquo;s being called in the index and the show action, is going to attempt to respond with the appropriate format.</p>
+
+<p>It&rsquo;s going to first look for either a matching template, if it&rsquo;s available or if not, it&rsquo;s going to try and render the object using built-in serialization methods.</p>
+
+<p>Now it&rsquo;s decided that this approach keeps too much hidden and when depending on automatic serialization, it actually encourages developers to bury their code about the response into their models and not in the controllers and the views where it really belongs.</p>
+
+<p>So <code>respond_with</code> and class level <code>respond_to</code> are out.</p>
+
+<p>Notice that I keep saying class level <code>respond_to</code>, that&rsquo;s because you should not confuse it with the instance level <code>respond_to</code> which is still available for use.</p>
+
+<p>Let&rsquo;s take a look at that:</p>
+
+<pre><code class="language-ruby">class UsersController &lt; ApplicationController
+
+    def index
+        @users = User.all
+        respond_to do |format|
+            format.html
+            format.xml { render('users.xml')}
+            format.json { render('users.json')}
+        end
+    end
+end
+</code></pre>
+
+<p>In the above example we have another UsersController and in it I have my index action and I&rsquo;m calling <code>respond_to</code> inside the action, I&rsquo;m not calling it outside an action, that&rsquo;s the class level, I&rsquo;m calling it inside the action where it&rsquo;s an instance level call.</p>
+
+<p>I&rsquo;m calling <code>respond_to</code> and I&rsquo;m giving it a block and I&rsquo;m asking it to respond in different ways based on the format that was requested. It&rsquo;s a very similar idea.</p>
+
+<p>This version, though, is very much in use and it is the recommended way to respond in different formats. Unlike using <code>respond_with</code>, it keeps the rendering in the controller and the view where we can see it, makes it very clear what&rsquo;s happening.</p>
+
+<h3 id="other-deprecations-and-deletions">Other deprecations and deletions</h3>
+
+<p>Previsously, the doc showedd the most significant deprecations and deletions, the ones that are going to affect the most developers.
+There are also many smaller changes that will apply to fewer developers, but which can be critically important if you happen to have code which depends on it. Let&rsquo;s look at some of those changes:</p>
+
+<p>First, you should assume that any previously deprecated code has now been removed, that&rsquo;s the way software development works, we deprecate code before a major version comes out, let everyone know that things are gonna go away and then, when the major version is released, all that code gets pushed out, so we have a cleaner code base to work with, going forward.</p>
+
+<p>Two configurations that you may have left laying around in your config files are:</p>
+
+<ul>
+<li>ActiveRecord::Base.raise_in_transactional_callbacks</li>
+<li>Application::Configuration#serve_static_assets</li>
+</ul>
+
+<p>Both of these do nothing now and can be safely removed from <code>Application.rb</code>, if you have it there.</p>
+
+<p>Rails 5 also removed support for Debugger, that&rsquo;s in part because Ruby 2.2 no longer has support for Debugger. Instead, it uses <a href="https://github.com/deivid-rodriguez/byebug">Byebug</a> instead. So, if you&rsquo;ve been using the Debugger in the past, you&rsquo;ll wanna learn about the differences with Byebug.</p>
+
+<p>A few Rake tasks related to documentation has been removed: <code>rake doc:app</code>, <code>doc:rails</code> and <code>doc:guides</code> have all been removed.</p>
+
+<p>In ActionController, there are a few changes. They&rsquo;ve deprecated <code>redirect_to</code> when passing in the symbol <code>(:back)</code>. Instead, you should use <code>redirect_back</code>. They do very similar things, they just handle the refer slightly different.</p>
+
+<p>One important change is to make sure that all of your view templates have a handler extension at the end, such as <code>.erb</code>. Templates which don&rsquo;t have that handler extension on them no longer going to assume that it&rsquo;s an <code>.erb</code> file, like they did in the past.
+Now, they&rsquo;re going to generate it as a <code>.raw</code> type, which means that it&rsquo;s not going to process your <code>.erb</code> code in there, it&rsquo;s going to potentially expose it to the world and it&rsquo;s not going to bind your instance variables for processing inside those <code>.erb</code> tags anymore. So, you&rsquo;ll wanna make sure that all of those templates have <code>.erb</code> at the end.</p>
+
+<p>Another controller method, <code>skip_action_callback</code> has been deprecated and have been removed in Rails 5.1. You probably weren&rsquo;t using this one anyway. What you should use instead is <code>skip_before_action</code>, <code>skip_after_action</code> or <code>skip_around_action</code> instead. <code>skip_action_callback</code> has been deprecated in favor of using one of those.</p>
+
+<p>In ActiveRecord and ActiveRelation, you should no longer use <code>#unique</code> as a scope, instead, you should use <code>#distinct</code>. It was decided that unique was confusing because it sounds like it&rsquo;s doing something similar to what unique does when called on an array, but it&rsquo;s not exactly the same. It&rsquo;s really interfacing with the database and distinct is a better way to deal with that.</p>
+
+<p>All the code related to <code>serialized_attributes</code> has been removed, so you can&rsquo;t use that anymore and support for the gems <code>protected_attributes</code> and <code>activerecord-deprecated_finders</code> has also been removed.</p>
+
+<p>These are both features that used to exist in the core of Rails, but were moved off into their own gems for people who needed them. But there was some support required in the Rails codebase to still make those work. That support has now been removed, in order to make way for new changes, so unless something changes with those gems, they&rsquo;re not going to work anymore. Now, you might just check with those gems if you need them, because they may be able to make updates on their side that will make them work again with Rails 5, but the old code that they depended on is no longer in Rails 5.</p>
+
+<p>In ActionMailer, the <code>#deliver</code> and <code>#deliver!</code> methods are now gone, as well as the <code>ActionMailer</code> <code>*_path</code> helpers that used to be there.</p>
+
+<p>If you write tests for your applications, then you wanna pay particular attention to some changes to the controller tests, because the <code>assigns</code> and <code>assert_template</code> methods have been moved off into a gem. They&rsquo;re not deprecated they&rsquo;re removed completely and they&rsquo;re moved into a gem. If you need them again, then you&rsquo;ll need to load the Rails-controller-testing <a href="https://github.com/rails/rails-controller-testing">gem</a> in order to get that functionality back.</p>
+
+<p>It&rsquo;s likely to be a controversial change, because some people were using assigns to test that instance variables were being assigned in their controllers. But it was decided by the core team that that&rsquo;s not a best practice for how you test your controllers and therefore it&rsquo;s been moved to a gem.</p>
+
+<p>Also, <code>ActionController::TestCase#get</code> and <code>#post</code> have been deprecated, so if you were using <code>#get</code> and <code>#post</code> in order to load requests in ActionController, you should now use <code>#process</code> instead and then you provide <code>#process</code> with a method of either get or post.
+You can look up more information on how process works to see how to make that change.</p>
+
+<p>And, in fact, all of <code>ActionController</code> TestCase is being deprecated and has been moved into a separate gem in Rails 5.1, you should use <code>ActionDispatch::IntegrationTest</code> instead.</p>
+
+<hr />
+
+<p>The source code of this post is available on the link: <a href="https://github.com/coderade/rails-5-new-features">https://github.com/coderade/rails-5-new-features</a>.</p>
+
+<p>For more information about the changes on the Rails 5.0 release, look the Ruby on Rails 5.0 Release Notes <a href="http://guides.rubyonrails.org/5_0_release_notes.html">link</a>.</p>
+
+            <ul class="share-buttons">
+    <li>Share this article:</li>
+    <li>
+        <a class="icon-facebook-squared" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fcoderade.github.io%2fpost%2frails-5-new-features%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook"></a>
+    </li>
+    <li>
+        <a class="icon-twitter" href="https://twitter.com/share?text=Rails%205%20new%20features&amp;url=https%3a%2f%2fcoderade.github.io%2fpost%2frails-5-new-features%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Tweet this article"></a>
+    </li>
+    <li>
+        <a class="icon-gplus" href="https://plus.google.com/share?url=https%3a%2f%2fcoderade.github.io%2fpost%2frails-5-new-features%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google&#43;"></a>
+    </li>
+    <li>
+        <a class="icon-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcoderade.github.io%2fpost%2frails-5-new-features%2f&title=Rails%205%20new%20features" onclick="window.open(this.href, 'linkedin-share', 'width=600,height=494');return false;" title="Share on Linkedin"></a>
+    </li>
+</ul>
+
+        </article>
+        <div class="comments">
+            <h3>Comments</h3>
+            <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "spf13" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </main>
+    <aside class="author">
+  <img class="profile-image" src="https://coderade.github.io/img/profile-image.jpg" alt="Valdeci Gomes" />
+  <p class="name">by 
+  <strong>Valdeci Gomes</strong></p>
+  <p class="address">Curitiba, PR, Brazil</p>
+  <p class="link"></p>
+  <ul class="social">
+    
+<li><a href="//twitter.com/valdessai" class="icon-twitter" target="_blank" title="Twitter"></a></li>
+
+
+
+<li><a href="//facebook.com/valdessai" class="icon-facebook-squared" target="_blank" title="Facebook"></a></li>
+
+
+
+<li><a href="//linkedin.com/in/valdeci/en" class="icon-linkedin" target="_blank" title="Linkedin"></a></li>
+
+
+
+
+
+
+
+<li><a href="//instagram.com/valdessai" class="icon-instagram" target="_blank" title="Instagram"></a></li>
+
+
+
+<li><a href="//github.com/coderade" class="icon-github" target="_blank" title="Github"></a></li>
+
+
+
+
+<li><a href="https://coderade.github.io/post/index.xml" class="icon-rss" target="_blank" title="RSS"></a></li>
+
+  </ul>
+  <br><br>
+</aside>
+
+</div>
+
+<footer class="main-footer">
+  <div class="container clearfix">
+        <a class="icon-rss" href="https://coderade.github.io/post/index.xml" title="RSS"></a>
+        <p>&copy; 2017 &middot; Powered by <a href="http://gohugo.io">Hugo</a>.</p>
+  </div>
+</footer>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>window.jQuery || document.write('<script src="https:\/\/coderade.github.io\/js\/vendor\/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="https://coderade.github.io/js/plugins.js"></script>
+
+
+
+
+</body>
+</html>
+
