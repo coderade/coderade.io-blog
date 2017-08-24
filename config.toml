@@ -8,6 +8,7 @@ disqusShortname = "spf13"
 # Enable gogle analytics by entering your tracking code
 googleAnalytics = ""
 theme = "hugo-minimalist-theme"
+publishdir = "coderade.github.io"
 [params]
     site_author = "Valdeci Gomes"
     site_description = "The awesome blog of Valdeci Gomes, about code and lifehacks."
