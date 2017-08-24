@@ -14,10 +14,10 @@ theme = "hugo-minimalist-theme"
     location = "Curitiba, PR, Brazil"
     # Link custom assets relative to /static
     avatar = "img/profile-image.jpg"
-    header_background = "img/puralsight-bg.jpg
-    header_title = "Customizable header title"
+    header_background = "img/puralsight-bg.jpg"
+    header_title = "Coding, Life Hacks and tips in general"
     copyright = "Powered by [Hugo](http://gohugo.io)."
-    custom_css = []
+    custom_css = ["css/theme.css"]
     custom_js  = []
 
     # Enable gogle analytics by entering your tracking code
@@ -29,7 +29,7 @@ theme = "hugo-minimalist-theme"
     # create automatically.
     twitter   = "valdessai"
     facebook  = "valdessai"
-    linkedin  = "valdeci"
+    linkedin  = "valdeci/en"
     behance   = ""
     dribbble  = ""
     instagram = "valdessai"
