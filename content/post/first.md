@@ -26,8 +26,6 @@ development and I really loves what I do, especially when done in the right way.
 I born and raised on the seacoast of my state, So since I was a child I love the most sports and try to practice as much 
 of them as possible.
 
-I also like all kinds of music and girls too. Yeowtch!
-
 ### Contact
 
 If You like this blog, you can contact me by clicking one of these options in your upper left corner or underneath you 
