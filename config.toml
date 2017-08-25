@@ -1,6 +1,6 @@
 baseurl = "https://coderade.github.io/"
 languageCode = "en-us"
-title = "Coderade.io blog"
+title = "Coderade blog"
 # Define how many pages appear per site
 paginate = 10
 # Enable comments powered by Disqus by entering your disqus shortname

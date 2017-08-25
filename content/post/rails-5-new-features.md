@@ -6,6 +6,7 @@ title = "Rails 5 new features"
 
 
 On this post I will try to show the new features, improvements and other important changes to Ruby on Rails version 5. 
+
 I will try to show how to use the most important features of Rails 5, including Action Cable, Action Controller Renderer, Turbolinks, 
 the Active records, Attributes API and how to use Rails exclusively as a JSON API.
 
