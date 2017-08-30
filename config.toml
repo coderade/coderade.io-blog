@@ -11,7 +11,7 @@ theme = "hugo-minimalist-theme"
 publishdir = "coderade.github.io"
 [params]
     site_author = "Valdeci Gomes"
-    site_description = "The awesome blog of Valdeci Gomes, about code and lifehacks."
+    site_description = "The awesome blog of Valdeci Gomes, about code, technology and tips in general."
     location = "Curitiba, PR, Brazil"
     # Link custom assets relative to /static
     avatar = "img/profile-image.jpg"
