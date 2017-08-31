@@ -9,7 +9,7 @@ title = "ES5, ES6, ES7 and ES2015 and ES2016. Isn't it just all JS?"
 One of my biggest loves on the coding word is the JS (JavaScript) language. 
 
 I don't know why, but since I started to make simple code with JQuery and I started to research about the language under 
-your hood: I got the JS programming, so the first think that I did was thanked how the coding world can be really beautiful 
+your hood: I got the JS programming, so the first thing that I did was thanked how the coding world can be really beautiful 
 and simple with a language like the JavaScript.
 
 My second opportunity to work with JS was the [ExtJS](https://www.sencha.com/products/extjs/) framework, 
@@ -17,23 +17,24 @@ I didn't understand so much about coding at the time, but I really liked all abo
 that was very much like what React is today, this in 2013! 
 
 With the ExtJS I started to learn about Hybrid development with your mobile framework: Sencha Mobile (that now is 
-[Sencha Touch](https://www.sencha.com/products/touch/)). Instantaneously I liked the mobile development with JS  (that 
+[Sencha Touch](https://www.sencha.com/products/touch/)). Instantaneously I liked the mobile development with JS (that 
 were much, much simpler than developing with Java and Objective C) so I started to study the development with Cordova and 
-Phonegap (They are really the same! heheh). 
+Phonegap (They are really the same!). 
 
-My third opportunity was the Node.js development, when I saw what I did with the MEAN (Mongo, Express, Angular and Node) 
+My third opportunity was with the Node.js development, when I saw what I did with the MEAN (Mongo, Express, Angular and Node) 
 stack I put myself as a Steve Wosniak of the web development. This was my best moment as a developer. 
 
 You can see my first project with Node.js on your Github [link](https://github.com/coderade/mean-courses).
 
 After this I worked with AngularJS, LeafletJS, React, Turbolinks, Ionic, Karma, Protactor and many others JS technologies 
-and a thing who I got: This is the future of the Programming (no only the Web, but the Mobile and Desktop development too).
+and a thing who I got: This is the future of the Coding (no only the Web, but the Mobile and Desktop development too).
 
 So in my last and currently journey I come with the ES6 and functional programming, that for me is one of the best worlds.
 
-But you can be thinking why I need to know why you like the JS language? I need to understand better the differences 
-about the ESs'. I'm asking the same, but if you've read everything I've written so far, I can only thank you. 
-So thank you and let's get to what matters.
+But you can be thinking why I need to know why you like the JS language? I want to understand better the differences 
+about the ESs'. 
+Ok! I'm asking the same, but if you've read everything I've written so far, I can only thank you. So thank you and let's 
+get to what matters.
 
 
 ## ES5, ES6, ES7 why we need all this ESs?
