@@ -8,11 +8,11 @@ title = "ES5, ES6, ES7 and ES2015 and ES2016. Isn't it just all JS?"
 
 One of my biggest loves on the coding word is the JS (JavaScript) language. 
 
-I don't know why, but since I started to make simple code with JQuery and I started to research about the language under 
-your hood: I got the JS programming, so the first thing that I did was thanked how the coding world can be really beautiful 
-and simple with a language like the JavaScript.
+I don't know why, but since I started to make simple code with JQuery and to research about the language under 
+your hood and I got what is [JS](https://www.javascript.com/), the first thing that I did was thanked 
+how the coding world can be really beautiful and simple with a programming language like that.
 
-My second opportunity to work with JS was the [ExtJS](https://www.sencha.com/products/extjs/) framework, 
+So, my second opportunity to work with JS was the [ExtJS](https://www.sencha.com/products/extjs/) framework, 
 I didn't understand so much about coding at the time, but I really liked all about your Component paradigm of something 
 that was very much like what React is today, this in 2013! 
 
