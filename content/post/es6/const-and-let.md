@@ -1,7 +1,7 @@
 +++
 date = "2017-09-04T21:44:08+02:00"
 tags = []
-title = "var, const and let in ES6, when I use? We can Hoisting them?"
+title = "var, const and let in ES6, when I use? They can be hoisted?"
 +++
 
 Perhaps the most recognizable addition to the JavaScript language was that of const and let. 
