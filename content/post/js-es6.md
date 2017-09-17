@@ -12,7 +12,7 @@ I don't know why, but since I started to make simple code with JQuery and to res
 your hood and I got what is [JS](https://www.javascript.com/), the first thing that I did was thanked 
 how the coding world can be really beautiful and simple with a programming language like that.
 
-So, my second opportunity to work with JS was the [ExtJS](https://www.sencha.com/products/extjs/) framework, 
+Then, my second opportunity to work with JS was the [ExtJS](https://www.sencha.com/products/extjs/) framework, 
 I didn't understand so much about coding at the time, but I really liked all about your Component paradigm of something 
 that was very much like what React is today, this in 2013! 
 
@@ -21,13 +21,15 @@ With the ExtJS I started to learn about Hybrid development with your mobile fram
 were much, much simpler than developing with Java and Objective C) so I started to study the development with Cordova and 
 Phonegap (They are really the same!). 
 
-My third opportunity was with the Node.js development, when I saw what I did with the MEAN (Mongo, Express, Angular and Node) 
-stack I put myself as a Steve Wosniak of the web development. This was my best moment as a developer. 
+My third opportunity to work with JS was with the Node.js development. When I saw what I did with the MEAN 
+(Mongo, Express, Angular and Node) stack I put myself as a Steve Wosniak of the web development. 
+This was my best moment as a developer. 
 
 You can see my first project with Node.js on your Github [link](https://github.com/coderade/mean-courses).
 
-After this I worked with AngularJS, LeafletJS, React, Turbolinks, Ionic, Karma, Protactor and many others JS technologies 
-and a thing who I got: This is the future of the Coding (no only the Web, but the Mobile and Desktop development too).
+After this I worked with AngularJS, LeafletJS, React, Turbolinks, Ionic, Karma, Protactor, React and React Native
+and many others JS technologies and a thing that I got: This is the future of the Coding
+ (no only the Web, but the Mobile and Desktop development too).
 
 So in my last and currently journey I come with the ES6 and functional programming, that for me is one of the best worlds.
 
@@ -51,11 +53,12 @@ the standardized specifications for JavaScript is called the European Computer M
 and people who make browsers what is and isn't really JavaScript.
  
 Now, JavaScript was originally written back in 1997, and since then ECMA has been updated seven different times, 
-and each of those editions has been known as ES1, ES2, all the way to ES6, which actually the people at ECMA decided to later 
-rename to ES2015 with the hope that new editions would be released yearly, and that those editions would be identified by their year.
+and each of those editions has been known as ES1, ES2, all the way to ES6, which actually the people at ECMA decided to 
+later rename to ES2015 with the hope that new editions would be released yearly, and that those editions would be 
+identified by their year.
 
-On this blog, I'll try to review a number of pieces of syntax that were actually released in ES5 or ES2015, but because of 
-the convention of the way people say it are often referred to as being a part of ES2016 or ES7.
+On this blog, I'll try to review a number of pieces of syntax that were actually released in ES5 or ES2015, but because 
+of the convention of the way people say it are often referred to as being a part of ES2016 or ES7.
 
 If you read all this post, we can read another ones? Right? 
 So many thanks and I see you soon!
