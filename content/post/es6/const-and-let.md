@@ -2,6 +2,8 @@
 date = "2017-09-04T21:44:08+02:00"
 tags = []
 title = "var, const and let in ES6, when I use? They can be hoisted?"
+description = "Perhaps the most recognizable addition to the JavaScript language was that of const and let. 
+               Two new key words that allow us to declare variables, which behave differently than var. "
 +++
 
 Perhaps the most recognizable addition to the JavaScript language was that of const and let. 
@@ -125,7 +127,7 @@ Interestingly, we see that we're not getting an error here but the same warning 
 So it's allowed us to reassign a let before it was declared and it's also hoisted the variable, just like with var.     
 
 
-Now, remember that on the chart on the begin of the post said that const and let, that neither of them were hoisted. 
+Now, remember that on the chart on the begin of the artivle said that const and let, that neither of them were hoisted. 
 Well, it seems like let got hoisted here. 
 
 That's because I'm testing inside a function that's being run inside a module, 

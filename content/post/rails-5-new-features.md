@@ -2,10 +2,11 @@
 date = "2016-08-29T13:47:08+02:00"
 tags = []
 title = "Rails 5 new features"
+description="Article that shows the new features, improvements and other important changes to Ruby on Rails version 5."
 +++
 
 
-On this post I will try to show the new features, improvements and other important changes to Ruby on Rails version 5. 
+On this article I will try to show the new features, improvements and other important changes to Ruby on Rails version 5. 
 
 I will try to show how to use the most important features of Rails 5, including Action Cable, Action Controller Renderer, Turbolinks, 
 the Active records, Attributes API and how to use Rails exclusively as a JSON API.
@@ -1794,6 +1795,6 @@ You can look up more information on how process works to see how to make that ch
 And, in fact, all of `ActionController` TestCase is being deprecated and has been moved into a separate gem in Rails 5.1, you should use `ActionDispatch::IntegrationTest` instead.
 
 ---
-The source code of this post is available on the link: https://github.com/coderade/rails-5-new-features.
+The source code of this article is available on the link: https://github.com/coderade/rails-5-new-features.
 
 For more information about the changes on the Rails 5.0 release, look the Ruby on Rails 5.0 Release Notes [link](http://guides.rubyonrails.org/5_0_release_notes.html).

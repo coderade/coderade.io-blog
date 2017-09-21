@@ -2,6 +2,7 @@
 date = "2016-08-28T13:47:08+02:00"
 tags = []
 title = "Hi there!"
+description = "About the coderade.github.io blog" 
 +++
 
 Hi there.

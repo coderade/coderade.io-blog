@@ -2,9 +2,10 @@
 date = "2017-09-14T21:44:08+02:00"
 tags = []
 title = "ES6 Arrow Functions"
+description = "Arrow functions are another notable addition that came with ES5ajd are available here in ES2016."
 +++
 
-Arrow functions are another notable addition that came with ES5, and are available here in ES2016. 
+Arrow functions are another notable addition that came with ES5 and are available here in ES2016. 
 They are useful for two essential reasons: the first is that they reduce boilerplate and are more succinct and 
 the second thing is that they allow us to preserve the context of the wrapping function. 
 
@@ -31,7 +32,7 @@ withACallBack('so long', function(options) {
    
 On the above example, I call withACallBack, say "so long" as the option and then I just declare an anonymous function 
 and insert it here as the second argument and in this case, I am doing it the old fashioned way, I'm saying function,
-options, and then returning our options.
+options and then returning our options.
 
 On the next example, I'm using an arrow function. You can see already that it's a bit more concise, we didn't have to write 
 functions but fundamentally these are pretty much the same thing.
@@ -79,7 +80,7 @@ at the `this` of store.
 
 
 So, don't just take my word for it, let's console log these and we'll go into the browser and see what happens. 
-I'll save my file and I'll navigate to the browser, and I'll refresh the page. 
+I'll save my file and I'll navigate to the browser and I'll refresh the page. 
 
 ![](/images/posts/es6/arrow-functions/undefined-error.png)
 

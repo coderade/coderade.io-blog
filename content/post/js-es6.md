@@ -2,6 +2,9 @@
 date = "2017-08-29T21:44:08+02:00"
 tags = []
 title = "ES5, ES6, ES7 and ES2015 and ES2016. Isn't it just all JS?"
+description= "On this article I want to take a second to clear up some confusion around the terms ES5, ES6, ES7, and ES2015 and ES2016. 
+Why do people keep saying ES6 and seven, but then what's ECMAScript 2016? Aren't we all writing JavaScript? 
+Isn't it just all JavaScript? So what is it?"
 +++
 
 ## JS, Why we love you?
@@ -41,7 +44,7 @@ get to what matters.
 
 ## ES5, ES6, ES7 why we need all this ESs?
 
-On this post I want to take a second to clear up some confusion around the terms ES5, ES6, ES7, and ES2015 and ES2016. 
+On this article I want to take a second to clear up some confusion around the terms ES5, ES6, ES7, and ES2015 and ES2016. 
 Why do people keep saying ES6 and seven, but then what's ECMAScript 2016? Aren't we all writing JavaScript? 
 Isn't it just all JavaScript? So what is it? 
 
@@ -60,5 +63,5 @@ identified by their year.
 On this blog, I'll try to review a number of pieces of syntax that were actually released in ES5 or ES2015, but because 
 of the convention of the way people say it are often referred to as being a part of ES2016 or ES7.
 
-If you read all this post, we can read another ones? Right? 
+If you read all this article, we can read another ones? Right? 
 So many thanks and I see you soon!

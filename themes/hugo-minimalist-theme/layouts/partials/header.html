@@ -3,10 +3,22 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ if .IsNode}}{{ .Title }} &middot; {{end}}{{ .Site.Title }}</title>
-        <meta name="author">
-        <meta name="description" content="{{ .Site.Params.site_description }}">
+        <title>{{ if .IsHome}}Home{{else}}{{ .Page.Title }}{{end}} - {{ .Site.Title }}</title>
+        <meta name="author" content="Valdeci Gomes <valdeci@outlook.com>">
+        <meta name="description" content="{{ if .IsPage}}{{.Params.description}}{{else}}{{ .Site.Title }} - Homepage{{end}}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta property="og:locale" content="en_US">
+        <meta property="og:url" content="{{ .Permalink }}">
+        <meta property="og:title" content="{{ if .IsHome}}Home{{else}}{{ .Page.Title }}{{end}} - {{ .Site.Title }}">
+        <meta property="og:site_name" content="coderade.github.com">
+        <meta property="og:type" content="article" />
+        <meta property="og:description" content="{{ if .IsPage}}{{.Params.description}}{{else}}{{ .Site.Title }} - Homepage{{end}}">
+        <meta property="og:image" content="{{.Permalink}}img/puralsight-bg.jpg">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="800">
+        <meta property="og:image:height" content="600">
+
         {{ .Hugo.Generator }}
         <link href="{{ "post/index.xml" | absURL }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
         <link href="{{ "post/index.xml" | absURL }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />

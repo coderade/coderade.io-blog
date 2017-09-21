@@ -2,6 +2,7 @@
 date = "2017-09-17T21:44:08+02:00"
 tags = []
 title = "ES6 Destructuring assignments"
+description= "Article that explains how to use Destructuring assignments in ES6"
 +++
 
 In this article I'am going to talk about Destructuring assignments in ES6. 
