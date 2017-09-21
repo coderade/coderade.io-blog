@@ -6,7 +6,7 @@ paginate = 10
 # Enable comments powered by Disqus by entering your disqus shortname
 disqusShortname = "coderade"
 # Enable gogle analytics by entering your tracking code
-googleAnalytics = ""
+googleAnalytics = "UA-106618202-1"
 theme = "hugo-minimalist-theme"
 publishdir = "coderade.github.io"
 [params]
