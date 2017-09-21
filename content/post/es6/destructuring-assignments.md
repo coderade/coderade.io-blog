@@ -115,7 +115,7 @@ let [eventIdx0, , , eventIdx3] = festivals;
 So, I can access those variables as these variable names, Rather than use: `festivals[0]` as we normally do with arrays:
 
 ```
-console.log(eventIdx1);    //"Coachella"
+console.log(eventIdx0);    //"Coachella"
 console.log(eventIdx3);    //"Ultra Music Festival"
 ```
 
