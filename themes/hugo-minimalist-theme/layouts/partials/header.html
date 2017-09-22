@@ -14,7 +14,7 @@
         <meta property="og:site_name" content="coderade.github.com">
         <meta property="og:type" content="article" />
         <meta property="og:description" content="{{ if .IsPage}}{{.Params.description}}{{else}}{{ .Site.Title }} - Homepage{{end}}">
-        <meta property="og:image" content="https://coderade.github.io/img/puralsight-bg.jpg">
+        <meta property="og:image" content="https://coderade.github.io/{{if .Params.meta_image}}{{.Params.meta_image}}{{else}}{{ .Site.Title }}img/puralsight-bg.jpg{{end}}">
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:image:width" content="800">
         <meta property="og:image:height" content="600">
