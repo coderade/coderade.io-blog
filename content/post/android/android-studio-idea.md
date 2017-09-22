@@ -10,15 +10,16 @@ meta_image = "images/posts/android/android-studio-idea/android-studio.png"
 
 I personally love the JetBrains tools. 
 
-When I started to code with the Eclipse, Netbeans, ADT tool for Eclipse, Text editors and others tools, I thought to myself:
+When I started to code with the Eclipse, Netbeans, ADT tool (For android development on Eclipse), Text editors and others tools, 
+I thought to myself:
 
 > "The development with these tools is pretty cool, but the tolls are very far from being awesome, can they be better?"
 
-So, after some time with a hard time with these above tools I had the opportunity to try Intellij Idea working with Java 
+So, after some time with a hard time with these tools I had the opportunity to try Intellij Idea working with Java 
 development.
  
-I must be honest to say that at first I found the IDEA IDE a little complicated, but because it was seemed to be years apart 
-from everything that had worked with and when I got how to work with this tool, I really loved everything on it.
+I must be honest to say that at first, I found the IDEA IDE a little complicated, but because it was seemed to be years apart 
+from everything that had worked with. When I got how to work with this tool, I really loved everything on it.
 
 Now, after some time working with code, I already worked with almost all Jetbrains' technologies like PyCharm, RubyMine, 
 Webstorm, PHPStorm, Datagrip Youtrack and so on, and I really loved all of them.
