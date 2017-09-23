@@ -1,6 +1,7 @@
 +++
 date = "2016-12-12T13:47:08+02:00"
-tags = []
+tags = ["android", "idea", "mobile"]
+categories = ["android"]
 title = "Android Studio and IntelliJ IDEA"
 description = "Why these two different versions of the Jetbrains tools are awesome?" 
 meta_image = "images/posts/android/android-studio-idea/android-studio.png"
@@ -22,7 +23,7 @@ I must be honest to say that at first, I found the IDEA IDE a little complicated
 from everything that had worked with. When I got how to work with this tool, I really loved everything on it.
 
 Now, after some time working with code, I already worked with almost all Jetbrains' technologies like PyCharm, RubyMine, 
-Webstorm, PHPStorm, Datagrip Youtrack and so on, and I really loved all of them.
+WebStorm, PHPStorm, DataGrip, YouTrack and so on and I really loved all of them.
 
 On this article I will talk a little about the Android Studio IDE and Intellij IDEA platform.
 

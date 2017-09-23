@@ -1,6 +1,6 @@
 +++
 date = "2017-09-04T21:44:08+02:00"
-tags = []
+tags = ["es6", "web", "js"]
 title = "var, const and let in ES6, when I use? They can be hoisted?"
 description = "Perhaps the most recognizable addition to the JavaScript language was that of const and let. Two new key words that allow us to declare variables, which behave differently than var. "
 +++

@@ -19,15 +19,16 @@ my posts with Markdown ❤️.
 
 ## About me
 
-I am a Software Developer from Curitiba - BR focused on open-source technologies, with a very special love for JS and Ruby on Rails.
+I am a Software Developer from Curitiba - BR focused on open-source technologies, with a very special love for JS, Android
+and Ruby on Rails.
 
-Arch Linux user (Using Manjaro now ;)) and Java Certificated Developer, I have four years of experience with Web and Mobile 
-development and I really loves what I do, especially when done in the right way.
+Arch Linux user (Using [manjaro](https://manjaro.org/) now ;)) and Java Certificated Developer, I have five years of experience 
+with Web and Mobile development and I really loves what I do, especially when done in the right way.
 
 I born and raised on the seacoast of my state, So since I was a child I love the most sports and try to practice as much 
 of them as possible.
 
-### Contact
+## Contact
 
 If You like this blog, you can contact me by clicking one of these options in your upper left corner or underneath you 
 if you are on the mobile.

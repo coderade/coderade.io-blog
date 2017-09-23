@@ -1,6 +1,6 @@
 +++
 date = "2016-08-29T13:47:08+02:00"
-tags = []
+tags = ["ruby", "rails", "web"]
 title = "Rails 5 new features"
 description="Article that shows the new features, improvements and other important changes to Ruby on Rails version 5."
 +++

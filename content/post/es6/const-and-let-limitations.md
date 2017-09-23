@@ -1,6 +1,6 @@
 +++
 date = "2017-09-10T21:44:08+02:00"
-tags = []
+tags = ["es6", "web", "js"]
 title = "ES6 - Limitations of using const and let"
 description = "One of the main things that we need to understand about const and let: is that const, is a constant, so, it's not going to change and let is something that might change, it could change" 
 +++

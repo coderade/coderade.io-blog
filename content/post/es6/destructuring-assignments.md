@@ -1,6 +1,6 @@
 +++
 date = "2017-09-17T21:44:08+02:00"
-tags = []
+tags = ["es6", "web", "js"]
 title = "ES6 Destructuring assignments"
 description= "Article that explains how to use Destructuring assignments in ES6"
 +++
