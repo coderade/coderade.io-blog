@@ -1,7 +1,6 @@
 +++
 date = "2017-09-14T21:44:08+02:00"
 tags = ["es6", "web", "js"]
-menu: "main"
 title = "ES6 Arrow Functions"
 description = "Arrow functions are another notable addition that came with ES5 and are available here in ES2016."
 +++
