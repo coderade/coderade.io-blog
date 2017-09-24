@@ -6,6 +6,7 @@ paginate = 10
 enableemoji = true
 # Enable comments powered by Disqus by entering your disqus shortname
 disqusShortname = "coderade"
+hrefTargetBlank = true
 # Enable gogle analytics by entering your tracking code
 googleAnalytics = "UA-106618202-1"
 theme = "hugo-minimalist-theme"
@@ -37,3 +38,6 @@ publishdir = "coderade.github.io"
     instagram = "valdessai"
     github    = "coderade"
     gplus     = ""
+
+[blackfriday]
+  hrefTargetBlank = true
