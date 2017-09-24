@@ -22,23 +22,23 @@ you can shrink down that APK.
 
 ![](/images/posts/android/inspecting-apk-files-after-packaging/app.png)
 
-I'll show you how to use this with an existing project that is available on my
+I'll show you how to use the Apk Analyzer tool with an existing project that is available on my
 [GitHub](https://github.com/coderade/CoffeeMenuSample), where you can clone or
 download and try to follow the below steps on your own Android Studio.
 
 The application uses a RecyclerView to display a list of data. Each data item is
-associated with an image file. And when you click on the item, you see the image
+associated with an image file and when you click on the item, you see the image
 file in a larger size.
 
 Now in order to accomplish this, all of those image files are actually being
 packaged with the application.
 
-I'll open my Android Studio and from the welcome screen, I'll open the CoffeeMenuSample
+I'll open my Android Studio and from the welcome screen and open the CoffeeMenuSample
 project which you can download on the above
 [link](https://github.com/coderade/CoffeeMenuSample).
 
 Then, I'll go to my Project window to the application and then to the assets directory
-and you'll see a whole bunch of JPG files, as we can see on the below image.
+and we'll see a whole bunch of JPG files, as we can see on the below image.
 
 ![](/images/posts/android/inspecting-apk-files-after-packaging/assets-folder-coffeemenusample.png)
 
@@ -51,7 +51,7 @@ Now I'm going to build an APK file. I'll go to the menu and choose Build, Build 
 
 ![](/images/posts/android/inspecting-apk-files-after-packaging/build-apk.png)
 
-That creates a debugged version of the application.
+That will creates a debugged version of the application.
 
 I'll click on Show in Explorer when the notification appears and that shows me
 the location of the APK file.
@@ -59,7 +59,7 @@ the location of the APK file.
 
 ## Analyzing the APK file
 
-Now that we created the .apk file we can use the APK Analyzer.
+Now that we created the .apk file, we can use the APK Analyzer.
 
 First, we need to stop the application if it's running and then go to the menu
 and choose Build, Analyze APK.
@@ -81,6 +81,13 @@ me the sizes of the actual files.
 
 ![](/images/posts/android/inspecting-apk-files-after-packaging/assets-apk-analyzer.png)
 
+As there is many images with the JPG extension, for this example we could convert
+these images to [WebP](https://developer.android.com/studio/write/convert-webp.html)
+files.
+
+WebP files are smaller than JPGs or PNGs, and like PNGs, they support transparency,
+but I think that this kind of information may stick to an upcoming article,
+so we wont' mix up the things.
 
 ### **Checking the .dex file information**
 
@@ -94,7 +101,7 @@ The dex file is broken down by Java package and it includes Java code not just
 for your custom application but for all of the libraries that your application
 depends on.
 
-And this includes a lot of code from the core Java RunTime.
+And this includes a lot of code from the core Java Runtime.
 To find your own files for the project, you can go to your package.
 
 For this example, mine starts with `com.coderade.android` and I'll drill down until I see
