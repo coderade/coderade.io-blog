@@ -1,5 +1,5 @@
 +++
-date = "2017-09-22T13:47:08+02:00"
+date = "2017-09-24T13:47:08+02:00"
 tags = ["android", "mobile"]
 categories = ["android"]
 title = "Converting graphic files to WebP format on Android Studio 2.3"
