@@ -237,7 +237,7 @@ I'll select that and when I'm prompted:
 
 I'll say No, I want to keep both versions of the file.
 
-So now we can compare the PNG and a WebP files:
+Now, we can compare the PNG and a WebP files:
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/webp-png-comparison.png)
 
