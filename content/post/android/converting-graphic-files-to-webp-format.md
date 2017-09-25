@@ -242,10 +242,12 @@ Now, we can compare the PNG and a WebP files:
 ![](/images/posts/android/converting-graphic-files-to-webp-format/webp-png-comparison.png)
 
 We can look on the on the png file and it shows that it is now 1.19M and if we check
-the WebP file it shows that it's less than 60K. So that's a massive difference.
+the WebP file it shows that it's less than 60K. That's a massive difference.
 
-So, as we can see on this article, using WebP graphic files instead of JPG or PNG
+As we can see on this article, using WebP graphic files instead of JPG or PNG
 files can help you dramatically shrink the size of your Android package application.
+So, whenever possible it's a good idea to use this format as the standard graphical
+format for your app.
 
 Many thanks for your reading and please take a look at the other blog posts when you
 have a time.
