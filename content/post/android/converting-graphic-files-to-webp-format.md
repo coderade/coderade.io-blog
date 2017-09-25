@@ -31,7 +31,7 @@ same project that I used on my previous article and also is available on my GitH
 
 It displays a list of data in a recycler view and each data item is associated
 with an image file.
-And, as my [previous](/post/android/inspecting-apk-files-after-packaging)
+And like my [previous](/post/android/inspecting-apk-files-after-packaging)
 article, when I demonstrated the APK Analyzer tool, I found that my largest space
 usage in the APK was from those image files.
 
