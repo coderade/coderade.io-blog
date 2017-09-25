@@ -7,11 +7,11 @@ description = "Using WebP graphic files instead of JPG or PNG files can help you
 meta_image = "images/posts/android/converting-graphic-files-to-webp-format/webp-png-comparison.png"
 +++
 
-For all who do not know the webP format android has supported this image format
+For all who don't know the webP format, Android has supported this image format
 for many years.
 
 As I said on my [previous](/post/android/inspecting-apk-files-after-packaging)
-article the WebP files are smaller than JPGs or PNGs and like PNGs, they support transparency.
+article: the WebP files are smaller than JPGs or PNGs and like PNGs, they support transparency.
 But creating them files has always been a bit of a chore.
 
 Now, with Android Studio 2.3, you can convert your existing graphical files into
@@ -25,7 +25,7 @@ several quality improvements across the IDE
 [comparing](https://android-developers.googleblog.com/2017/03/android-studio-2-3.html)
 with older versions.
 
-For this article I'll work in a version of my project called
+For this article, I'll work in a version of my project called
 [CoffeeMenuSample](https://github.com/coderade/CoffeeMenuSample). This is the
 same project that I used on my previous article and also is available on my GitHub.
 
@@ -39,18 +39,18 @@ usage in the APK was from those image files.
 
 I'll show you first how to convert a single image file to WebP.
 
-And I'll do that with the JPG file that's in the drawable resource directory on
+I'll do that with the JPG file that's in the drawable resource directory on
 my project.
 
 So, with the Android Studio running (of course :sweat_smile:), I'm going to right
 click on that JPG file and choose Find Usages (CTRL + F7 on Linux/Windows,
-  CMD + F7 on Mac) and I find a reference to the JPG file
-  here in the `activity_detail.xml` file.
+  CMD + F7 on Mac) and I find a reference to the JPG file that is in the `activity_detail.xml`
+  file.
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/webp-activity_xml-context.png)
 
 On the Design tab for this file, I'll resize that to fit the screen and then
-shrink down that window so it gets a little bit bigger so we can see what the
+shrink down that window so it gets a little bit bigger so we can see how the
 image looks like:
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/design-tab-activity-detail-xml.png)
@@ -85,11 +85,11 @@ and the new file that's going to be created on the right:
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/webp-preview-ajust-window.png)
 
-And to my eye they look pretty much the same. I can move this slider to the left
+And to my eye they look pretty much the same. We can move this slider to the left
 to reduce the image quality and the difference between the images will be shown
 in the center.
 
-I'll move it back to the default of 75% and then I'll click finish.
+For this example I'll keep the default of 75% and then I'll click finish.
 
 Then, there's the result. My Android Studio Event log logged the message:
 
@@ -98,13 +98,13 @@ Then, there's the result. My Android Studio Event log logged the message:
 showing that the image size has been reduced to a very considerable size. (In this
 case I saved 507.8 KB :open_mouth:)
 
-My WebP file has been created and if I look in my design environment and again,
+The WebP file has been created and if we look in the design environment again,
 it looks pretty much the same:
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/webp-image-converted.png)
 
 Now that we learned how to convert the images to a webP format and the result has
-been approved (and At least on my side), we can do now a mass conversion.
+been approved (at least on my side), we can do now a mass conversion.
 
 ## Doing a mass conversion of image files to WebP
 
@@ -113,7 +113,7 @@ I will click on the first, held down the shift key and click on the last.
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/selecting-all-assets-files.png)
 
-Then, once again, I'll right click and choose Convert to WebP and I'll accept
+Then, once again, I'll right click and choose Convert to WebP, accept
 all the default settings and click OK.
 
 
@@ -168,7 +168,7 @@ static {
     }
 ```
 
-Before I deploy the application, I'll go back to the device and I'll uninstall
+Before I deploy the application, we need to go back to the device and uninstall
 the application.
 
 In this way we are making sure I'm starting with a fresh data set.
@@ -194,7 +194,7 @@ Android Studio, please check my previous article:
 [Inspect APK files with the APK Analyzer on Android Studio](/post/android/inspecting-apk-files-after-packaging).
 
 To do this analysis, I'll choose Build and then Build APK on the Android Studio
-menu.
+menu. This will create a new APK for the app.
 
 Then, once again, I'll choose Build, Analyze APK, and I'll choose my old APK
 which I had created in my previous article, before the jpgs file conversion to webP files.
@@ -221,20 +221,23 @@ conversion we can make a significant difference.
 
 ## Converting the webP files back to a PNG format
 
-Finally, you need to understand how you can return to a more conventional graphic
-format if you want to do that.
+Finally, we need to understand how you can return to a more conventional graphic
+format if we want to do that.
 
 I'll go back to Android Studio and I'll choose the WebP file in my resources
 directory.
 
-I'll right click on it and now the menu choice says Convert to PNG.
+I'll right click on it and now the menu choice says: `Convert to PNG`.
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/convert-webp-to-png.png)
 
-I'll select that and when I'm prompted, I'll say No, I want to keep both versions
-of the file.
+I'll select that and when I'm prompted:
 
-So now I can compare the PNG and a WebP file:
+![](/images/posts/android/converting-graphic-files-to-webp-format/keep-files-AS-png.png)
+
+I'll say No, I want to keep both versions of the file.
+
+So now we can compare the PNG and a WebP files:
 
 ![](/images/posts/android/converting-graphic-files-to-webp-format/webp-png-comparison.png)
 
