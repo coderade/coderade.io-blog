@@ -249,5 +249,5 @@ files can help you dramatically shrink the size of your Android package applicat
 So, whenever possible it's a good idea to use this format as the standard graphical
 format for your app.
 
-Many thanks for your reading and please take a look at the other blog posts when you
+Thanks for your reading and please take a look at the other blog posts when you
 have a time.
