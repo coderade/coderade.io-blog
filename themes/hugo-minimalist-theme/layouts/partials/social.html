@@ -26,6 +26,16 @@
 <li><a href="//github.com/{{.}}" class="icon-github" target="_blank" title="Github"></a></li>
 {{ end }}
 
+{{ with .Site.Social.stackoverflow }}
+<li><a href="//stackoverflow.com/users/{{.}}" class="icon-stackoverflow" target="_blank" title="StackOverflow"></a></li>
+{{ end }}
+
+{{ with .Site.Social.stackexchange }}
+<li><a href="//stackexchange.com/users/{{.}}" class="icon-stackexchange" target="_blank" title="stackExchange"></a></li>
+{{ end }}
+
+
+
 {{ with .Site.Social.gplus }}
 <li><a href="//plus.google.com/+{{.}}" class="icon-gplus" target="_blank" title="Google+"></a></li>
 {{ end }}

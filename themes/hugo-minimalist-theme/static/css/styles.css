@@ -435,8 +435,15 @@ th {
   content: '\e809'; }
 
 /* '' */
-.icon-github:before {
-  content: '\e80a'; }
+/* .icon-github:before {
+  content: '\e80a'; } */
+
+.icon-linkedin:before { content: '\e800'; } /* '' */
+.icon-rss:before { content: '\f09e'; } /* '' */
+.icon-github:before { content: '\f113'; } /* '' */
+.icon-stackoverflow:before { content: '\f16c'; } /* '' */
+.icon-instagram:before { content: '\f16d'; } /* '' */
+.icon-stackexchange:before { content: '\f18d'; } /* '' */
 
 /* '' */
 /* -----------------------------------------------------------------------------
