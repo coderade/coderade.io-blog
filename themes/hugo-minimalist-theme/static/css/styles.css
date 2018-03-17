@@ -396,7 +396,7 @@ th {
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */ }
 
 .icon-twitter:before {
-  content: '\e800'; }
+  content: '\f099'; }
 
 /* '' */
 .icon-rss:before {
@@ -408,19 +408,15 @@ th {
 
 /* '' */
 .icon-facebook-squared:before {
-  content: '\e803'; }
+  content: '\f09a'; }
 
 /* '' */
 .icon-gplus:before {
-  content: '\e804'; }
-
-/* '' */
-.icon-linkedin:before {
-  content: '\e805'; }
+  content: '\f30f'; }
 
 /* '' */
 .icon-behance:before {
-  content: '\e806'; }
+  content: '\e806'; }''
 
 /* '' */
 .icon-cancel:before {
@@ -434,16 +430,23 @@ th {
 .icon-instagram:before {
   content: '\e809'; }
 
-/* '' */
-/* .icon-github:before {
-  content: '\e80a'; } */
 
-.icon-linkedin:before { content: '\e800'; } /* '' */
-.icon-rss:before { content: '\f09e'; } /* '' */
-.icon-github:before { content: '\f113'; } /* '' */
-.icon-stackoverflow:before { content: '\f16c'; } /* '' */
-.icon-instagram:before { content: '\f16d'; } /* '' */
-.icon-stackexchange:before { content: '\f18d'; } /* '' */
+.icon-linkedin:before { content: '\f318'; } /* '' */
+
+.icon-rss:before {
+  content: '\f09e'; } /* '' */
+
+.icon-github:before {
+   content: '\f113'; }
+   /* '' */
+.icon-stackoverflow:before {
+  content: '\f16c'; } /* '' */
+
+.icon-instagram:before {
+  content: '\f16d'; } /* '' */
+
+.icon-stackexchange:before {
+  content: '\f18d'; } /* '' */
 
 /* '' */
 /* -----------------------------------------------------------------------------
