@@ -1,11 +1,12 @@
 +++
 date = "2017-09-17T21:44:08+02:00"
 tags = ["es6", "web", "js"]
+categories = ["es6"]
 title = "ES6 Destructuring assignments"
 description= "Article that explains how to use Destructuring assignments in ES6"
 +++
 
-In this article I'm going to talk about the Destructuring assignments in ES6. 
+In this article I'm going to talk about the Destructuring assignments in ES6.
 
 The Destructuring Assignments don't really offer us any new features, but rather they enable us to write more readable
 and less repetitive code.

@@ -1,6 +1,7 @@
 +++
 date = "2017-08-29T21:44:08+02:00"
 tags = ["es6", "web", "js"]
+categories = ["es6"]
 title = "ES5, ES6, ES7 and ES2015 and ES2016. Isn't it just all JS?"
 description= "On this article I want to take a second to clear up some confusion around the terms ES5, ES6, ES7, and ES2015 and ES2016. Why do people keep saying ES6 and seven, but then what's ECMAScript 2016? Aren't we all writing JavaScript? Isn't it just all JavaScript? So what is it?"
 +++

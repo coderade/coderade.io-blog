@@ -1,20 +1,21 @@
 +++
 date = "2016-08-29T13:47:08+02:00"
 tags = ["ruby", "rails", "web"]
+categories = ["rails"]
 title = "Rails 5 new features"
 description="Article that shows the new features, improvements and other important changes to Ruby on Rails version 5."
 +++
 
 
-On this article I will try to show the new features, improvements and other important changes to Ruby on Rails version 5. 
+On this article I will try to show the new features, improvements and other important changes to Ruby on Rails version 5.
 
-I will try to show how to use the most important features of Rails 5, including Action Cable, Action Controller Renderer, Turbolinks, 
+I will try to show how to use the most important features of Rails 5, including Action Cable, Action Controller Renderer, Turbolinks,
 the Active records, Attributes API and how to use Rails exclusively as a JSON API.
 
-Besides that I will discuss the many other smaller changes in improvements such as the Rails command Router, new Date and Time methods, 
+Besides that I will discuss the many other smaller changes in improvements such as the Rails command Router, new Date and Time methods,
 Secure Tokens and changes to parameters.
 
-In addition, I will show the features that are being deprecated or completely removed. 
+In addition, I will show the features that are being deprecated or completely removed.
 This is an important topic if you have an existing project that uses any of these features.
 
 
@@ -48,7 +49,7 @@ This is an important topic if you have an existing project that uses any of thes
         - [Guidelines](#guidelines)
 - [Improvements](#improvements)
     - [Rails Command router](#rails-command-router)
-    - [Application Record and Application Job](#application-record-and-application-job) 
+    - [Application Record and Application Job](#application-record-and-application-job)
     - [Integer methods: #positive? and #negative?](#integer-methods-positive-and-negative)
     - [Date and time improvements](#date-and-time-improvements)
     - [Relations in batches](#relations-in-batches)
@@ -101,7 +102,7 @@ The problem with this is that that GC sweep through memory takes some time, it c
 * Interactive content such as online games, or any similar application where you're swapping mini messages per second between the client and the server
 * Realtime communications such as chat
 
-#### Differences between the HTTP Model and the Action Cable 
+#### Differences between the HTTP Model and the Action Cable
 
 ##### HTTP Model
 
@@ -157,7 +158,7 @@ By default it's going to point to the URL/cable, but you can configure that to s
 # config/routes.rb
 Rails.application.routes.draw do
     # ...
-    
+
     mount ActionCable.server => "/cable"
 
 end    
@@ -168,7 +169,7 @@ Next, we're gonna need to create our channel and a new Rails 5 app should have a
 ```ruby
 # app/channels/chat_room_channel.rb
 class ChatRoomChannel < ApplicationCable::Channel
-    
+
     def subscribed
         stream_from('chat_room_channel')
     end
@@ -179,11 +180,11 @@ class ChatRoomChannel < ApplicationCable::Channel
     end
 
 end    
-``` 
+```
 
 There will usually be an unsubscribed action as well, subscribed and unsubscribed are the two standard actions. These two actions do whatever code you want to do whenever a user subscribes or unsubscribes from a channel. Often what you wanna do when they're subscribing is to start streaming data to them across the channel and you can see that that's what I'm doing in my subscribe method when I'm calling stream from. For this overview I created The speak method, that is a custom action of my own creation, on it I've added just a basic example, when the speak action is called, then the ActionCable server is going to broadcast a message on the chat room channel and you can see that I'm passing in whatever I want that data to be.
 
-Anyone that's streaming from that channel anyone who's subscribed, will be sent that message immediately, once that we have our chat room channel set up and we have subscribed, unsubscribed and any of the custom actions that we wanna have inside there. 
+Anyone that's streaming from that channel anyone who's subscribed, will be sent that message immediately, once that we have our chat room channel set up and we have subscribed, unsubscribed and any of the custom actions that we wanna have inside there.
 
 Then we're ready to set up the JavaScript side of things. In your JavaScript, you'll need to set up the cable like so, on the bellow example you see I have variable for App and then I'm setting `App.cable` equal to `ActionCable.createConsumer`, this gives our JavaScript object all the features that it needs to communicate with the server.
 
@@ -192,13 +193,13 @@ Then we're ready to set up the JavaScript side of things. In your JavaScript, yo
 //= require action_cable
 //= require_self
 //= require_tree ./channels
- 
+
 (function() {
   this.App || (this.App = {});
- 
+
   App.cable = ActionCable.createConsumer();
 }).call(this);
-``` 
+```
 
 Once we have it set up, we can use it to set up a room on our app object, which creates a new subscription to the chat room channel. Here you can see I'm setting `App.room` equal to `App.cable` subscriptions create, so I'm creating a new subscription and I'm assigning it to room. I'm gonna call it `ChatRoomChannel` and inside you'll see that I'm defining a number of functions. I've got functions for connected, disconnected, received and speak.
 
@@ -218,16 +219,16 @@ App.room = App.cable.subscriptions.create(
         }
     }
 );
-``` 
-**connected**, **disconnected** and **received** are standard functions in `ActionCable` that you'll probably always want to have. Whenever I'm connected, the JavaScript code in the connected function will execute, whenever I'm disconnected the code in the disconnected function will execute and the received will gets called anytime data is received from this channel. 
+```
+**connected**, **disconnected** and **received** are standard functions in `ActionCable` that you'll probably always want to have. Whenever I'm connected, the JavaScript code in the connected function will execute, whenever I'm disconnected the code in the disconnected function will execute and the received will gets called anytime data is received from this channel.
 
 In the above example, in my received function I'm just calling a simple JavaScript alert to display whatever message is received. You could instead replace data on the page, or add the data to some existing content, for example, if this was a real chat room, you'd probably want to append the message received to the end of the things that already been said in the chat room.
 
 The Speak is a custom function of our own creation, it can be called anything we like, but notice that what it does, is it calls perform speak. This is how we call the controller action speak that we created earlier, send it data and that's the message that we wanna speak. Remember, that action just broadcast our message to anyone who subscribed to this same channel.
 
-Now we've defined all of our Ruby actions on the server side and all of our JavaScript functions on the client side. 
+Now we've defined all of our Ruby actions on the server side and all of our JavaScript functions on the client side.
 
-In order to use it, we just have JavaScript call our speak function, like so, so we call `App.room.speak`, anywhere in our code and after we provided the message it goes through the code that we want. 
+In order to use it, we just have JavaScript call our speak function, like so, so we call `App.room.speak`, anywhere in our code and after we provided the message it goes through the code that we want.
 
 ```javascript
 
@@ -242,7 +243,7 @@ App.room.speak('Hello ActionCable');
 
 //Message goes to the streamed WebSocket
 //Triggers App.room.received on all subscribers
-``` 
+```
 
 Let's review what the above code looks like: it calls `this.perform('speak')` and it passes along our message That then in turn calls `ChatRoomChannel` speak. Which in turn calls `ActionCable` server broadcast and sends our message out to that channel and anyone who subscribed to it is going to get it.
 
@@ -303,7 +304,7 @@ The other possibilities for things you can render are templates, actions, partia
 
 Just like you're used to having in your controllers, you can pass local variables to the templates, just like you normally would.
 
-On the below example, where I'm rendering a partial for `products_product` and I'm providing local variable values for product and for user. 
+On the below example, where I'm rendering a partial for `products_product` and I'm providing local variable values for product and for user.
 
 ```ruby
 ApplicationController.render(
@@ -313,7 +314,7 @@ ApplicationController.render(
         :user => current_user
     }
 )
-``` 
+```
 
 There's only one thing that's slightly tricky about this and that is that in your controller, it's common practice to set up instance variables, which are then automatically going to be bound to the ERB template that we render, so that they're available for use inside that template.
 
@@ -325,21 +326,21 @@ ApplicationController.render(
     :locals => { :product => Product.first },
     :assigns => { :user => @user }
 )
-``` 
+```
 
 In case the difference between assigns and locals is not completely clear, here's another example that shows them both being applied to the rendering of a bit of inline ERB, so my template is that inline ERB.
 
-You can see that in the first blank I have an instance variable for version and a local variable then in the second blank for adjective, so I'm using assigns to set the instance variable, I'm using locals to set the local variable. 
+You can see that in the first blank I have an instance variable for version and a local variable then in the second blank for adjective, so I'm using assigns to set the instance variable, I'm using locals to set the local variable.
 
 ```ruby
 (
-    
+
     :inline => "I think Ruby on Rails version <% @version %> is <% adjective %>!",
 
     :assigns => { :adjective => 'sweet' }
     :locals => { :version => 5 },
 )
-``` 
+```
 
 Overall, rendering works pretty much the same way that it does inside our controllers, what's different in Rails 5, is the fact that we've gained the ability to do this rendering outside of controllers. We don't need a controller in order to render code, we can do it inside our channels.
 
@@ -379,7 +380,7 @@ To create a Rails API application all you need to do when you create a new Rails
 rails new my_backend_api --api
 ```
 
-The biggest difference is this single line, as we can see on the below example, inside the `config/application.rb` file there's a new line that says `config.api_only = true` and that's what tells Rails to be in API mode in everything that it does. 
+The biggest difference is this single line, as we can see on the below example, inside the `config/application.rb` file there's a new line that says `config.api_only = true` and that's what tells Rails to be in API mode in everything that it does.
 
 ```ruby
 # config/application.rb
@@ -393,42 +394,42 @@ end
 
 Every time you use a generator, every time you do anything in your application, it's going to be in API mode, if you're converting over from an existing application, then this is a line that you'll need to add.
 
-Another difference is in our controllers, we still have controllers, but we don't want all the HTTP parts that we aren't going to be using, so the `ApplicationController` is going to inherit from the class `ActionController::API`. 
+Another difference is in our controllers, we still have controllers, but we don't want all the HTTP parts that we aren't going to be using, so the `ApplicationController` is going to inherit from the class `ActionController::API`.
 
 ```ruby
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::API
 
 end    
-  
-``` 
 
-Normally it would inherit from `ActionController::Base`,this change leaves out code like cookies and sessions, which we don't need, but still gives us other parts of the controllers that we do want, such as before actions, security methods, page caching. 
+```
+
+Normally it would inherit from `ActionController::Base`,this change leaves out code like cookies and sessions, which we don't need, but still gives us other parts of the controllers that we do want, such as before actions, security methods, page caching.
 
 The controllers that we generate are going to inherit from `ApplicationController`, which in turn inherits from the API.
 
 ```ruby
 # app/controllers/notes_controller.rb
 class NotesController < ApplicationController
-    
+
     def index
         @notes = Note.all
         render(:json => @notes)
     end
 
     def show
-        @note = Note.find(params[:id]) 
+        @note = Note.find(params[:id])
         render(:json => @note)
     end
 
     # also: create, update, destroy
     # without: new, edit
 end    
-  
-``` 
+
+```
 
 So our controllers are going to work the same way and the generated content of our controllers will also be different.
-Notice in the above example that these controllers rendered JSON resources by default, they also include create, update and destroy actions, but unlike regular controllers they don't automatically have a new and edit action, because typically those are just HTML pages for submitting forms and an API client would be expected to take care of that business for us. 
+Notice in the above example that these controllers rendered JSON resources by default, they also include create, update and destroy actions, but unlike regular controllers they don't automatically have a new and edit action, because typically those are just HTML pages for submitting forms and an API client would be expected to take care of that business for us.
 
 Our routes still use resourceful routes and we define them the same way, but if you take this and then run `rails routes` on it you'll see that the new and edit routes that are normally present when doing restful routing are no longer included with the API version.
 
@@ -437,11 +438,11 @@ Our routes still use resourceful routes and we define them the same way, but if 
 Rails.application.routes.draw do
 
     resources :todos
-    
+
 end    
 ```
 
-We don't need them, in the same way that we don't need the actions that correspond to them, you can add them back if you decide you do, but they're not there by default. 
+We don't need them, in the same way that we don't need the actions that correspond to them, you can add them back if you decide you do, but they're not there by default.
 
 With Ruby on Rails 5, Rails developers who want to create backend applications where Rails serves as a JSON API will find it much easier than they have in the past and it will also omit a lot of the application code that you don't need to make your application as lean and fast as possible.
 
@@ -457,9 +458,9 @@ The new version is faster than the old one and also offers the ability to do par
 #### Why Turbolinks?
 
 * Performance of a single-page application - that's part of what JavaScript frameworks like to boast about
-* No client-side JavaScript framework required - you can work directly with HTML pages in your existing Rails application. 
+* No client-side JavaScript framework required - you can work directly with HTML pages in your existing Rails application.
 * Links do not load completely new pages
-* Fetch new content with Ajax; swap `<body>`; merge `<head>` - it fetches the page using asynchronous JavaScript, also known as Ajax and then it takes the returned page and it replaces the body of the current page with the new body and it merges the content of the page header with the existing page header. 
+* Fetch new content with Ajax; swap `<body>`; merge `<head>` - it fetches the page using asynchronous JavaScript, also known as Ajax and then it takes the returned page and it replaces the body of the current page with the new body and it merges the content of the page header with the existing page header.
 * CSS and JS is retained (does not need to be reloaded or re-rendered)
 * Content is still full HTML page, not fragment or JSON
 * Current browser scroll position is maintained
@@ -475,10 +476,10 @@ To use the Turbolinks, we need:
 * Run the `bundle install` command
 * Add to JS manifest: `//= require turbolinks`
 
-You don't have to use Turbolinks all the time, you can have some links that opt out of it. 
+You don't have to use Turbolinks all the time, you can have some links that opt out of it.
 
 ```html
-<a href="/some_url" data-turbolinks="false"> 
+<a href="/some_url" data-turbolinks="false">
     This link will not use Turbolinks
 </a>
 ```
@@ -520,15 +521,15 @@ window.onload = function(){
 }
 ```
 
-The turbolinks load event fires once on the initial page load and then again after every turbolinks visit. 
+The turbolinks load event fires once on the initial page load and then again after every turbolinks visit.
 
 ##### Turbolinks Partial Replacement
 
 The first version of Turbolinks simply replaced everything within the body when a link was clicked, that kept the HTML head, CSS and JavaScript, but the bulk of the page was still reloading and you can continue to use Turbolinks in that way and you'll get a big speed boost by not reloading that extra stuff, but the new version of Turbolinks that's in Ruby on Rails 5 has an additional feature.
 
-You can reload only parts of a page by marking content as either **permanent** or as **temporary**. 
+You can reload only parts of a page by marking content as either **permanent** or as **temporary**.
 
-Look the below example, let's imagine that we have a page and inside the body I have three divs, one with an ID of nav, one with an ID of flash and one with an ID of comments. 
+Look the below example, let's imagine that we have a page and inside the body I have three divs, one with an ID of nav, one with an ID of flash and one with an ID of comments.
 
 ```html
 <body>
@@ -539,7 +540,7 @@ Look the below example, let's imagine that we have a page and inside the body I 
     <div id="flash" data-turbolinks-temporary>
         <!-- update with every request unless told to 'keep' -->
     </div>
-    
+
     <div id="comments">
         <!-- changes on each page load or when targeted -->
     </div>
@@ -548,7 +549,7 @@ Look the below example, let's imagine that we have a page and inside the body I 
 
 You can see that I've marked the nav as being data turbolinks permanent. That means that this div is not going to change after the initial load by default. Then I've got div id flash marked data turbolinks temporary and that's going to be updated with every request unless I specifically ask it to stick arounds and then I've got a normal div which I've just called comments and that's typically going to change on each page load.
 
-Using the content marked up appropriately let's switch over to the controller and see how some of the different rendering options affect those tags. 
+Using the content marked up appropriately let's switch over to the controller and see how some of the different rendering options affect those tags.
 
 ```ruby
 # Keep #nav, update all other parts of page
@@ -562,12 +563,12 @@ render('comments/index', :keep => 'flash')
 
 # Update everything, including #nav
 render('comments/index', :flush => true)
-``` 
+```
 
 For the first example, if I just do a simple render, let's say I render `comments/index`, it's going to keep the nav div around, it's not going to make any changes to it, it will leave it in place because I've marked it permanent. It's gonna update all the other parts of the page.
 
 In the second example, I've specifically targeted comments by using change, you can also use append and prepend in the same way, so I'm targeting comments, therefore it's going to update the flash and the comments.
-It updates the comments because I targeted it and it updates the flash because I marked that it's being temporary, so it's still going to be refreshed each and every time, but the nav and all other parts of the page, any other content on the page is left alone. 
+It updates the comments because I targeted it and it updates the flash because I marked that it's being temporary, so it's still going to be refreshed each and every time, but the nav and all other parts of the page, any other content on the page is left alone.
 
 Like the third example, if I instead tell it to keep the flash, well then the flash will stay around, so now in the third example you'll see that it's gonna keep the nav, because I've marked it permanent, it's going to keep the flash, because I've explicitly asked it to, but all other parts of the page are gonna be updated.
 
@@ -587,16 +588,16 @@ Turbolinks.visit('/comments', :keep => 'flash')
 
 # Update everything, including #nav
 Turbolinks.visit('/comments', :flush => true)
-``` 
+```
 
-Change, keep, flush, as well we can use append and prepend and those do the exact same thing. If you wanna find out more about Turbolinks. Learn more about some of the configuration options that are available to you. 
+Change, keep, flush, as well we can use append and prepend and those do the exact same thing. If you wanna find out more about Turbolinks. Learn more about some of the configuration options that are available to you.
 
 You can find out more about it at the Turbolinks official [repository](https://github.com/turbolinks/turbolinks).
 
 
 ### ActiveRecord Attributes API
 
-Another major feature of Ruby on Rails 5, is the ActiveRecord Attributes API, that can not be confused in any way with the Rails as a JSON API we wrote above on this doc. This is different, this is about working with ActiveRecord Attributes in our models. 
+Another major feature of Ruby on Rails 5, is the ActiveRecord Attributes API, that can not be confused in any way with the Rails as a JSON API we wrote above on this doc. This is different, this is about working with ActiveRecord Attributes in our models.
 
 In our models, ActiveRecord automatically detects attribute types from the underlying database - for example, if our database has a varchar type for a column, then it sees that as being a string. If it sees an int type, it sees that it's being an integer a decimal becomes a float, a tinyint becomes a boolean, and a date time becomes date time.
 
@@ -613,7 +614,7 @@ For example. Let's say that we create a new table in our database called fabrics
 create_table :fabrics do |t|
     t.decimal :quantity
 end    
-``` 
+```
 
 That would normally give me a floatback when I access it as an attribute in my fabric class, but when I tell it to use integer instead.
 
@@ -621,29 +622,29 @@ That would normally give me a floatback when I access it as an attribute in my f
 class Fabric < ApplicationRecord
     attribute(:quantity, :integer)
 end    
-``` 
+```
 
 Now will always give me an integer and never a float, so you can see that example below, when I then call `fabric = Fabric.new`.
 
 ```ruby
 fabric = Fabric.new(:quantity => 3.9)
 
-fabric.quantity.integer? 
+fabric.quantity.integer?
 # => true
 
-fabric.quantity 
-# => 3 
-``` 
+fabric.quantity
+# => 3
+```
 
 I provided a float but instead `fabric.quantity` is now going to be cast as an integer, and when I ask it for its value, the value is three. Not 3.9, because it converted it from a float into an integer.
 
-It can also override the default values that are set in the database, so for example, if I have my fabrics database and I have a sting column called name, and it has a default database value of database default, so the database is going to want to set that value. 
+It can also override the default values that are set in the database, so for example, if I have my fabrics database and I have a sting column called name, and it has a default database value of database default, so the database is going to want to set that value.
 
 ```ruby
 create_table :fabrics do |t|
     t.string :name, :default => 'Database default'
 end    
-``` 
+```
 
 By default Rails is gonna pick up that same default value, but if I instead tell the attribute that it'll have a different default, then I can override whatever is there.
 
@@ -651,7 +652,7 @@ By default Rails is gonna pick up that same default value, but if I instead tell
 class Fabric < ApplicationRecord
     attribute(:name, :string, :default => 'New default')
 end    
-``` 
+```
 
 So now when I call `fabric = Fabric.new`, and I call `fabric.name`, I get back New default, not database default anymore, and also these attributes do not need to be even backed by a database column.
 
@@ -660,9 +661,9 @@ fabric = Fabric.new(:quantity => 3.9)
 
 fabric.name
 # => 'New default'
-``` 
+```
 
-You can create your own attributes and define them in the same way, and affect how Rails will cast those values. You can also define your own types. Just make sure that the type you create implements all the methods that ActiveRecord type. 
+You can create your own attributes and define them in the same way, and affect how Rails will cast those values. You can also define your own types. Just make sure that the type you create implements all the methods that ActiveRecord type.
 
 The easiest way to do that, is to inherit from an existing type or from ActiveRecord type value. Then you can override the parts that you want and call super, to let the parent class do the rest. The key methods to override are cast, serialize, and de-serialize.
 
@@ -673,11 +674,11 @@ class BackwardsType < ActiveRecord::Type::String
     def cast(value)
         new_value = value.reverse
         super(new_value)
-    end 
+    end
 end
 
 ActiveRecord::Type.register(:backwards, BackwardsType)
-``` 
+```
 On the above example, I'm overriding cast so that it reverses any string that it's given before it puts it in the database. Once we create our type, we just need to register it. Calling ActiveRecord `type.register`. I'm gonna give it a name of backwards, so that's the name of my type. Instead of string, integer, and decimal.
 
 Now it's gonna have a type of backwards which will be my new class, so I can for example, create my table of users. I give it a string, I call it backwards name, and then I use my attributes API to set backwards name using the backwards type.
@@ -692,7 +693,7 @@ class User < ApplicationRecord
 end
 ```
 
-So, user = User.new backwards name "Coderade". and what is the value of backwards name? It's gone through my class, it's been typed in the way that I've told it. Which in this case, I told it to reverse the letters. 
+So, user = User.new backwards name "Coderade". and what is the value of backwards name? It's gone through my class, it's been typed in the way that I've told it. Which in this case, I told it to reverse the letters.
 
 ```ruby
 user = User.new(:backwards_name => 'Coderade')
@@ -703,14 +704,14 @@ user.backwards_name
 It's a little bit of a silly example, but I think it makes the point of how you can really do anything you want inside these class types. A more common use for writing your own type would be to write the serialization and de-serialization yourself, so for example, you might wanna be able to provide JSON to an attribute and then have that JSON be serialized in a certain way before being put into the database and the be de-serialized back to JSON when you pull it back out of the database.
 
 Rails gives a sensible default for our attributes. The ActiveRecord Attributes API gives us a way to override those defaults.
- 
+
 You can find out more about the  ActiveRecord Attributes API at the your Rails documentation [page](http://api.rubyonrails.org/classes/ActiveRecord/Attributes/ClassMethods.html).
 
 ### ActiveRecord::Relation#or
 
 Ruby on Rails 5 adds a new method, which is ActiveRecord::Relation#or. This has been a long-requested feature, and it finally arrives in Rails 5.
 
-First, let's take a look at a query that uses two where clauses to reduce the results that are being returned using and. 
+First, let's take a look at a query that uses two where clauses to reduce the results that are being returned using and.
 
 ```ruby
 Post.where("status = 'published'").
@@ -721,12 +722,12 @@ On the above example, I have post where status equals published and where publis
 ```sql
 SELECT * FROM posts WHERE (status = 'published') AND (published_on = '2017-08-29')
 
--- Select all from posts where status equals published and published on equals the date that I've given it. 
+-- Select all from posts where status equals published and published on equals the date that I've given it.
 ```
 
-Now daisy-chaining these kind of scopes together is common in Ruby on Rails, and it works well. But what about the case in which we don't want to scope them further by using and, but we want to broaden our scope by using **or**. In other words, where one thing is true or something else is true. This has always been a problem in Ruby on Rails. And up until the Rails 4, you either had to write the SQL yourself or used a third-party library to help you. 
+Now daisy-chaining these kind of scopes together is common in Ruby on Rails, and it works well. But what about the case in which we don't want to scope them further by using and, but we want to broaden our scope by using **or**. In other words, where one thing is true or something else is true. This has always been a problem in Ruby on Rails. And up until the Rails 4, you either had to write the SQL yourself or used a third-party library to help you.
 
-But starting on Ruby on Rails 5, we have new method with is or. 
+But starting on Ruby on Rails 5, we have new method with is or.
 
 ```ruby
 Post.where("status = 'published'").or(
@@ -736,11 +737,11 @@ Post.where("status = 'published'").or(
 The way it works is like this; you can see I have post where status equals published, and then what I chain onto the end of that is OR.
 
  The resulting SQL looks like this:
- 
+
 ```sql
 SELECT * FROM posts WHERE (status = 'published') OR (status = 'pending')
- 
--- Select all from posts where status equals published or status equal pending. 
+
+-- Select all from posts where status equals published or status equal pending.
 ```
 
 The **or** method expects an active relation as an argument. Any active relation will do, so you can use scopes as well, and you can keep chaining them together as long as you always provide an active relation as the argument. Now this isn't going to work for complex queries, but it is going to be a big help in simple cases.
@@ -755,7 +756,7 @@ Post.published.or(Post.pending).or(Post.recent)
 There are some guidelines that you need to keep in mind, though.
 
 * First, the argument that you pass  Must be an `ActiveRecord::Relation` (query or scope) - That's why I had to use `Post.where` on the above example, again, because we needed to created a `ActiveRecord::Relation`
-* The arguments must be the same model - So if my exterior query has to do with post, then the thing that goes inside or should also be regarding Post. 
+* The arguments must be the same model - So if my exterior query has to do with post, then the thing that goes inside or should also be regarding Post.
 * And the arguments must differ only by their `#where` or their `#having` clause - that's because that's what's going on under the hood. `ActiveRecord::Relation#or` is taking any where or having clause that we pass in on a scope, and it's appending them to the existing where and having clause using or.
 * Should not use `#limit`, `#offset`, or `#distinct` - you can still use limit, offset, and distinct on the exterior scope, but not on the relation that's being passed into or.
 
@@ -768,7 +769,7 @@ If you keep these guidelines in mind, I think that you'll find that or provides 
 
 One of the most noticeable improvements in Ruby on Rails 5 are the changes that have been made to the Rails Command Router. When working with Ruby on Rails 5, from the command line we typically issue one of two kinds of commands, either `rake` or `rails`. So, for example, we do `rake db:migrate`, `rake test`, `rake spec`, or even custom Rake tasks, and then we have `rails new`, `rails generate`, `rails server`, `rails console` and many others. The problem is that these are inconsistent in the way that they are used and the code is even maintained in different directories.
 
-This becomes especially confusing for beginners who are trying to remember when do I use Rake and when do I use Rails and they don't really care about the technical differences between the two, they just want a consistent way to interact with the application. 
+This becomes especially confusing for beginners who are trying to remember when do I use Rake and when do I use Rails and they don't really care about the technical differences between the two, they just want a consistent way to interact with the application.
 
 So starting in Version 5, we're going to use Rails for everything, now it's going to feel odd to veterans of Ruby on Rails because we've typed `rake db:migrate` so much. It's going to take some getting used to to type `rails db:migrate`, but that's what's it's going to be. You're going to use Rails to run all of the old Rake tests.
 
@@ -784,14 +785,14 @@ Ruby on Rails 5 adds a couple of new classes to the framework to help us out, `A
 The files for ApplicationRecord and ApplicationJob are going to be created by default in a new Rails 5 project, but they're not required to exist, they're really just there as part of the framework to help you out in the same way that you could do away with ApplicationController and everything would still work just fine.
 
 
-In a new Rails 5 project it will create a file in app slash models slash application underscore record that looks something like the bellow example. It will have a class ApplicationRecord which inherits from ActiveRecord Base. 
+In a new Rails 5 project it will create a file in app slash models slash application underscore record that looks something like the bellow example. It will have a class ApplicationRecord which inherits from ActiveRecord Base.
 
 ```ruby
 # app/models/application_record.rb
 class ApplicationRecord < ActiveRecord::Base
     self.abstract_class = true
 end    
-``` 
+```
 
 Then you'll on the next example, when we work with our models those models are now going to inherit from ApplicationRecord not ActiveRecord Base.
 
@@ -800,27 +801,27 @@ Then you'll on the next example, when we work with our models those models are n
 class Product < ApplicationRecord
     self.abstract_class = true
 end
-``` 
+```
 
 On the Rails 5, they don't have to. They could still inherit from ActiveRecord Base and everything would still work fine, but now we have this intermediary super class where we can put code that's common to all of our models.
 
 Notice that ApplicationRecord has a very important line in it that says `self.abstract_class = true`, that tells Rails don't assume that there's an underlying table called AppllicationRecords which can be queried. Instead this is just a utility class that has no database table behind it. Even if you never have common code that you want to put in to ApplicationRecord it's good to go ahead and follow this new model that the Rails framework wants us to use.
 
-The same thing is true for ApplicationJob. ApplicationJob is a class that inherits from ActiveJob Base and then each of our jobs would inherit from ApplicationJob instead of ActiveJob Base. 
+The same thing is true for ApplicationJob. ApplicationJob is a class that inherits from ActiveJob Base and then each of our jobs would inherit from ApplicationJob instead of ActiveJob Base.
 
 ```ruby
 # app/jobs/application_job.rb
 class ApplicationJob < ActiveJob::Base
-    
+
 end
-``` 
+```
 
 ```ruby
 # app/jobs/remove_old_carts_job.rb
 class RemoveOldCartsJob < ApplicationJob
-    
+
 end
-``` 
+```
 
 There's no need to use `self.abstract_class = true` because out jobs don't have databases behind them anyway.
 
@@ -836,13 +837,13 @@ module ActsAsCoolFeature
 end
 
 ActiveRecord::Base.include(ActsAsCoolFeature)
-``` 
+```
 As we can see on the above example, if I want to add that into my models and I want to have it in all of my models I would have ActiveRecord Base include ActsAsCoolFeature. Now, all of my models have ActsAsCoolFeature built into them.
 
-Pretty cool, right? Except that this technique is called [monkey patching](http://stackoverflow.com/questions/394144/what-does-monkey-patching-exactly-mean-in-ruby) and it refers to modifications of a class at run-time with the intent of changing their behavior. 
+Pretty cool, right? Except that this technique is called [monkey patching](http://stackoverflow.com/questions/394144/what-does-monkey-patching-exactly-mean-in-ruby) and it refers to modifications of a class at run-time with the intent of changing their behavior.
 By patching ActiveRecord Base directly we're patching it for everyone that uses it. If we're running a small app that's not a big deal, but if we're using gems, plug-ins, engines, or writing complex code, each one of those is potentially expecting to have a clean ActiveRecord Base to work with and our module could interfere with their work.
 
-Instead, in Rails 5 with ApplicationRecord we have the ability to include the class in our intermediary class, ApplicationRecord, and not in ActiveRecord Base. ActiveRecord Base stays a pristine class that everyone can use. Our features included, but only for our models which inherit from ApplicationRecord. 
+Instead, in Rails 5 with ApplicationRecord we have the ability to include the class in our intermediary class, ApplicationRecord, and not in ActiveRecord Base. ActiveRecord Base stays a pristine class that everyone can use. Our features included, but only for our models which inherit from ApplicationRecord.
 
 ```ruby
 # Rails 5
@@ -862,7 +863,7 @@ The same thing is true for ApplicationJob and the desire to keep a pristine vers
 
 ### Integer methods: #positive? and #negative?
 
-Another improvement in Ruby on Rails five is the addition of two new methods on the integer class. `positive` and `negative` and they work exactly as you'd expect. 
+Another improvement in Ruby on Rails five is the addition of two new methods on the integer class. `positive` and `negative` and they work exactly as you'd expect.
 
 When we call positive question mark or negative question on an integer, they return either true or false, `1` would be considered positive, `-1` would be considered negative and `0` is considered neither positive nor negative, as you can see those below results:
 
@@ -886,7 +887,7 @@ When we call positive question mark or negative question on an integer, they ret
 # true
 ```
 
-While these are two very useful methods, they are also going to be a superfluous part of Rails soon, and that's because these methods are built-in methods in Ruby 2.3 which was released in December of 2015. 
+While these are two very useful methods, they are also going to be a superfluous part of Rails soon, and that's because these methods are built-in methods in Ruby 2.3 which was released in December of 2015.
 
 So really what Rails is doing here is just offering these methods early for Ruby 2.2 users and if you remember that's the base requirement for using Ruby on Rails five is Ruby 2.2.2, so if you meet that requirement you still have access to these methods and if you use Ruby 2.3 then those are going to be built-in methods for you.
 
@@ -897,11 +898,11 @@ Ruby on Rails 5 provides new methods for working with date and time.
 
 Ruby on Rails has new methods for next day and previous day (`#next_day`, `#prev_day`), these do the same thing as yesterday and tomorrow, which were existing methods, but, because their support for next week and next year it makes sense to have a parallel version for day. It was always a little odd that you could ask for next year and next week, but you couldn't ask for next day, you had to ask for tomorrow instead. So now they exist and you can use either one.
 
-Ruby on Rails also gained the concept of a weekday and a weekend, So now you can ask for next weekday and previous weekday (`#next_weekday`, `#prev_weekday`) and you'll get the following day unless it's on a weekend. So, for example, if it's a Friday and we ask for next week day, we don't get back Saturday we get back Monday. 
+Ruby on Rails also gained the concept of a weekday and a weekend, So now you can ask for next weekday and previous weekday (`#next_weekday`, `#prev_weekday`) and you'll get the following day unless it's on a weekend. So, for example, if it's a Friday and we ask for next week day, we don't get back Saturday we get back Monday.
 
-To correspond with those, we have some query methods, on weekend and on weekday (`#on_weekend?`, `#on_weekday?`) which will tell us whether something is on a weekday or weekend. 
+To correspond with those, we have some query methods, on weekend and on weekday (`#on_weekend?`, `#on_weekday?`) which will tell us whether something is on a weekday or weekend.
 
-As I mentioned, there are some existing methods for next week and previous week (`#next_week`, `#prev_week`), those have just gained a new ability, which is they have the `same_time` argument. 
+As I mentioned, there are some existing methods for next week and previous week (`#next_week`, `#prev_week`), those have just gained a new ability, which is they have the `same_time` argument.
 
 Then, time gets days in year as a new method (`Time.days_in_year(year)`), it already had a `days_in_month` method, this matches that and it defaults to the current year.
 
@@ -927,7 +928,7 @@ Time.current.prev_weekday
 The previous day returns Thursday, March 17th, both at the same time of day. If I ask for next weekday, then because it was on Friday, it doesn't return Saturday to me it jumps to Monday and, it returns Monday at the same time to me.
 If I ask for previous weekday, well, the previous weekday is the same thing as previous day so it returns Thursday, if the current time had been a Monday, then previous weekday would, of course, return a Friday.
 
-We have the ability to query those with on weekday and on weekend the current time is on a weekday, it's true. 
+We have the ability to query those with on weekday and on weekend the current time is on a weekday, it's true.
 
 ```ruby
 Time.current
@@ -948,7 +949,7 @@ Time.current.next_day.on_weekend?
 
 The Current next day, which is Saturday, is that a weekday? No, it's not. But if we ask on weekend, `Time.current` is not on the weekend but `Time.current.next_day` which is Saturday is on the weekend.
 
-We also can take a look at the changes to next week. So again, let's say I had the same time. 
+We also can take a look at the changes to next week. So again, let's say I had the same time.
 
 ```ruby
 Time.current
@@ -966,11 +967,11 @@ Time.current.next_week(:friday, :same_time => true)
 ```
 Look the above example, If I ask for next week, I get the next week, I get Friday, but notice what happened to the time, the time got reset to midnight. That's what next week does, next week also accepts an argument. So, we can ask for a certain day of the week.
 
-`Time.current.next_week(:thursday)` returns Thursday of next week. But, again, the time goes to Midnight. That's the way it behaved in Rails four and the way it still works in Rails 5. 
+`Time.current.next_week(:thursday)` returns Thursday of next week. But, again, the time goes to Midnight. That's the way it behaved in Rails four and the way it still works in Rails 5.
 
 However, in Rails 5, we now get a new option that we can pass in of same time true, in order to use this `same_time` argument, you must provide the day of the week that you wanted. It's not optional, you can't leave it out. So in this case, I have time dot current dot next week and I'm asking for Friday with the same time option.
 
-I mentioned already that time had a days in month method built in, it allows us to has for how many days are in a month. So, `Time.days_in_month(1)` tells me how many days are in the month of January, which is 31 and I can ask it for February and I can provide an optional year and it'll tell me how many days are in that year's month. In February, that makes a difference because sometimes it has has 28 and sometimes it has 29 days, I can also do the same thing with days in year. 
+I mentioned already that time had a days in month method built in, it allows us to has for how many days are in a month. So, `Time.days_in_month(1)` tells me how many days are in the month of January, which is 31 and I can ask it for February and I can provide an optional year and it'll tell me how many days are in that year's month. In February, that makes a difference because sometimes it has has 28 and sometimes it has 29 days, I can also do the same thing with days in year.
 
 By default, it'll return the current year, if I pass in an argument of 2016, I get back the same result. But, if I were to pass in 2015, which is not a leap year, then I get back 365.
 
@@ -1007,11 +1008,11 @@ end
 
 ```
 
-Which is an older method that was in Rails 4, and continues to exist in Rails 5, it looks like the above example. Product and then the `find_in_batches` method and then a block of code that I wanna perform on each batch. 
+Which is an older method that was in Rails 4, and continues to exist in Rails 5, it looks like the above example. Product and then the `find_in_batches` method and then a block of code that I wanna perform on each batch.
 
 The default batch size is 1,000 records, or you can pass in batch size as an option if you want something different. The way that this works, is that Ruby on Rails makes a query to the database and finds the first 1,000 records, it brings them back, instantiates them into objects and puts them in array and renders them up to my block of code.
 
-My particular block of code here in this example is going to sleep for five seconds and then iterate through the products in that batch and tell each product to recalculate its inventory. This technique works great when we have expensive or long running processes that would monopolize the resources of a server. 
+My particular block of code here in this example is going to sleep for five seconds and then iterate through the products in that batch and tell each product to recalculate its inventory. This technique works great when we have expensive or long running processes that would monopolize the resources of a server.
 
 By sleeping for five seconds between batches, it gives the server a change to breathe, to catch up, to answer other people's requests, and do their jobs, instead of letting my code monopolize its resources.
 
@@ -1037,7 +1038,7 @@ Product.in_batches do |batch|
     batch.update_all(:on_sale => false)
 end
 ```
-It's the same thing, but it doesn't have find at the beginning, It makes it easy to remember. 
+It's the same thing, but it doesn't have find at the beginning, It makes it easy to remember.
 
 The difference here, is that product.in batches does not fire off SQL and go out and retrieve the objects and instantiate them and put them in an array, Instead it returns a relation to batch and that way when we're inside the block I can call `batch.update_all` and it fires off that single SQL query to update all 1,000 records at one time.
 
@@ -1046,11 +1047,11 @@ Now I also have the ability to tell the batch that it should go out and retrieve
 
 ### ActiveRecord Secure Tokens
 
-Ruby on Rails 5 provides a new feature to make it easy to create unique random tokens for use in our models. Secure tokens have become common in modern web applications. 
-You might use them for: 
+Ruby on Rails 5 provides a new feature to make it easy to create unique random tokens for use in our models. Secure tokens have become common in modern web applications.
+You might use them for:
 
 * Invitations
-* User registrations, 
+* User registrations,
 * Resetting lost user passwords,
 * Token-based authentication.
 
@@ -1074,10 +1075,10 @@ class CreateInvitations < ActiveRecord::Migration
 end
 ```
 
-In both cases, you can see that I'm providing the column name, which is gonna be my token name, and I made that auth_token, and then the type of column is going to be token. 
+In both cases, you can see that I'm providing the column name, which is gonna be my token name, and I made that auth_token, and then the type of column is going to be token.
 That's a new type that's introduced in Ruby on Rails 5, so instead of having a string, or an integer, or a date time column, we tell it that it's a token column.
 
-Once we have our database set up and migrated then in our model we can add the method `has_secure_token`and provide the name of our token. 
+Once we have our database set up and migrated then in our model we can add the method `has_secure_token`and provide the name of our token.
 
 ```ruby
 class Invitation < ActiveRecord::Base
@@ -1092,10 +1093,10 @@ invite = Invitation.new
 invite.save
 invite.auth_token # => "05oplsfvvkwXI3q2349Oains"
 ```
-We create a new invite and we save it to the database, if we ask that object for auth token, you can see that it will automatically have created this random secure string for us. 
+We create a new invite and we save it to the database, if we ask that object for auth token, you can see that it will automatically have created this random secure string for us.
 
 
-If we wanna refresh that token to something new, then we can call `regenerate_auth_token`: 
+If we wanna refresh that token to something new, then we can call `regenerate_auth_token`:
 
 ```ruby
 invite.regenerate_auth_token # => true
@@ -1108,7 +1109,7 @@ invite.auth_token # => "hnXBv7R2XValsgwga1atTrIX"
 ```
 Notice that that's a bit of a dynamic method. `regenerate_auth_token is based` on the name of my token, if my token had been named something like invite code, well then the name of the method would be `regenerate_invite_code`, so it's `regenerate_` followed by the name of your token and that would regenerate it for you, so these secure tokens that it generates are gonna be random, 24-character tokens.
 
-Under the hood, at least at the moment, it uses secure random base 58. That could certainly change in the future. If that wasn't deemed to be appropriate, but at the moment 24-characters using base 58, because of the size of the token, and the number of characters, collisions and race conditions are possible but they're unlikely. 
+Under the hood, at least at the moment, it uses secure random base 58. That could certainly change in the future. If that wasn't deemed to be appropriate, but at the moment 24-characters using base 58, because of the size of the token, and the number of characters, collisions and race conditions are possible but they're unlikely.
 
 To prevent this, you're encouraged to use a unique index on the database column to ensure that the value is always unique, now the Rails migration, using that token type automatically adds that unique index for you, but if you create your own migration, or if you're using an existing string column, then you'll wanna make sure that you add your own unique index to that column.
 
@@ -1121,9 +1122,9 @@ You can find out more about the ActiveRecord Secure Tokens at the your Rails doc
 
 Another improvement in Ruby on Rails 5, is that the procedure for aborting ActiveRecord callbacks has changed. In Rails 5, callbacks no longer halt whenever the last statement in the callback is false. Instead you must explicitly stop them, by using throw abort.
 
-Let me demonstrate the issue that this change is meant to solve. 
+Let me demonstrate the issue that this change is meant to solve.
 
-Here's a class for product, in Rails 4. 
+Here's a class for product, in Rails 4.
 
 ```ruby
 # Rails 4
@@ -1145,7 +1146,7 @@ Notice that it has two before save callbacks. Set in stock value, and process pr
 
 They're going to be executed in the order they're defined, when set in stock value is called, it sets in stock value to the returned value of inventory in stock for, and this value's going to be true or false. Here's the problem, when a Ruby method finishes, if there's no explicitly returned value, then it returns the last value evaluated inside the method. That's just how Ruby works, in this case, that will be the value returned by inventory in stock for, which could be false, and if it's false, then set in stock value returns false.
 
-When the before save callback receives that false signal, in Rails 4, it halts the callback chain and it aborts the save, so the second callback, process product image never gets called, and the record isn't saved to the database and not because we wanted it to fail, but just because of a quirk in our code. In Rails 4, this was an easy mistake to make without meaning to. In Rails 5, this code would work as expected, and inadvertently returning false will not stop the whole show. 
+When the before save callback receives that false signal, in Rails 4, it halts the callback chain and it aborts the save, so the second callback, process product image never gets called, and the record isn't saved to the database and not because we wanted it to fail, but just because of a quirk in our code. In Rails 4, this was an easy mistake to make without meaning to. In Rails 5, this code would work as expected, and inadvertently returning false will not stop the whole show.
 
 Instead, in Rails 5, you must explicitly tell the callback to stop.
 
@@ -1170,7 +1171,7 @@ In the above example, you can see I've rearranged the logic of set in stock valu
 
 What I wanna show you is that you must explicitly use throw abort anytime you do want the callback chain to stop, so if you have code in the existing application that was depending on returning false to stop the callback chain, then you'll wanna swap those in with using throw abort instead.
 
-This is a configurable option. If you create a new Ruby on Rails 5 project it adds an initializer called callback terminator. 
+This is a configurable option. If you create a new Ruby on Rails 5 project it adds an initializer called callback terminator.
 
 ```ruby
 # config/initializers/callback_terminator.rb
@@ -1185,7 +1186,7 @@ Eventually, once everyone's had an opportunity to make the change, I expect this
 
 Ruby on Rails 5 has made a few improvements to the strong parameters code that we use in our controllers, you're going to want to beware of any code which treats the parameters as if it was a simple hash, because it's not going to be anymore. It's no longer going to inherit from [HashWithIndiferentAccess](http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html), as a fundamental class in Rails that allows us to access a hash, by providing either symbols or strings as the keys of the hash. Instead, our params are now going to be inheriting from a standalone parameters class.
 
-It's still going to have indifferent access, we can still access the values by using either symbols or strings, and also using the square bracket notation that you're used to. 
+It's still going to have indifferent access, we can still access the values by using either symbols or strings, and also using the square bracket notation that you're used to.
 
 ```ruby
 params[:page] = 1
@@ -1198,7 +1199,7 @@ params['page']
 
 ```
 
-It's not a hash with indifferent access anymore. It's an object which has similar behaviors, let me show you a way in which it's not the same. 
+It's not a hash with indifferent access anymore. It's an object which has similar behaviors, let me show you a way in which it's not the same.
 
 In Rails 4, you might call slice on your params, in order to extract some of the key value pairs you wanted to work with, so `params.slice``and then sort by and sort dir, will return back the key value pairs, and the values that correspond to them.
 
@@ -1248,9 +1249,9 @@ If they're not permitted, we don't have access to them, the only other way is to
 
 The example above is with `#slice`, but it's also true for `#except`, `#extract`, `#select`, `#reject`, `#merge`, `#transform_keys` and all of the exclamation point versions of those (eg. `#slice!`).
 
-They only work with permitted params, so you either need to permit the params first, or you need to convert the parameters object into an unsafe hash. 
+They only work with permitted params, so you either need to permit the params first, or you need to convert the parameters object into an unsafe hash.
 
-There's another place that it makes a difference When you're comparing params against a hash. 
+There's another place that it makes a difference When you're comparing params against a hash.
 
 ```ruby
 # in Rails 4
@@ -1269,7 +1270,7 @@ obj = ActionController::Parameters#new(hash)
 if(params == obj) { ... }
 ```
 
-The older version still works in 5.0, but you'll get a deprecation warning that starting in 5.1 you'll be required to do it the new way, so to summarize, in most cases, parameters still act like a hash, but we have to be careful now because there are some cases when they don't act just like a hash and these security features come into play. 
+The older version still works in 5.0, but you'll get a deprecation warning that starting in 5.1 you'll be required to do it the new way, so to summarize, in most cases, parameters still act like a hash, but we have to be careful now because there are some cases when they don't act just like a hash and these security features come into play.
 
 It's a small, but important change, that could break some of your older code.
 
@@ -1278,9 +1279,9 @@ It's a small, but important change, that could break some of your older code.
 
 Ruby on Rails 5 adds a new method to Enumerable called without. Enumerable#without returns a copy of the enumerable, but without the elements that we've passed in as arguments.
 
-Now, the enumerable is actually a module that's included in several other classes, such as array, and hash, so what we're really talking about is being able to use this without method on an array or a hash. 
+Now, the enumerable is actually a module that's included in several other classes, such as array, and hash, so what we're really talking about is being able to use this without method on an array or a hash.
 
-So for example let's say we have an array, like fruit. In that array we have apple, plum, banana, and orange. 
+So for example let's say we have an array, like fruit. In that array we have apple, plum, banana, and orange.
 
 ```ruby
 fruit %w(apple plum banana orange)
@@ -1296,7 +1297,7 @@ fruit.without('plum', 'orange')
 If we have a hash which has keys for a, b, c and d and then various numbers corresponding to those.
 
 ```ruby
-hash = {:a => 27, :b => 34, :c => 56, :d => 4} 
+hash = {:a => 27, :b => 34, :c => 56, :d => 4}
 ```
 then if we call a hash without b and c, we would get back a hash that contains the key value pairs for a and d.
 
@@ -1305,7 +1306,7 @@ hash.without(:b, :c)
 #=> {:a => 27, :d => 4}
 ```
 
-This method is mostly just to give us a nicer way to do something we've already been able to do before. 
+This method is mostly just to give us a nicer way to do something we've already been able to do before.
 
 For example, you could do it with reject:
 
@@ -1321,7 +1322,7 @@ users - paid_users
 users - [current_user]
 ```
 
-But it can be a bit of hassle when you have only a single user because then you have to make an array in order to get the subtraction to work. 
+But it can be a bit of hassle when you have only a single user because then you have to make an array in order to get the subtraction to work.
 
 Using without is cleaner and it clearly states what we're trying to achieve and as a bonus it works with arrays, with a list of arguments and with a single item. Without is a nice addition. It's easy to use and it makes your code clearer.
 
@@ -1337,7 +1338,7 @@ For more information about `Enumerable#without` see the Ruby Enumerable#without 
 
 ### Enumerable#pluck
 
-The new method on enumerable called pluck is similar to an existing [method](http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pluck) on ActiveRecord called pluck. 
+The new method on enumerable called pluck is similar to an existing [method](http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pluck) on ActiveRecord called pluck.
 
 The way that works, is if we have a model, like user, we can ask it to pluck ID and the username and it will fire a new SQL query and pull back just those values, just the ID and the username and that's true, even if we've already previously loaded this scope, it goes directly to the database in order to ask for those values. Now often, we want to write methods which operate either on arrays or scopes.
 
@@ -1357,7 +1358,7 @@ users = [
 ]
 ```
 
-If I call `users.pluck(:username)`, I'll get back an array that contains just those usernames. 
+If I call `users.pluck(:username)`, I'll get back an array that contains just those usernames.
 
 ```ruby
 users.pluck(:username)
@@ -1393,7 +1394,7 @@ User.pluck(:username)
 
 The other choice was to go through the users and do something like map, in order to get all these values back.
 
-In Rails 5, we don't have to go back to the database again. If we already have a scope loaded, so, for example, we have `users = User.all`. 
+In Rails 5, we don't have to go back to the database again. If we already have a scope loaded, so, for example, we have `users = User.all`.
 
 ```ruby
 # in Rails 5
@@ -1411,7 +1412,7 @@ User.pluck(:username)
 # => ['rails', 'django', 'nodejs']
 ```
 
-And it doesn't fire off another SQL query, it does what we would expect, it goes into the users, it iterates through them and it returns the values that we're looking for. 
+And it doesn't fire off another SQL query, it does what we would expect, it goes into the users, it iterates through them and it returns the values that we're looking for.
 
 So now, we can call pluck on either an ActiveRecord object or on an array or a hash and it doesn't make any difference.
 
@@ -1423,12 +1424,12 @@ For more information about `Enumerable#pluck` see the Ruby Enumerable#pluck [doc
 ### ArrayInquirer
 
 
-One of the major improvements the Rails 5 is the addition of the class ArrayInquirer. 
-ArrayInquirer provides a convenient syntax for checking the contents of an array, it works a lot like StringInquirer. 
+One of the major improvements the Rails 5 is the addition of the class ArrayInquirer.
+ArrayInquirer provides a convenient syntax for checking the contents of an array, it works a lot like StringInquirer.
 
 You may not have worked with StringInquirer before, so let me first demonstrate how that works.
 
-Let's say that we have a string, such as active. We can take that string and we can pass it as an argument to `ActiveSupport StringInquirer.new` to get back a StringInquirer object. 
+Let's say that we have a string, such as active. We can take that string and we can pass it as an argument to `ActiveSupport StringInquirer.new` to get back a StringInquirer object.
 
 ```ruby
 # String Inquire example
@@ -1447,7 +1448,7 @@ But it's gonna have one additional ability, which is that we can acquire about i
 status.active?     # => true
 ```
 
-The StringInquirer will take whatever value we've passed in before the question mark and compare it against the value of the string, so it returns true because active is in fact the value of the string. 
+The StringInquirer will take whatever value we've passed in before the question mark and compare it against the value of the string, so it returns true because active is in fact the value of the string.
 
 ```ruby
 status.pending?     # => false
@@ -1462,7 +1463,7 @@ Rails.env.production?   # => true
 puts Rails.env          # => 'production'
 ```
 
-So now let's look at [ArrayInquirer](http://api.rubyonrails.org/classes/ActiveSupport/ArrayInquirer.html). 
+So now let's look at [ArrayInquirer](http://api.rubyonrails.org/classes/ActiveSupport/ArrayInquirer.html).
 Let's say that I just have a basic array and in that array I have three values: producer, director and actor.
 
 ```ruby
@@ -1482,7 +1483,7 @@ roles.class # => ActiveSupport::ArrayInquirer
 
 I take the array and I pass it in as an argument to ArrayInquirer new and then I set that to roles and I get back that ArrayInquirer object.
 
-Another easier, I think, way to do this, is to just call `.inquiry` on the array and it will return that ArrayInquirer object for you, It's a little shorter. 
+Another easier, I think, way to do this, is to just call `.inquiry` on the array and it will return that ArrayInquirer object for you, It's a little shorter.
 
 ```ruby
 roles = array.inquiry
@@ -1505,9 +1506,9 @@ roles.actor? # => true
 roles.writer? # => false
 ```
 
-`roles.producer?` returns true, so does `director?` and `actor?`, `writer?` returns false because writer is not inside the array. 
+`roles.producer?` returns true, so does `director?` and `actor?`, `writer?` returns false because writer is not inside the array.
 
-In addition to these single queries. 
+In addition to these single queries.
 We also have the ability to use any on it as well, so I can ask whether any of the values are equal to director or writer and I can do that using either symbols or using strings, it doesn't matter.
 
 ```ruby
@@ -1516,7 +1517,7 @@ roles.any('director', 'writer') # => true
 ```
 Both cases it returns true, because director is one of those values even though writer is not.
 
-If I were to ask it though, if roles contains writer or special effects. 
+If I were to ask it though, if roles contains writer or special effects.
 
 ```ruby
 roles.any(:writer, :special_effects) # => false
@@ -1557,13 +1558,13 @@ Typically, when we work with `belongs_to` we would expect to save that child rec
 
 Starting in Ruby on Rails 5, that's going to be a requirement. The `belongs_to` is going to be required to have a parent by default, that's going to be a value that's controlled by a setting `belongs_to_required_by_default`.
 
-A newly generated Rails 5 app is going to have an initializer that sets this value to true. 
+A newly generated Rails 5 app is going to have an initializer that sets this value to true.
 
 Older apps are going to keep the false setting by default if they don't have that configuration set, if you're upgrading, you'll need to opt in to the new behavior by providing that configuration in the initializers. If you opt into it, then what will happen is that anytime you add a `belongs_to` to a class, it's going to automatically add `validates_present_of`, the parent for you, you don't need to add it yourself, it's going to automatically do that for you.
 
-You used to be able to do that yourself by using the required option when you declared the `belongs_to`. Instead, because it's going to be `:required` by default, you should use the `:optional` option whenever it's not required by default. 
+You used to be able to do that yourself by using the required option when you declared the `belongs_to`. Instead, because it's going to be `:required` by default, you should use the `:optional` option whenever it's not required by default.
 
-So you should stop using `:required` and let the default behavior kick in, you should use `:optional` if you don't want it to be the case. 
+So you should stop using `:required` and let the default behavior kick in, you should use `:optional` if you don't want it to be the case.
 
 In the Rails 5 as I said, in most cases I think you're going to save the parent object before you save the child object because you're going to want that parent's ID to be able to relate it to the child.
 
@@ -1577,10 +1578,10 @@ Ruby on Rails 5 has many new features and improvements. But it's also going to r
 
 ### Deprecated Filter Callbacks
 
-Previously in your controllers you could use `before_filter`, `after_filter` and `around_filter`. 
+Previously in your controllers you could use `before_filter`, `after_filter` and `around_filter`.
 
 Instead, now you want to use `before_action`, `after_action` and `around_action`. That's the accepted way to do these, so stop using the filter version and use the action version instead. That applies also to the variations on these, such as `append_before_filter`, `prepend_before_filter` and `skip_before_filter`. All of them have equivalents using the word action instead.
- 
+
 So anywhere in your controllers where you have before filter, you want to change that to be before action instead.
 
 ```ruby
@@ -1594,8 +1595,8 @@ end
 ```
 
 
- The new methods have been with us for a little while. They were introduced in Rails 4.2, but now the old ones are being deprecated and has been removed entirely in Rails 5.1. 
- 
+ The new methods have been with us for a little while. They were introduced in Rails 4.2, but now the old ones are being deprecated and has been removed entirely in Rails 5.1.
+
  It's an easy change to make, so there's no reason not to update them all today.
 
  ### Deprecated Render Nothing
@@ -1604,7 +1605,7 @@ Another change in Ruby on Rails five is that render nothing has been deprecated.
 
 ```ruby
 class ProductsController < ApllicationController
-  
+
     def index
         if authorized_user
             @products = Product.all
@@ -1624,7 +1625,7 @@ That's the effect that we probably want, but it isn't entirely clear from what y
 
 ```ruby
 class ProductsController < ApllicationController
-  
+
     def index
         if authorized_user
             @products = Product.all
@@ -1636,7 +1637,7 @@ class ProductsController < ApllicationController
 end
 ```
 
-They do the same thing, but the second one makes it clear what's happening. For this reason, using `render(:nothing => true)` in Rails 5 will still work, but you'll also get a deprecation warning in your logs or in the console and if you are using the Rails 5.1 version this won't work anymore. 
+They do the same thing, but the second one makes it clear what's happening. For this reason, using `render(:nothing => true)` in Rails 5 will still work, but you'll also get a deprecation warning in your logs or in the console and if you are using the Rails 5.1 version this won't work anymore.
 
 
 ### Moved RecordTagHelper to [Gem](https://github.com/rails/record_tag_helper)
@@ -1649,7 +1650,7 @@ div_for(@person, :class => 'student')
 content_tag_for(:tr, @person) {...}
 ```
 
-So those are no longer going to be available. What those did, was they took an object, like an Active Record object and they constructed a div or a content tag based on the attributes of that object. 
+So those are no longer going to be available. What those did, was they took an object, like an Active Record object and they constructed a div or a content tag based on the attributes of that object.
 
 It's a feature that not a lot of people were using and so it was deemed better off in a Ruby gem than it is inside the Rails core.
 
@@ -1660,14 +1661,14 @@ I do want to make a footnote here, which is that the `content_tag` method is sti
 
 ### Moved XML serialization to [Gem](https://github.com/rails/activemodel-serializers-xml)
 
-XML Serialization has been moved to a RubyGem. 
+XML Serialization has been moved to a RubyGem.
 We're really talking about two main classes that have been moved: `ActiveModel::Serializers::Xml` and `ActiveRecord::Serialization::XmlSerializer` and there's also one method inside ActiveRecord Serialization which doesn't exist anymore, which is `ActiveRecord::Serialization#to_xml`. and that's the main way that you've probably been using Serialization before.
 
 This code simply just isn't needed as part of the Rails core anymore and it's better to let folks who need it load it, and keep the core Rails lean for everyone else.
 
-And in truth, JSON has become a more popular way to perform serialization than XML, if you still need XML Serialization, then you just need to load the [RubyGem](https://github.com/rails/activemodel-serializers-xml) into your gem file. 
+And in truth, JSON has become a more popular way to perform serialization than XML, if you still need XML Serialization, then you just need to load the [RubyGem](https://github.com/rails/activemodel-serializers-xml) into your gem file.
 
-You can do that by adding `activemodel-serializers.xml` and running `bundle install` and then you'll have that gem and all that functionality available to you. 
+You can do that by adding `activemodel-serializers.xml` and running `bundle install` and then you'll have that gem and all that functionality available to you.
 
 Now in case you're not clear on what this XML serialization is,let look a quick example:
 
@@ -1694,7 +1695,7 @@ It was built off the attributes that were inside that object. You've been workin
 
 ### Removed Responders
 
-The responders were previously deprecated, so this is a change that we should've anticipated, but now they've been completely removed and you'll want to be careful if you were using `ActionController#respond_with` or the class level version of `ActionController.respond_to` in your controllers. 
+The responders were previously deprecated, so this is a change that we should've anticipated, but now they've been completely removed and you'll want to be careful if you were using `ActionController#respond_with` or the class level version of `ActionController.respond_to` in your controllers.
 
 Those have now been removed from the Rails core, if you still want to use them, you can add them back in by loading a third-party [gem](https://github.com/plataformatec/responders). This is not an official Rails gem, but it is being maintained by a close and reliable source.To use it, just put responders into your gem file and run `bundle install`.
 
@@ -1717,13 +1718,13 @@ class UsersController < ApplicationController
 end
 ```
 
-In the above example we have a UsersController and you can see at the top I'm calling `respond_to` followed by several different formats. 
+In the above example we have a UsersController and you can see at the top I'm calling `respond_to` followed by several different formats.
 
 These are the formats that I want to allow responding to, and if one of those formats comes in as a request, then the `respond_with` that's being called in the index and the show action, is going to attempt to respond with the appropriate format.
 
-It's going to first look for either a matching template, if it's available or if not, it's going to try and render the object using built-in serialization methods. 
+It's going to first look for either a matching template, if it's available or if not, it's going to try and render the object using built-in serialization methods.
 
-Now it's decided that this approach keeps too much hidden and when depending on automatic serialization, it actually encourages developers to bury their code about the response into their models and not in the controllers and the views where it really belongs. 
+Now it's decided that this approach keeps too much hidden and when depending on automatic serialization, it actually encourages developers to bury their code about the response into their models and not in the controllers and the views where it really belongs.
 
 So `respond_with` and class level `respond_to` are out.
 
@@ -1746,7 +1747,7 @@ end
 ```
 
 
-In the above example we have another UsersController and in it I have my index action and I'm calling `respond_to` inside the action, I'm not calling it outside an action, that's the class level, I'm calling it inside the action where it's an instance level call. 
+In the above example we have another UsersController and in it I have my index action and I'm calling `respond_to` inside the action, I'm not calling it outside an action, that's the class level, I'm calling it inside the action where it's an instance level call.
 
 I'm calling `respond_to` and I'm giving it a block and I'm asking it to respond in different ways based on the format that was requested. It's a very similar idea.
 
@@ -1754,7 +1755,7 @@ This version, though, is very much in use and it is the recommended way to respo
 
 ### Other deprecations and deletions
 
-Previsously, the doc showedd the most significant deprecations and deletions, the ones that are going to affect the most developers. 
+Previsously, the doc showedd the most significant deprecations and deletions, the ones that are going to affect the most developers.
 There are also many smaller changes that will apply to fewer developers, but which can be critically important if you happen to have code which depends on it. Let's look at some of those changes:
 
 First, you should assume that any previously deprecated code has now been removed, that's the way software development works, we deprecate code before a major version comes out, let everyone know that things are gonna go away and then, when the major version is released, all that code gets pushed out, so we have a cleaner code base to work with, going forward.
@@ -1764,20 +1765,20 @@ Two configurations that you may have left laying around in your config files are
 * ActiveRecord::Base.raise_in_transactional_callbacks
 * Application::Configuration#serve_static_assets
 
-Both of these do nothing now and can be safely removed from `Application.rb`, if you have it there. 
+Both of these do nothing now and can be safely removed from `Application.rb`, if you have it there.
 
 Rails 5 also removed support for Debugger, that's in part because Ruby 2.2 no longer has support for Debugger. Instead, it uses [Byebug](https://github.com/deivid-rodriguez/byebug) instead. So, if you've been using the Debugger in the past, you'll wanna learn about the differences with Byebug.
 
-A few Rake tasks related to documentation has been removed: `rake doc:app`, `doc:rails` and `doc:guides` have all been removed. 
+A few Rake tasks related to documentation has been removed: `rake doc:app`, `doc:rails` and `doc:guides` have all been removed.
 
-In ActionController, there are a few changes. They've deprecated `redirect_to` when passing in the symbol `(:back)`. Instead, you should use `redirect_back`. They do very similar things, they just handle the refer slightly different. 
+In ActionController, there are a few changes. They've deprecated `redirect_to` when passing in the symbol `(:back)`. Instead, you should use `redirect_back`. They do very similar things, they just handle the refer slightly different.
 
 One important change is to make sure that all of your view templates have a handler extension at the end, such as `.erb`. Templates which don't have that handler extension on them no longer going to assume that it's an `.erb` file, like they did in the past.
-Now, they're going to generate it as a `.raw` type, which means that it's not going to process your `.erb` code in there, it's going to potentially expose it to the world and it's not going to bind your instance variables for processing inside those `.erb` tags anymore. So, you'll wanna make sure that all of those templates have `.erb` at the end. 
+Now, they're going to generate it as a `.raw` type, which means that it's not going to process your `.erb` code in there, it's going to potentially expose it to the world and it's not going to bind your instance variables for processing inside those `.erb` tags anymore. So, you'll wanna make sure that all of those templates have `.erb` at the end.
 
 Another controller method, `skip_action_callback` has been deprecated and have been removed in Rails 5.1. You probably weren't using this one anyway. What you should use instead is `skip_before_action`, `skip_after_action` or `skip_around_action` instead. `skip_action_callback` has been deprecated in favor of using one of those.
 
-In ActiveRecord and ActiveRelation, you should no longer use `#unique` as a scope, instead, you should use `#distinct`. It was decided that unique was confusing because it sounds like it's doing something similar to what unique does when called on an array, but it's not exactly the same. It's really interfacing with the database and distinct is a better way to deal with that. 
+In ActiveRecord and ActiveRelation, you should no longer use `#unique` as a scope, instead, you should use `#distinct`. It was decided that unique was confusing because it sounds like it's doing something similar to what unique does when called on an array, but it's not exactly the same. It's really interfacing with the database and distinct is a better way to deal with that.
 
 All the code related to `serialized_attributes` has been removed, so you can't use that anymore and support for the gems `protected_attributes` and `activerecord-deprecated_finders` has also been removed.
 
@@ -1790,7 +1791,7 @@ If you write tests for your applications, then you wanna pay particular attentio
 It's likely to be a controversial change, because some people were using assigns to test that instance variables were being assigned in their controllers. But it was decided by the core team that that's not a best practice for how you test your controllers and therefore it's been moved to a gem.
 
 Also, `ActionController::TestCase#get` and `#post` have been deprecated, so if you were using `#get` and `#post` in order to load requests in ActionController, you should now use `#process` instead and then you provide `#process` with a method of either get or post.
-You can look up more information on how process works to see how to make that change. 
+You can look up more information on how process works to see how to make that change.
 
 And, in fact, all of `ActionController` TestCase is being deprecated and has been moved into a separate gem in Rails 5.1, you should use `ActionDispatch::IntegrationTest` instead.
 
