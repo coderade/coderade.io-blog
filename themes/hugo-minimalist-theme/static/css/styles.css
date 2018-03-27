@@ -1,4 +1,4 @@
-@charset "UTF-8";
+.tags@charset "UTF-8";
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
@@ -801,3 +801,48 @@ body.post-template .site-header h2 .logo {
 
 .clearfix:after {
   clear: both; }
+
+.tags .list-label-widget-content ul li {
+  font-size: 14px;
+  color: #848484;
+  border-bottom: 1px solid #EDEDED;
+  padding: 0;
+}
+.tags .list-label-widget-content ul li a {
+  display: inline-block;
+  color: inherit;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.tags .list-label-widget-content ul li span {
+  float: right;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.tags .list-label-widget-content ul li span {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.tags .list-label-widget-content ul li > span:first-child {
+  float: none;
+  display: inline-block;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #f09a75;
+  border-top: 1px dashed #f09a75;
+  border-bottom: 1px dashed #f09a75;
+}
+.tags .cloud-label-widget-content .label-size {
+  font-size: 100%;
+  float: left;
+}
+.tags .cloud-label-widget-content .label-size a {
+  display: inline-block;
+  margin: 2px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #888;
+  background-color: #F5F5F5;
+  padding: 7px 10px;
+  letter-spacing: 0.03em;
+}
