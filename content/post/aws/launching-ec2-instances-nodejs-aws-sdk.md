@@ -121,8 +121,10 @@ empty object. We'll going to be using the `createSecurityGroup` function here an
 two of the params arguments that it wants is a description and a group name.
 
 This function willl be taking an argument called `sgName` to the name and the
-`sgDescription` to the description of the Security Group. Personally  I find that the description isn't too useful until you have a massive number of security groups, even then, it seems that tags
-are used more for management in those situations than descriptions.
+`sgDescription` to the description of the Security Group. Personally I find
+that the description isn't too useful until you have a massive number of
+security groups, even then, it seems that tags are used more for management in
+those situations than descriptions.
 
 ```javascript
 function createSecurityGroup(sgName, sgDescription) {
@@ -220,7 +222,7 @@ IpRanges: [
 ```
 
 
-Now we need to also add the rule for port 3000, so copy thes rule object created:
+Now, we need to also add the rule for port 3000, so copy thes rule object created:
 
 ```javascript
 {
@@ -332,5 +334,244 @@ function createSecurityGroup(sgName, sgDescription) {
     })
 }
 ```
+
+
 ## Creating a key pair
+
+To log in the instance, we must create a key pair. According the Amazon [docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+the use for the Key pair is:
+
+> Amazon EC2 uses public–key cryptography to encrypt and decrypt login information.
+Public–key cryptography uses a public key to encrypt a piece of data, such as a password,
+then the recipient uses the private key to decrypt the data.
+The public and private keys are known as a key pair.
+
+
+In this way we will need to create a Key Pair to connect to our EC2 instance.
+
+So we need a `createKeyPair` function, this function will take a `keyName` argument.
+
+```javascript
+function createKeyPair(keyName) {}
+```
+
+This function will be a wrapper for the aws-sdk [ec2.createKeyPair](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#createKeyPair-property) function.
+
+This function has the 'KeyName' and the 'DryRun' arguments, but for this example only
+the 'KeyName' argument is needed. The value of this argument will passed in our
+function `createKeyPair` function.
+
+```javascript
+let params = {
+  KeyName: keyName, /* required */
+};
+```
+
+After declaring the params object, let's return a new Promise with a callback
+function with arguments resolve and reject as the argument.
+
+Inside the callback function, we can call the EC2 function createKeyPair,
+passing the `params` object as the first argument. The second argument will be a
+callback function with the err and data objects.
+
+If there's an error, then call reject with the err object. In the else, call resolve
+with the data object.
+
+```javascript
+return new Promise((resolve, reject) => {
+       ec2.createKeyPair(params, (err, data) => {
+           if (err)
+               reject(err);
+           else
+               resolve(data)
+       })
+   })
+```
+
+This will be our `createKeyPair` function:
+
+```javascript
+function createKeyPair(keyName) {
+    const params = {KeyName: keyName};
+
+    return new Promise((resolve, reject) => {
+        ec2.createKeyPair(params, (err, data) => {
+            if (err)
+                reject(err);
+            else
+                resolve(data)
+        })
+    })
+}
+```
+
+This data object is important because when the key pair is created in AWS,
+the function returns the contents of that key pair's private key.
+
+If you don't resolve the data argument on the `ec2.createKeyPair()` function,
+it basically throws away the created key pair and if we don't
+save this locally, the key pair is essentially useless.
+
+For this way I created a KeyPair helper function that will actually take
+this key pair data and save it locally as a file, this function I saved on
+the helpers directory with the name `keyPairHelper.js`. This file will contains
+the below code:
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+
+function persistKeyPair (keyData) {
+    return new Promise((resolve, reject) => {
+        const keyPath = path.join(os.homedir(), '.ssh', keyData.KeyName);
+        const options = {
+            encoding: 'utf8',
+            mode: 0o600
+        };
+
+        fs.writeFile(keyPath, keyData.KeyMaterial, options, (err) => {
+            if (err) reject(err);
+            else {
+                console.log('Key written to', keyPath);
+                resolve(keyData.KeyName)
+            }
+        })
+    })
+}
+
+module.exports = {
+    persistKeyPair: persistKeyPair
+};
+```
+
+This function `persistKeyPair()` will be called after the `createKeyPair()` function
+which consequently will be called as the return function for our `createSecurityGroup()`
+function at the begin of your `create-ec2-instance` file.
+
+```javascript
+createSecurityGroup(sgName, sgDescription)
+    .then(() => {
+        return createKeyPair(keyName);
+    })
+    .then(keyPairHelper.persistKeyPair)
+```
+
+With these methods our key pair will be created.
+
+Now that we have the methods to create the security group and key pair, we can
+finally create an EC2 instance using both.
+
+
+## Creating the EC2 Instance
+
+The only one unimplemented function in our example is the `createInstance()`
+function.
+
+This function takes in the `sgName` (security group name) and the `keyName`
+(key pair name) as arguments, the same arguments that were used to create the
+other resources.
+
+
+```javascript
+function createInstance(sgName, keyName) {}
+```
+
+Inside the function, we'll start by defining a `params` object.
+
+This `params` object will have many more arguments than the other function ones
+we've made.
+
+The first we'll need to add is `ImageId`. This is the AMI ID that will be used
+to create the instance.
+
+### Selecting a Amazon Machine Image (AMI)
+
+There is an EC2 SDK function called [describeImages](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#describeImages-property)
+that can be used to search for AMIs that we can create. The problem is the search
+takes a long time and it's really just easier to go to the console directly if
+you know what you're looking for.
+
+As we only need the ImageId for our AMI, the easiest way is suitable.
+
+So, to select the AMI, we need to go to the [AWS Console](https://console.aws.amazon.com)
+and then to the [EC2 Dashboard](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1).
+
+Then, we can click on the *Launch Instance* button and we'll be presented with
+the AMI selection screen.
+
+![](/images/posts/aws/ami-selection-screen.png)
+
+
+At the top, there is the Amazon Linux AMI. At the end of that title is the ID.
+Yours may or may not be the same as the above image based on when you're reading
+this  post and which region you're using.
+
+Either way, for this example, if you don't need a especific one, you can copy
+whatever AMI ID is in your AWS Console.
+
+Now we can switch back to your code and paste that in a string as the value to the
+`ImageId` property.
+
+```javascript
+ImageId: 'ami-14c5486b', //AMI ID that will be used to create the instance
+```
+The next property is `InstanceType`. This is the type of instance such as `t2.small`
+or `m4.xlarge` and defines the properties of the instance. Like the AMI, if you
+don't need a specific one you can use one of the smallest here, **t2.micro**.
+
+```javascript
+InstanceType: 't2.micro',
+```
+
+Next, we need to define the key pair name with the property `KeyName` and `Name`,
+that we can be entering the value of keyName from the function arguments for both.
+
+```javascript
+KeyName: keyName,
+Name: keyName,
+```
+
+Next, is the `MaxCount` and `MinCount` property, which tells AWS how many instances to create.
+We can enter 1 for both.
+
+```javascript
+MaxCount: 1,
+MinCount: 1,
+```
+
+For more information about the default limits, and how to request an increase,
+see [How many instances can I run in Amazon EC2](https://aws.amazon.com/ec2/faqs/#How_many_instances_can_I_run_in_Amazon_EC2)
+in the Amazon EC2 FAQ.
+
+Now we need to add the property `SecurityGroups`, and give it an array as the value.
+This is where we add any security groups to the instance.
+So, we enter the `sgName` argument into the array.
+
+```javascript
+SecurityGroups: [
+            sgName
+        ],
+```
+
+We can add more than one security group here if you want to.
+There's also a [`SecurityGroupIds`](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#runInstances-property)
+property that we could use instead and reference the security groups by their IDs
+rather than by their names. I find it a little easier to do it by name for this code.
+
+The last property in our params object is `UserData`.
+
+UserData has a couple of different uses with EC2 instances, but we will use it to
+run shell commands once the instance starts.
+
+Essentially, they are just installing Node and Git, cloning the example project
+from my [GitHub](https://github.com/coderade), installing dependencies,
+and then running it.
+
+You can't just put these shell scripts directly into the UserData field, however
+we have to Base64 encode it. Well,
+
+I've gone ahead and done that for you in this comment below, so copy that without the preceding hash symbol. Then go back to the create-ec2-instance file and paste it into a string as the UserData value. And with that, we have all the params in place. In the next line, we'll return a new Promise with the callback function with resolve and reject arguments. Inside that function, we'll call ec2.runInstances. This is the function that actually does the EC2 instance creation. Pass in the params object as the first argument, and the second will be a callback function with err and data arguments. Call reject with the err argument if it exists; otherwise, call resolve with the data argument. And with that, we have completed our script.
+
+
 ---
