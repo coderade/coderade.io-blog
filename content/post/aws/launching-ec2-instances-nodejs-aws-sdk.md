@@ -2,7 +2,7 @@
 date = "2018-06-24T13:47:08+02:00"
 tags = ["aws", "nodejs", "js", "ec2"]
 categories = ["aws", "nodejs"]
-title = "Launching EC2 instances using the Nodejs AWS SDK"
+title = "Launching EC2 instances using the Node.js AWS SDK"
 description = "Advanced methods for creating Elastic Cloud Compute instances using the NodeJs AWS SDK."
 meta_image = "images/posts/aws/ec2-instances.png"
 +++
