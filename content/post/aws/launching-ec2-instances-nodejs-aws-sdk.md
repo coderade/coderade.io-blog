@@ -1,10 +1,10 @@
 +++
-date = "2018-05-25T13:47:08+02:00"
-tags = ["aws", "nodejs", "js"]
+date = "2018-06-24T13:47:08+02:00"
+tags = ["aws", "nodejs", "js", "ec2"]
 categories = ["aws", "nodejs"]
 title = "Launching EC2 instances using the Nodejs AWS SDK"
 description = "Advanced methods for creating Elastic Cloud Compute instances using the NodeJs AWS SDK."
-meta_image = ""
+meta_image = "images/posts/aws/created-ec2-instance.png"
 +++
 
 The EC2 service is one of the most fundamental services offered by AWS.
@@ -20,7 +20,8 @@ There are many different ways to do this.
 One of theses ways is use the AWS Console to create instances. I think that is
 the easy way, because the [AWS Console](https://aws.amazon.com/console/) is very
 interactive and the AWS documentation is very good and easy to understand.
-To check how to create instance using the AWS console use the official [Step to step documentation](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html).
+To check how to create instance using the AWS console use the official
+[Step to step documentation](https://docs.aws.amazon.com/efs/latest/ug/gs-step-one-create-ec2-resources.html).
 
 Another method is to use the [AWS CLI](https://aws.amazon.com/cli/), that is a
 little more complicated, but that have a good documentation too. This  way
@@ -56,9 +57,11 @@ Assign to it a require function call will be needed, passing in the string
 const AWS = require('aws-sdk');
 ```
 
-The AWS SDK requires you to configure the region each time it's imported. I'll admit this gets a little annoying. There are some abstractions you can do to mitigate this, like set the
-region in the AWS config file on your local system or export as environment
-variable before running. To understand how to do this use the AWS Docs link of how to
+The AWS SDK requires you to configure the region each time it's imported. I'll
+admit this gets a little annoying. There are some abstractions you can do to
+mitigate this, like set the region in the AWS config file on your local system or
+export as environment variable before running. To understand how to do this use
+the AWS Docs link of how to
 [Set up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
 For this example, I will call the update function on the `AWS.config` property.
@@ -129,8 +132,8 @@ those situations than descriptions.
 ```javascript
 function createSecurityGroup(sgName, sgDescription) {
     const params = {
-        Description: sgDescription,
-        GroupName: sgName,
+      GroupName: sgName,
+      Description: sgDescription
     };
 }
 ```
@@ -140,7 +143,8 @@ type of functions I personally like to use promises instead of callbacks. IMHO I
 think nowadays we must use the most of the advantages of ES6 brings to us and
 this approach a little easier to understand and read.
 
-So return a new Promise. It will take a function with the resolve and reject arguments.
+So return a new Promise. It will take a function with the resolve and reject
+arguments.
 Now inside this promise argument function body, we'll call our first SDK function
 [ec2.createSecurityGroup()](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#createSecurityGroup-property).
 
@@ -151,7 +155,8 @@ promises firsthand, so we'll need to use callbacks here.
 Basically, this function is creating a security group with the name and description
 that we pass it. It will not create any security group rules. Inside the function body,
 call `reject()` with the `err` object if there is one.
-In the else, create a block. This is where our code will execute if the security group creation was successful.
+In the else, create a block. This is where our code will execute if the security
+group creation was successful.
 
 ```javascript
 return new Promise((resolve, reject) => {
@@ -338,7 +343,8 @@ function createSecurityGroup(sgName, sgDescription) {
 
 ## Creating a key pair
 
-To log in the instance, we must create a key pair. According the Amazon [docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+To log in the instance, we must create a key pair. According the Amazon
+[docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
 the use for the Key pair is:
 
 > Amazon EC2 uses public–key cryptography to encrypt and decrypt login information.
@@ -355,7 +361,9 @@ So we need a `createKeyPair` function, this function will take a `keyName` argum
 function createKeyPair(keyName) {}
 ```
 
-This function will be a wrapper for the aws-sdk [ec2.createKeyPair](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#createKeyPair-property) function.
+This function will be a wrapper for the aws-sdk
+[ec2.createKeyPair](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#createKeyPair-property)
+function.
 
 This function has the 'KeyName' and the 'DryRun' arguments, but for this example only
 the 'KeyName' argument is needed. The value of this argument will passed in our
@@ -487,7 +495,8 @@ to create the instance.
 
 ### Selecting a Amazon Machine Image (AMI)
 
-There is an EC2 SDK function called [describeImages](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#describeImages-property)
+There is an EC2 SDK function called
+[describeImages](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#describeImages-property)
 that can be used to search for AMIs that we can create. The problem is the search
 takes a long time and it's really just easier to go to the console directly if
 you know what you're looking for.
@@ -561,17 +570,228 @@ rather than by their names. I find it a little easier to do it by name for this 
 
 The last property in our params object is `UserData`.
 
-UserData has a couple of different uses with EC2 instances, but we will use it to
-run shell commands once the instance starts.
+`UserData` has a couple of different uses with EC2 instances, but we will use it to
+run shell commands once the instance starts. To understand more of it read the
+AWS documentation of how to
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html](Run Commands on Your Linux Instance at Launch).
 
-Essentially, they are just installing Node and Git, cloning the example project
-from my [GitHub](https://github.com/coderade), installing dependencies,
-and then running it.
+For this example, I will use the following commands on my `UserData` value:
 
-You can't just put these shell scripts directly into the UserData field, however
-we have to Base64 encode it. Well,
+```javascript
+let commandsString = `#!/bin/bash
+curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
+sudo yum install -y nodejs
+sudo yum install -y git
+git clone https://github.com/user/repo
+cd repo
+npm i
+npm run start`;
+```
 
-I've gone ahead and done that for you in this comment below, so copy that without the preceding hash symbol. Then go back to the create-ec2-instance file and paste it into a string as the UserData value. And with that, we have all the params in place. In the next line, we'll return a new Promise with the callback function with resolve and reject arguments. Inside that function, we'll call ec2.runInstances. This is the function that actually does the EC2 instance creation. Pass in the params object as the first argument, and the second will be a callback function with err and data arguments. Call reject with the err argument if it exists; otherwise, call resolve with the data argument. And with that, we have completed our script.
+Essentially, these commands are just installing Node and Git, cloning the
+example project from my [GitHub](https://github.com/coderade), installing
+dependencies and then running it.
 
+You can't just put these shell scripts directly into the `UserData` value,
+however we have to Base64 encode it.
+
+To do this, with Node.js we can create a [Buffer](https://nodejs.org/api/buffer.html#buffer_buffer)
+of this variable and then convert it to string with the base64 encoding type.
+
+```javascript
+UserData: new Buffer(commandsString).toString('base64');
+```
+
+Now, this will be our final params variable that will send to the EC2
+[runInstances](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#runInstances-property)
+method. This is the function that actually does the EC2 instance creation.
+
+
+```javascript
+const params = {
+    ImageId: 'ami-14c5486b', //AMI ID that will be used to create the instance
+    InstanceType: 't2.micro',
+    KeyName: keyName,
+    Name: keyName,
+    MaxCount: 1,
+    MinCount: 1,
+    SecurityGroups: [
+        sgName
+    ],
+    UserData: new Buffer(commandsString).toString('base64')
+};
+```
+
+Now, we'll return a new Promise with the callback function with resolve and reject
+arguments.
+
+Inside that function, we'll call the `ec2.runInstances`. So we will pass `params`
+object as the first argument and the second will be a callback function
+with `err` and `data` arguments.
+
+```javascript
+return new Promise((resolve, reject) => {
+        ec2.runInstances(params, (err, data) => {
+            if (err)
+                reject(err);
+            else
+                resolve(data)
+        })
+    })
+}
+```
+
+Then, we will call `reject` with the `err` argument if it exists, otherwise, we
+will call `resolve` with the `data` argument.
+
+We also need to create a method to create our instance tag (that is used as the
+name of the instance to help the instances management).
+
+In this way, let's create the `createInstanceTag()` method which receive the
+`instanceData` that will be the data resolved by the promise of the `createInstance()`
+method and the `instanceTagName` that will be also passed by that promise
+resolution.
+
+On this method, we to create a object called `params` that will contains the
+`Resources` and the `Tags` properties.
+
+The `Resources` property will be an array that will contains the IDs of one
+or more instances resources to be tagged. In our example, we will use the ID of
+the instance who we just created:
+
+```javascript
+  Resources: [instanceData.Instances[0].InstanceId]
+```
+
+The `Tags` property will be an array of that contains one or more tags. For
+this, I will create only one tag with the key *Name*.
+
+The tags object contains two String properties. The `Key` that is actually the
+key of the tag and the `Value` that as the name says is the value the of the tag.
+
+So, to create our `Name` tag, we will set value `'Name'` for the `Key` and the
+`instanceTagName` for the `Value` property.
+
+```javascript
+Tags: [
+    {
+        Key: 'Name',
+        Value: instanceTagName
+    }
+]
+```
+
+Inside the function, like the another functions we'll call a EC2 method the
+[`ec2.createTags`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EC2.html#createTags-property).
+Then, we will pass `params` object as the first argument and the second will
+be a callback function with `err` and `data` arguments.
+
+```javascript
+return new Promise((resolve, reject) => {
+        ec2.createTags(params, (err, data) => {
+            if (err)
+                reject(err);
+            else
+                resolve(data)
+        })
+    })
+}
+```
+
+In this way, this will be our `createInstanceTag()` method:
+
+```javascript
+function createInstanceTag(instanceData, instanceTagName) {
+    const params = {
+        Resources: [instanceData.Instances[0].InstanceId],
+        Tags: [
+            {
+                Key: 'Name',
+                Value: instanceTagName
+            }
+        ]
+    };
+
+    return new Promise((resolve, reject) => {
+        ec2.createTags(params, (err, data) => {
+            if (err)
+                reject(err);
+            else
+                resolve(data)
+        })
+    })
+}
+```
+
+The functions are done! wow! And now?
+
+Now we need to call all these functions and create and pass the needed arguments.
+
+First, on the begin of our file (after all the needed aws settings and imports),
+we will create some consts variables, the **`sgName`**
+(the security group name), **`sgDescription`** (the security group description),
+**`keyName`** (the key name for the KeyPair and the **`instanceTagName`** (the
+name to be used on the Instance tag):
+
+```javascript
+const sgName = 'ec2_examples_security_group'; //The security group name
+const sgDescription = 'ec2_examples Security Group description'; //the security group description
+const keyName = 'ec2_examples_instance_key'; //The key for the KeyPair key
+const instanceTagName = 'EC2 Examples'; //The name to be used on the Instance tag
+```
+
+And then, call the created functions passing the need arguments:
+
+```javascript
+createSecurityGroup(sgName, sgDescription)
+    .then(() => {
+        return createKeyPair(keyName);
+    })
+    .then(keyPairHelper.persistKeyPair)
+    .then(() => {
+        return createInstance(sgName, keyName, instanceTagName)
+    })
+    .then(createInstanceTag)
+    .catch((err) => {
+        console.error('Failed to create instance with:', err)
+    });
+```
+So, in this way I will call first the `createSecurityGroup` function to create
+the Security Group for our instance, then if everything works properly I will
+call the `createKeyPair` function to create the needed KeyPair to log in the
+instance, persisting in our local machine with our Helper function `persistKeyPair`,
+to finish finally calling the `createInstance` function to create the instance
+and then `createInstanceTag` to create the tag for this instance.
+
+After create the calling of the functions, the script to create instances with the
+NodeJs AWS-SDK is done.
+
+
+# Running the script
+To run the example, type the following at the command line.
+Now, we can run this post example to create our instance.
+
+To run the example, type command `node create-ec2-instance.js` at the command line.
+
+After a few seconds, it should print out the location of the key that was written
+locally and the details of the instance that was just created.
+
+![](/images/posts/aws/created-ec2-instance.png)
+
+And shazam! The EC2 instance has been created only with JavaScript code!
+
+The actual boot up of the instance can take a few minutes, but you already can
+go to the [EC2 Console](https://console.aws.amazon.com/ec2) and look in the the
+region specified on the begin of this example the instance that was created.
+
+![](/images/posts/aws/ec2-instances.png)
+
+The source of this example is available on my Github project [https://github.com/coderade/aws-ec2-examples/create-ec2-instance.js](https://github.com/coderade/aws-ec2-examples/blob/master/create-ec2-instance.js).
+Take a look on it if you need a further information.
+
+And that is all!
+
+Thanks for your reading and please take a look at the other blog posts when you
+have a time.
 
 ---
