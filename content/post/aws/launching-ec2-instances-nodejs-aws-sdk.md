@@ -4,7 +4,7 @@ tags = ["aws", "nodejs", "js", "ec2"]
 categories = ["aws", "nodejs"]
 title = "Launching EC2 instances using the Nodejs AWS SDK"
 description = "Advanced methods for creating Elastic Cloud Compute instances using the NodeJs AWS SDK."
-meta_image = "images/posts/aws/created-ec2-instance.png"
+meta_image = "images/posts/aws/ec2-instances.png"
 +++
 
 The EC2 service is one of the most fundamental services offered by AWS.
