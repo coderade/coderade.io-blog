@@ -1,0 +1,24 @@
+<aside class="author">
+   <div class="tags">
+      <h2><span>Categories</span></h2>
+      <div class="widget-content cloud-label-widget-content">
+         {{ range $key, $value := .Site.Taxonomies.categories }}
+         <span class="label-size label-size-4">
+           <a href="/categories/{{ $key | urlize }}">{{ $key | title }}</a>
+         </span>
+         {{ end }}
+      </div>
+   </div>
+</aside>
+<aside class="author">
+   <div class="tags">
+      <h2><span>Tags</span></h2>
+      <div class="widget-content cloud-label-widget-content">
+         {{ range $key, $value := .Site.Taxonomies.tags }}
+         <span class="label-size label-size-4">
+           <a dir="ltr" href="/tags/{{ $key | urlize }}">{{ $key | title }}</a>
+         </span>
+         {{ end }}
+      </div>
+   </div>
+</aside>

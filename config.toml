@@ -17,7 +17,7 @@ publishdir = "coderade.github.io"
     # Link custom assets relative to /static
     avatar = "img/profile-image.jpg"
     header_background = "img/puralsight-bg.jpg"
-    header_title = "<Coding, DevOps and Software Development tips/>"
+    header_title = "<Coding, DevOps and Software Engineering tips/>"
     copyright = "Powered by [Hugo](http://gohugo.io)."
     custom_css = ["css/theme.css"]
     custom_js  = []
