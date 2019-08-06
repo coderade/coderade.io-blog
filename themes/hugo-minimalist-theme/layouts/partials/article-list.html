@@ -1,7 +1,7 @@
 <div class="container clearfix">
     {{ partial "author" . }}
     <main role="main" class="content">
-        {{ $paginator := .Paginate (where .Site.Pages "Type" "post") }}
+        {{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") }}
         {{ range $paginator.Pages }}
             {{ .Render "summary" }}
         {{ end }}
