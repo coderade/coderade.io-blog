@@ -8,7 +8,7 @@ enableemoji = true
 disqusShortname = "coderade"
 # Enable gogle analytics by entering your tracking code
 googleAnalytics = "UA-106618202-1"
-theme = "hugo-minimalist-theme"
+theme = "coderade-minimalist-theme"
 publishdir = "coderade.github.io"
 [params]
     site_author = "Valdeci Gomes"
