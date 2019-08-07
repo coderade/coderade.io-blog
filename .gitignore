@@ -1,5 +1,2 @@
 #InteliJ idea settings
 .idea/
-
-# Don't track the publish directory
-coderade.github.io/
