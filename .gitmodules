@@ -2,5 +2,5 @@
 	path = coderade.github.io
 	url = https://github.com/coderade/coderade.github.io.git
 [submodule "themes/coderade-minimalist-theme"]
-        path = themes/coderade-minimalist-theme
-        url = git@github.com:coderade/coderade-minimalist-theme.git
+    path = themes/coderade-minimalist-theme
+    url = https://github.com/coderade/coderade-minimalist-theme.git
