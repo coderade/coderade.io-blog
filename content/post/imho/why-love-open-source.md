@@ -2,7 +2,7 @@
 date = "2019-08-10T21:17:21+02:00"
 tags = ["imho", "coding"]
 categories = ["imho", "coding"]
-title = "Why love Open Source"
+title = "Why love Open Source?"
 description = "In this article I will try to show with IMHO how the Open Source and the Open Source community changed my work and personal life and how I think that the Open Source ideas can make any person a little better."
 meta_image = "images/posts/imho/why-love-open-source/github-octocat.jpg"
 +++
