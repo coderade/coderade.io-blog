@@ -2,8 +2,8 @@
 date = "2019-08-10T21:17:21+02:00"
 tags = ["imho", "coding"]
 categories = ["imho", "coding"]
-title = "Why love Open Source?"
-description = "In this article I will try to show with IMHO how the Open Source and the Open Source community changed my work and personal life and how I think that the Open Source ideas can make any person a little better."
+title = "Why I love Open Source?"
+description = "In this article I will try to show IMHO how the Open Source and the Open Source community changed my work and personal life and how I think that the Open Source ideas can make any person a little better."
 meta_image = "images/posts/imho/why-love-open-source/github-octocat.jpg"
 +++
 
@@ -15,7 +15,7 @@ and [GitHub](https://github.com/).
  
 I learned to love how all of this made my learning curve so much easier in the Software Engineering area. 
 
-Being honest, I really don't think that I will happy how I am working as a Software Engineer without the Open Source 
+Being honest, I really don't think that I would be happy how I am now working as a Software Engineer without the Open Source 
 and the Open Source community. 
 
 So in this article I will try to share a little of my life using Open Source.
@@ -74,19 +74,20 @@ to ask and answer some questions on the StackOverflow whenever possible. Is it o
  - [**Atyantik/react-pwa**](https://github.com/Atyantik/react-pwa) - An upgradable boilerplate for Progressive web applications 
  (PWA) with server side rendering, build with SEO in mind and achieving max page speed and optimized user experience.
  
->>> ** There are some another examples with projects that I had the contribute pleasure to contribute for on my [GitHub](https://github.com/coderade).
+>>> ** There are some another examples of projects which I had the pleasure to contribute for on my [GitHub](https://github.com/coderade).
 
 - Some on my Study in some technologies and topics:
  - My studies with Ruby, Rails and TDD:
-     - [tdd-rails-examples](https://github.com/coderade/tdd-rails-examples) - some examples of how use TDD in Ruby on Rails.
-     - [react-twitter-clone](https://github.com/coderade/react-twitter-clone) - Twitter clone created with Rails 5 and React
+     - [**tdd-rails-examples**](https://github.com/coderade/tdd-rails-examples) - some examples of how use TDD in Ruby on Rails.
+     - [**react-twitter-clone**](https://github.com/coderade/react-twitter-clone) - Twitter clone created with Rails 5 and React
  - My studies with React and React Native:
-     - [reactNativeCoursesApp](https://github.com/coderade/reactNativeCoursesApp) - Courses app build using React Native 
+     - [**reactNativeCoursesApp**](https://github.com/coderade/reactNativeCoursesApp) - Courses app build using React Native 
      and Materialize based on my Lynda React Courses project.
-     - [react-redux-es6](https://github.com/coderade/react-redux-es6) - project with didactic purposes to study React, Redux and ES6 in an advanced way.
- - [My studies with Ansible](https://github.com/coderade/ansible-examples): - project with some examples of how to use Ansible.7
- >>> ** Currently I have 72 public repositories on [my GitHub](https://github.com/coderade) showing a little of what I am
-studying. I always try to document my projects, making easy to everyone run then and I normally follow the main standards 
+     - [**react-redux-es6**](https://github.com/coderade/react-redux-es6) - project with didactic purposes to study React, Redux and ES6 in an advanced way.
+ - [**My studies with Ansible**](https://github.com/coderade/ansible-examples): - project with some examples of how to use Ansible.
+ 
+*Currently I have 72 public repositories on [**my GitHub**](https://github.com/coderade) showing a little of what I am
+studying. I always try to document my projects, making easy to everyone run them and I normally follow the main standards 
 of code, quality, testability and safety, Please take a look!
 
 ---
