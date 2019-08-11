@@ -58,15 +58,16 @@ today and which I love.
 And everything here is open source. The structure and posts of this blog are available on the [coderade.io-blog](https://github.com/coderade/coderade.io-blog)
 project, the generate code is available on the [coderade.github.io](https://github.com/coderade/coderade.github.io) project
 and the theme is available on the [coderade-minimalist-theme](https://github.com/coderade/coderade-minimalist-theme).
-- [**My StackOverflow profile**](https://stackoverflow.com/users/4157589/coderade?tab=profile) - How used it everyday, I like 
-to ask and answer some questions on the StackOverflow whenever possible. Is it open source too, right?
+- [**My StackOverflow profile**](https://stackoverflow.com/users/4157589/coderade?tab=profile) - How used it everyday, 
+I like to ask and answer some questions on the StackOverflow whenever possible. The StackExchange platform is not open 
+source but is a good way to be helped and try to help the community.
 - [**Some big projects that I was able to contribute**](https://github.com/coderade):
  - [**pySkypeBotApi**](https://github.com/coderade/pySkypeBotApi) - A simple Skype bot wrapper using Python and Flask for 
  the Bot Connector/Rest service.
  - [**awsdocs/aws-doc-sdk-examples**](https://github.com/awsdocs/aws-doc-sdk-examples) - I was able to  help with some code 
  examples used in the official AWS SDK documentation
- - [**jiaaro/pydub**](https://github.com/jiaaro/pydub) - I was to help with the documentation of the [Pydub](http://pydub.com/)
- project
+ - [**jiaaro/pydub**](https://github.com/jiaaro/pydub) - I was able to help with the documentation of the [Pydub](http://pydub.com/)
+ project.
  - [**sergi/jsftp**](https://github.com/sergi/jsftp) - A client FTP library for NodeJS that focuses on correctness, 
  clarity and conciseness.
  - [**demo-progressive-web-app**](https://demopwa.surge.sh/)/[gokulkrishh/demo-progressive-web-app](https://github.com/gokulkrishh/demo-progressive-web-app) - 
