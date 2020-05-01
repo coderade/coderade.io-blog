@@ -30,7 +30,7 @@ I like to study everyday, so I have some course certificates, that are available
 I like sports, so I like to go to gym everyday (*after I finish this update I will do some workout*), I try to do some running and cycling whenever possible, do some surfing,  playing drums, do meditation, reading and doing math. 
 
 ![](/images/about/discover-1.jpg)
-This is me some of these sports days, officialy in 2018. More pictures can be found on my [**instagram**](https://www.instagram.com/valde.ci/). If you want hehe.
+This is me in some of these sports days, officialy in 2018. More pictures can be found on my [**instagram**](https://www.instagram.com/valde.ci/), if you want, of course hehe.
 
 ## Contact
 
