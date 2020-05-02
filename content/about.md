@@ -10,31 +10,30 @@ Hi there.
 After a few attempts with the coderade [.in](http://coderade.in) and
 [.io](http://coderade.io) blogs, I returned to write in a blog again.
 
-But now ~~with no expensive domain~~ (I bought the [valde.ci](https://valde.ci) domain hehe) and freedom in customization excuses.
-I'm hosting this blog on the [GitHub Pages](https://pages.github.com/) that is
-totally free and is very easy to use.
+But now ~~with no expensive domain~~ (After using the [coderade.github.io](https://coderade.github.io) I bought the [valde.ci](https://valde.ci) domain, that is a expensive hehe) and freedom in customization excuses.
 
-On this blog I will write about most of coding, DevOps and Software Engineering (some IT stuff) but I'll try to share my experiences in this vast life too (yeah, with 25 years old).
+I'm hosting this blog on the [GitHub Pages](https://pages.github.com/) that is totally free and is very easy to use.
+
+On this blog I will write most of time about coding, DevOps and Software Engineering (some IT stuff) but I'll try to share my experiences in this vast life too (yeah, with 25 years old).
 
 The blog is powered by [Hugo](http://gohugo.io) and I normally use the ~~IDEA~~, ~~Atom Editor~~, [**Visual Code**](https://code.visualstudio.com/) to write my posts with Markdown :heart:.
 
 
 ## About me
 
-I am a Software Engineer from Brazil with am 25 years old and I was born and raised in [**Guaratuba - PR**](https://en.wikipedia.org/wiki/Guaratuba), but I lived in a lot of cities since I learned to buy bus and flight tickets hehe.
+I am a Software Engineer from Brazil with am 25 years old and I was born and raised in [**Guaratuba - PR**](https://en.wikipedia.org/wiki/Guaratuba), but I lived in a lot of cities since I learned how to buy bus and flight tickets hehe.
 
-I have more than 7 years of experience working in the IT area, I already worked as IT infrascture Analyst, Web developer, Software Engineer and DevOps and IOT Engineer, so most of my time I worked with Linux and coding, and I love it.
+I have more than 7 years of experience working in the IT area, I already worked as IT infrascture Analyst, Web developer, Software Engineer and DevOps and IOT Engineer, so most of my time I worked with Linux and coding, and I loved it.
 
 I like to study everyday, so I have some course certificates, that are available [here](https://github.com/coderade/certificates#certificates), also I like to learn new languages (currently I speak Portuguese, English and a little of Spanish, eager to learn a new language).
 
 I like sports, so I like to go to gym everyday (*after I finish this update I will do some workout*), I try to do some running and cycling whenever possible, do some surfing,  playing drums, do meditation, reading and doing math. 
 
 ![](/images/about/discover-1.jpg)
-This is me in some of these sports days, officialy in 2018. More pictures can be found on my [**instagram**](https://www.instagram.com/valde.ci/), if you want, of course hehe.
+This is me in some of these sports days, especifically in 2018. More pictures can be found on my [**instagram**](https://www.instagram.com/valde.ci/), if you want, of course hehe.
 
 ## Contact
 
-If You like this blog, you can contact me by clicking one of these options in your
-upper left corner or underneath you if you are on mobile.
+If You like this blog, you can contact me by clicking one of these options in your upper left corner or underneath you if you are on mobile.
 
 Thanks for reading.
