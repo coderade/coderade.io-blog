@@ -29,8 +29,6 @@ I like to study every day, so I have some course certificates, that are availabl
 
 I like sports, so I like to go to the gym every day (*after I finish this update I will do some workout*) and I do some running and cycling, some surfing,  playing drums, do meditation, reading and studying math, trying to keep a healthy and good routine.
 
-![](/images/about/discover-1.jpg)
-This is me in some of these sports days, specifically in 2018.
 ## Contact
 
 If You like this blog, you can contact me by clicking one of these options in your upper left corner or underneath you if you are on mobile.
