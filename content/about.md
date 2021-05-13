@@ -1,6 +1,6 @@
 +++
 date = "2016-08-28T13:47:08+02:00"
-lastmod = "2020-05-01T18:14:00+00:00"
+lastmod = "2021-05-13T14:55:00+00:00"
 title = "About me"
 description = "About the valde.ci blog"
 +++
@@ -21,9 +21,11 @@ This blog is powered by [Hugo](http://gohugo.io) and I normally use the ~~IDEA~~
 
 ## About me
 
-I am a Software Engineer from Brazil with 25 years old and, I was born and raised in [**Guaratuba - PR**](https://en.wikipedia.org/wiki/Guaratuba), but I lived in a lot of cities since I learned how to buy bus and flight tickets hehe.
+I am a Cloud Architect from Brazil with 26 years old and, I was born and raised in [**Guaratuba - Brazil**](https://en.wikipedia.org/wiki/Guaratuba), but I lived in a lot of cities since I learned how to buy bus and flight tickets.
 
-I have more than 7 years of experience working in the IT area. I already worked as an IT infrastructure analyst, Web developer, Software Engineer, and DevOps and IoT Engineer. So most of the time I worked with Linux and coding and I loved it.
+I have more than 8 years of experience working in the IT area. I already worked as an IT infrastructure analyst, Web developer, Software Engineer, and DevOps and IoT Engineer. So most of the time I worked with Linux and coding and I loved it. 
+
+Currently I'm working as Cloud Application Architect on the Amazon Web Services ([**AWS**](https://aws.amazon.com/)).
 
 I like to study every day, so I have some course certificates, that are available [**here**](https://github.com/coderade/certificates#certificates), also I enjoy learning new languages whenever possible (currently I speak Portuguese, English and a little Spanish, eager to learn a new language).
 
