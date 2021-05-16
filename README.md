@@ -1,6 +1,6 @@
 # coderade-blog
 
-Source code from my [personal blog](https://coderade.github.io/) developed using Hugo.
+Source code from my [personal blog](https://valde.ci/) developed using Hugo.
 
 ## Submodules
 - [coderade.github.io](https://github.com/coderade/coderade.github.io/) - Static generated code of my blog 
