@@ -1,4 +1,4 @@
-baseurl = "https://coderade.github.io/"
+baseurl = "https://valde.ci/"
 languageCode = "en-us"
 title = "Coderade blog"
 # Define how many pages appear per site
@@ -17,7 +17,7 @@ publishdir = "coderade.github.io"
     # Link custom assets relative to /static
     avatar = "img/profile-image.jpg"
     header_background = "img/puralsight-bg.jpg"
-    baseurl="https://coderade.github.io/"
+    baseurl="https://valde.ci/"
     header_title = "<Coding, DevOps and Software Engineering tips/>"
     copyright = "Powered by [Hugo](http://gohugo.io)."
     custom_css = ["css/theme.css"]
