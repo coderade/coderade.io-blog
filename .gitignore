@@ -1,5 +1,7 @@
 #InteliJ idea settings
 .idea/
+.DS_Store
+.hugo_build.lock
 
 # Old blog recovery
 coderade.in-blog
