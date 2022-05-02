@@ -4,7 +4,7 @@ lastmod = "2022-04-28T18:14:00+00:00"
 tags = ["projects", "go", "react", "graphql", "postgres"]
 categories = ["projects"]
 title = "Games Shelf REST/GraphQL App developed with Go and React "
-description = "Sharing my opinion about creating a Games Shelf REST/GraphQL project using Golang and React "
+description = "In this post I will try to share my experience creating a Games Shelf REST/GraphQL project using Golang and React functional and class components."
 meta_image = "images/posts/projects/go-react-rest-graphql-app/go-react-api.png"
 +++
 
