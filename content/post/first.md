@@ -5,37 +5,32 @@ title = "Hi there!"
 description = "About the coderade.github.io blog"
 +++
 
-Hi there.
+Hey there.
 
-After a few attempts with the coderade [.in](http://coderade.in) and
-[.io](http://coderade.io) blogs, I returned to write in a blog again.
+After a few attempts with the coderade [.in](http://coderade.in) and [.io](http://coderade.io) blogs, I have returned to blogging again.
 
-But now with no expensive domain and freedom in customization excuses, heheh.
-I'm hosting this blog on the [GitHub Pages](https://pages.github.com/) that is
-totally free and is very easy to use.
+But now, after using the [coderade.github.io](https://coderade.github.io), I bought the [valde.ci](https://valde.ci) domain, which is quite expensive hehe, and I have the freedom for customization without excuses.
 
-On this blog I will write about code, life hacks and I'll try to share my
-experiences in this vast life (yeah, with 23 years old).
+I'm hosting this blog on [GitHub Pages](https://pages.github.com/), which is free and very easy to use.
 
-The blog is powered by [Hugo](http://gohugo.io) and I normally use the ~~IDEA~~
-[Atom Editor](https://atom.io/) to write my posts with Markdown :heart:.
+On this blog, I will write mostly about coding, DevOps, and Software Engineering (some IT stuff), but I'll also try to share my experiences in this vast life too (yeah, at 28 years old).
 
+This blog is powered by [Hugo](http://gohugo.io) and I normally use [**Visual Code**](https://code.visualstudio.com/) to write my posts with Markdown :heart:.
 
-## About me
+## About Me
 
-I am a Software Developer from Curitiba - BR focused on open-source technologies,
-with a very special love for JS, Android and Ruby on Rails.
+I am a Sr. Cloud Architect / Sr. Software Engineer from Brazil, 28 years old, born and raised in [**Guaratuba - Brazil**](https://en.wikipedia.org/wiki/Guaratuba), but I have lived in many cities since I learned how to buy bus and flight tickets.
 
-Arch Linux user (Using [manjaro](https://manjaro.org/) now :wink:) and Java Certified
-Developer, I have five years of experience with Web and Mobile development and
-I really loves what I do, especially when done in the right way.
+I have more than 8 years of experience working in the IT area. I've worked as an IT infrastructure analyst, web developer, software engineer, and DevOps and IoT engineer. Most of the time, I've worked with Linux and coding, and I love it.
 
-I born and raised on the seacoast of my state, so since I was a child I love
-the most sports and try to practice as much of them as possible.
+Currently, I'm working as a Sr. Cloud Application Architect at Amazon Web Services ([**AWS**](https://aws.amazon.com/)).
+
+I like to study every day, so I have some course certificates available [**here**](https://github.com/coderade/certificates#certificates). I also enjoy learning new languages whenever possible (currently, I speak Portuguese, English, and a little Spanish, and I'm eager to learn a new language).
+
+I like sports, so I go to the gym every day (*after I finish this update, I'll do some workout*). I also enjoy running, cycling, surfing, playing drums, meditating, reading, and studying math, trying to maintain a healthy and good routine.
 
 ## Contact
 
-If You like this blog, you can contact me by clicking one of these options in your
-upper left corner or underneath you if you are on mobile.
+If you like this blog, you can contact me by clicking one of the options in the upper left corner or underneath if you are on mobile.
 
 Thanks for reading.

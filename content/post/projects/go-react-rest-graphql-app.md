@@ -10,43 +10,37 @@ meta_image = "images/posts/projects/go-react-rest-graphql-app/go-react-api.png"
 
 ![Project image](/images/posts/projects/go-react-rest-graphql-app/go-react-api.png)
 
-Since I started to use Go on a project at my current job, I decided to create some real projects using the language to understand the language more.
+Since I started using Go on a project at my current job, I decided to create some real projects with the language to understand it better.
 
+After studying some patterns and understanding how Go works, I decided to create a **Games Shelf Application** with REST communication, and later, I added GraphQL to the mix.
 
-After studying some patterns and understanding how the language works, I decided to create a **Games Shelf Application** with REST communication, and then, I added GraphQL to the game.
+I chose [PostgreSQL](https://www.postgresql.org/) as my database and [React.js](https://reactjs.org/) for the front-end. Even though I haven't used them for a long time, both are my preferred technologies for databases and front-end frameworks.
 
+The most challenging part of developing this API was my lack of expertise in Go. In fact, I am a newbie in the language, having started learning Go just one month ago, and I'm already using it at my job.
 
-I decided to use [PostgreSQL](https://www.postgresql.org/) as my database and [React.js](https://reactjs.org/) in the front-end, because, even as I have not used it for a long time, both are my preferred technologies when I think about a database and a front-end framework.
+Even though Go is one of the most popular programming languages, there are not as many example projects on GitHub compared to languages like Python and Node.js.
 
-The most difficult things for me to develop when I was developing this API was mainly that I was not a GoLang expert, and, very different than that, I am a newbie in the language, as I started to learn Go nothing more than one month ago, and I am already using it in my job.
+I encountered many problems trying to refactor the code to follow a good API structure, especially when trying to share some context variables from the `main` package.
 
-Even though Golang is one of the most popular programming languages, we do not have a lot of examples of projects on Github when comparing it with languages like Python and Node.js.
+Initially, I did not use an ORM module like [GORM](https://github.com/go-gorm/gorm) because I wanted to understand how to work directly with the database, including opening connections and similar tasks. As a result, I had to handle all the SQL operations manually. In the future, I plan to use the `GORM` module to explore its possibilities.
 
+For the front-end, I started by creating React components using classes but later switched to functional components. This change came after facing many issues and realizing that functional components have less boilerplate code and are easier to understand. [The future of React is Functional components](https://hackernoon.com/react-functional-components-are-the-future).
 
-In this way, I had a lot of problems trying to refactor the code to follow a good API structure, mainly trying to share some context variables from the `main` package.
+I learned a lot about Go and refreshed my React skills through this project, so I am happy to have finally finished it.
 
-Also, at first I did not try to use an ORM module like [GORM](https://github.com/go-gorm/gorm), because I was trying to understand how to work directly with the database, opening connections and that kind of stuff. In this way, I needed to do all the SQL stuff and in the future I will try to use the `GORM` module to understand its possibilities.
+### Application Possibilities:
 
-In the front-end I started to create components in react using classes, but after I changed all for class components, after having a lot of problems and understanding that , less boilertplate code and easy to understand.
-
-At the front-end, I started creating components for React using classes, but then I changed all the functional components, after having a lot of problems and understanding that [The future of React is Functional components](https://hackernoon.com/react-functional-components-are-the-future), less boilerplate code and easier to understand.
-
-I learned a lot of Go and I remembered how to use React in a project, so I am happy that I have finally finished it.
-
-###  Application possibilities:
-
-
-Currently we  have the following possibilities on the application:
+Currently, the application offers the following features:
 
 - Login using JWT tokens (the user and password need to be managed on the backend project)
-- CRUD of the games, platforms and genres
-- Connect with a PostgreSQL Database
+- CRUD operations for games, platforms, and genres
+- Connect with a PostgreSQL database
 - Use GraphQL to search for games
-- Work with data received from RAWG api, the biggest video game database
-  - Data like the games' images and ratings will be got from this API.
+- Work with data received from the RAWG API, the largest video game database
+- Data like game images and ratings are fetched from this API.
 
-I develepod two projects from this application, and both are available on the GitHub and documented how to use and run them.
+I developed two projects for this application, and both are available on GitHub with documentation on how to use and run them.
 
-The source code for the GO API is available here: [**games-shelf-api-go**](https://github.com/coderade/games-shelf-api-go)
+The source code for the Go API is available here: [**games-shelf-api-go**](https://github.com/coderade/games-shelf-api-go).
 
-And the source code for the React client application is here: [**games-shelf-client-react**](https://github.com/coderade/games-shelf-client-react)
+And the source code for the React client application is here: [**games-shelf-client-react**](https://github.com/coderade/games-shelf-client-react).
