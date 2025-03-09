@@ -1,6 +1,6 @@
 [submodule "coderade.github.io"]
-	path = coderade.github.io
-	url = https://github.com/coderade/coderade.github.io.git
+    path = coderade.github.io
+    url = git@github.com:coderade/coderade.github.io.git
 [submodule "themes/coderade-minimalist-theme"]
     path = themes/coderade-minimalist-theme
-    url = https://github.com/coderade/coderade-minimalist-theme.git
+    url = git@github.com:coderade/coderade-minimalist-theme.git
